@@ -1,0 +1,243 @@
+/*
+ElementStamp (subprogram)
+*/
+ElementStamp(e_) := block([type_, label_,
+a_, b_, p_, IC_:0, Zc_, theta_, supported_:true],
+
+if length(e_) = 4 then
+ [type_, label_, a_, b_]: e_
+elseif length(e_) = 5 then
+ [type_, label_, a_, b_, p_]: e_
+else
+ [type_, label_, a_, b_, p_, IC_]: e_,
+ 
+if type_ = "R"
+then (J[a_]: J[a_] + (V[a_]-V[b_])/p_,
+ J[b_]: J[b_] + (V[b_]-V[a_])/p_)
+ 
+elseif type_ = "L"
+then (if PhasorTransform_ then IC_: 0,
+ J[a_]: J[a_] + (V[a_]-V[b_])/(s*p_) + IC_/s,
+ J[b_]: J[b_] + (V[b_]-V[a_])/(s*p_) - IC_/s)
+ 
+elseif type_ = "C"
+then (if PhasorTransform_ then IC_: 0,
+ J[a_]: J[a_] + p_*s*(V[a_]-V[b_]) - p_*IC_,
+ J[b_]: J[b_] + p_*s*(V[b_]-V[a_]) + p_*IC_)
+ 
+elseif type_ = "I"
+then (J[a_]: J[a_] + p_,
+ J[b_]: J[b_] - p_)
+ 
+elseif type_ = "V"
+then (J[a_]: J[a_] + I[label_],
+ J[b_]: J[b_] - I[label_],
+ JJ: cons(V[a_]-V[b_]=p_, JJ),
+ VV: cons(I[label_], VV) )
+ 
+elseif type_ = "VCVS"
+then (a1_: first(a_), a2_: second(a_),
+ b1_: first(b_), b2_: second(b_),
+ J[b1_]: J[b1_] + I[label_],
+ J[b2_]: J[b2_] - I[label_],
+ JJ: cons(V[b1_]-V[b2_]=p_*(V[a1_]-V[a2_]),
+ JJ),
+ VV: cons(I[label_], VV) )
+ 
+elseif type_ = "VCCS"
+then (a1_: first(a_), a2_: second(a_),
+ b1_: first(b_), b2_: second(b_),
+ J[b1_]: J[b1_] + p_*(V[a1_]-V[a2_]),
+ J[b2_]: J[b2_] - p_*(V[a1_]-V[a2_]) )
+ 
+elseif type_ = "CCCS"
+then (a1_: first(a_), a2_: second(a_),
+ b1_: first(b_), b2_: second(b_),
+ J[a1_]: J[a1_] + I[label_],
+ J[a2_]: J[a2_] - I[label_],
+ J[b1_]: J[b1_] + p_*I[label_],
+ J[b2_]: J[b2_] - p_*I[label_],
+ JJ: cons(V[a1_]-V[a2_]=0, JJ),
+ VV: cons(I[label_], VV) )
+ 
+elseif type_ = "CCVS"
+then (a1_: first(a_), a2_: second(a_),
+ b1_: first(b_), b2_: second(b_),
+ J[a1_]: J[a1_] + (V[b1_]-V[b2_])/p_,
+ J[a2_]: J[a2_] - (V[b1_]-V[b2_])/p_,
+ J[b1_]: J[b1_] + I[label_],
+ J[b2_]: J[b2_] - I[label_],
+ JJ: cons(V[a1_]-V[a2_]=0, JJ),
+ VV: cons(I[label_], VV) )
+ 
+elseif type_ = "IT"
+then (a1_: first(a_), a2_: second(a_),
+ b1_: first(b_), b2_: second(b_),
+ J[a1_]: J[a1_] + I[label_],
+ J[a2_]: J[a2_] - I[label_],
+ J[b1_]: J[b1_] + (-p_)*I[label_],
+ J[b2_]: J[b2_] - (-p_)*I[label_],
+ JJ: cons(V[a1_]-V[a2_]=p_*(V[b1_]-V[b2_]),
+ JJ),
+ VV: cons(I[label_], VV) )
+ 
+elseif type_ = "OpAmp"
+then (a1_: first(a_), a2_: second(a_),
+ J[b_]: J[b_] + I[label_],
+ JJ: cons(V[a1_]-V[a2_]=0, JJ),
+ VV: cons(I[label_], VV) )
+ 
+elseif type_ = "K"
+then (if PhasorTransform_ then IC_: [0,0],
+ [L1_, L2_, L12_]: p_, [I01_, I02_]: IC_,
+ a1_: first(a_), a2_: second(a_),
+ b1_: first(b_), b2_: second(b_),
+ J[a1_]: J[a1_] + I[label_, a1_],
+ J[a2_]: J[a2_] - I[label_, a1_],
+ J[b1_]: J[b1_] + I[label_, b1_],
+ J[b2_]: J[b2_] - I[label_, b1_],
+ JJ: cons(V[a1_]-V[a2_] =
+ L1_*s*I[label_,a1_] - L1_*I01_ +
+ L12_*s*I[label_,b1_] - L12_*I02_,
+ JJ),
+ JJ: cons(V[b1_]-V[b2_] =
+ L12_*s*I[label_,a1_] - L12_*I01_ +
+ L2_*s*I[label_,b1_] - L2_*I02_,
+ JJ),
+ VV: cons(I[label_, a1_], VV),
+ VV: cons(I[label_, b1_], VV)
+ )
+ 
+elseif type_ = "Z"
+then (J[a_]: J[a_] + (V[a_]-V[b_])/p_,
+ J[b_]: J[b_] + (V[b_]-V[a_])/p_)
+ 
+elseif type_ = "Y"
+then (J[a_]: J[a_] + (V[a_]-V[b_])*p_,
+ J[b_]: J[b_] + (V[b_]-V[a_])*p_)
+ 
+elseif type_ = "ABCD"
+then ([a11_,a12_]: first(p_), [a21_,a22_]: second(p_),
+ a1_: first(a_), a2_: second(a_),
+ b1_: first(b_), b2_: second(b_),
+ J[a1_]: J[a1_] + I[label_, a1_],
+ J[a2_]: J[a2_] - I[label_, a1_],
+ J[b1_]: J[b1_] - I[label_, b1_],
+ J[b2_]: J[b2_] + I[label_, b1_],
+ JJ: cons(V[a1_]-V[a2_] =
+ a11_*(V[b1_]-V[b2_]) + a12_*I[label_, b1_],
+ JJ),
+ JJ: cons(I[label_, a1_] =
+ a21_*(V[b1_]-V[b2_]) + a22_*I[label_, b1_],
+ JJ),
+ VV: cons(I[label_, a1_], VV),
+ VV: cons(I[label_, b1_], VV)
+ )
+ 
+elseif type_ = "T" and PhasorTransform_
+then (Zc_: first(p_), theta_: second(p_),
+ a1_: first(a_), a2_: second(a_),
+ b1_: first(b_), b2_: second(b_),
+ J[a1_]: J[a1_] + I[label_, a1_],
+ J[a2_]: J[a2_] - I[label_, a1_],
+ J[b1_]: J[b1_] - I[label_, b1_],
+ J[b2_]: J[b2_] + I[label_, b1_],
+ JJ: cons(V[a1_]-V[a2_] =
+ cos(theta_)*(V[b1_]-V[b2_]) +
+ %i*Zc_*sin(theta_)*I[label_, b1_],
+ JJ),
+ JJ: cons(I[label_, a1_] =
+ %i*(1/Zc_)*sin(theta_)*(V[b1_]-V[b2_]) +
+ cos(theta_)*I[label_, b1_],
+ JJ),
+ VV: cons(I[label_, a1_], VV),
+ VV: cons(I[label_, b1_], VV)
+ )
+ 
+elseif type_ = "T"
+then (Zc_: first(p_), tau_: second(p_),
+ a1_: first(a_), a2_: second(a_),
+ b1_: first(b_), b2_: second(b_),
+ J[a1_]: J[a1_] + I[label_, a1_],
+ J[a2_]: J[a2_] - I[label_, a1_],
+ J[b1_]: J[b1_] + I[label_, b1_],
+ J[b2_]: J[b2_] - I[label_, b1_],
+ JJ: cons(V[a1_]-V[a2_] =
+ Zc_*I[label_, a1_] +
+ Zc_*I[label_, b1_]*exp(-tau_*s)+
+ (V[b1_]-V[b2_])*exp(-tau_*s),
+ JJ),
+ JJ: cons(V[b1_]-V[b2_] =
+ Zc_*I[label_, b1_] +
+ Zc_*I[label_, a1_]*exp(-tau_*s)+
+ (V[a1_]-V[a2_])*exp(-tau_*s),
+ JJ),
+ VV: cons(I[label_, a1_], VV),
+ VV: cons(I[label_, b1_], VV)
+ )
+else supported_: false,
+
+supported_) $
+
+/*
+SALECx (main program)
+*/
+
+SALECx(circuit_, [w_]) := block([i_, n_],
+if w_=[] then PhasorTransform_: false
+ else PhasorTransform_: true,
+ 
+if w_#[] then
+ print("Phasor Transform at angular frequency ", first(w_)),
+if w_=[] then remvalue(s)
+ else s: %i*first(w_),
+ 
+ n_: lmax(flatten(
+ map(lambda([x], part(x,[3,4])), circuit_)
+ )), //////////////////////////////////////////////////////////////////////// n_ - broj cvorova bez uzemljenja
+ 
+ elementValues_: map(lambda([x],
+ if length(x)>4 then part(x,5) else false), circuit_
+ ), ///////////////////////////////////////////////////////////////////////// 5. kolone unosa - vrednosti elemenata
+ 
+ initialConditions_: map(lambda([x],
+ if length(x)=6 then part(x,6) else false), circuit_
+ ), ///////////////////////////////////////////////////////////////////////// pocetni uslovi
+ 
+remvalue(I, J, JJ, V, VV),	///////////////////////////////////////////////// brise iz sistema vrednost??
+for i_: 0 thru n_ do J[i_]: 0, ////////////////////////////////////////////// inicijalizuje nesto oko cvorova na 0
+ JJ: [],	///////////////////////////////////////////////////////////////// ???
+ V[0]: 0, /////////////////////////////////////////////////////////////////// potencijal cvora 0 je 0
+ potentials_: makelist(V[i_], i_, n_), ////////////////////////////////////// napravio simbole za potencijale cvorova po kojima se resava MNA
+ VV: [],	///////////////////////////////////////////////////////////////// ???
+ 
+ m_: map(ElementStamp, circuit_), /////////////////////////////////////////// vrati listu elemenata da li su validni, supported; puni nizove
+ 
+ equationsVn_: makelist(J[i]=0, i, n_), 
+ equationsMNA_: append(equationsVn_, JJ),
+ variablesMNA_: append(potentials_, VV),
+ 
+ responseMNA_: linsolve(equationsMNA_, variablesMNA_),
+ 
+if SALECxPrint then (
+print("Symbolic Analysis of Linear Electric Circuits with Maxima"
+print("SALECx version 1.0, Prof. Dr. Dejan Tošić, tosic@etf.rs"
+print("Number of nodes excluding 0 node: ", n_),
+print("Electric circuit specification:", circuit_),
+print("Supported element: ", m_),
+print("Element values: ", elementValues_),
+print("Initial conditions: ", initialConditions_),
+print("MNA equations: ", equationsMNA_),
+print("MNA variables: ", variablesMNA_)
+ ),
+ 
+responseMNA_) $
+
+/*
+SALECxPrint (reserved symbol, verbose option)
+*/
+
+SALECxPrint: false $
+
+print("Dejan Tosic, SALECx 2019 v1.0");
+print("Symbolic Analysis of Linear Electric Circuits with Maxi
