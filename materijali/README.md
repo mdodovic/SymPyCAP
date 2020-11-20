@@ -2,7 +2,7 @@
 
 salexc mac.txt - komentari za SalexC, Kaca
 
-salexc mac R V komentari.txt - komentari za SalexC, Dodovic
+salexc R V OpAmp + comments.txt - komentari za SalexC, Dodovic
 
 SALECx mac.pdf - original SALECx
 
