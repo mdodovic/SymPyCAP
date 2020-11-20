@@ -1,5 +1,5 @@
 # SymPyCAP
-Software for automatically electric circuit solution 
+Software for automatically electric circuit solving
 Hello
 Hello1
 
