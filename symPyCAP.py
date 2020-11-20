@@ -83,6 +83,7 @@ def make_MNA_equation(element, node_currents, node_potentials, currents, element
     elif element[0] == 'OpAmp':
         node_A = element[2][0]
         node_B = element[2][1]
+        # comment
         
     else:
         return False
