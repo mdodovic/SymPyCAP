@@ -1,7 +1,5 @@
 # SymPyCAP
 Software for automatically electric circuit solving
-Hello
-Hello1
 
 input.py - user interface
 
