@@ -1,8 +1,8 @@
 # SymPyCAP
-Software for automatically electric circuit solving
+Software for linear, time invariant circuit analysis.
 
 input.py - user interface
 
-symPyCAP.py - Software for automatically electric circuit solution 
+symPyCAP.py - Software for linear, time invariant circuit analysis 
 
 documentation1 - u pripremi
