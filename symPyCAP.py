@@ -30,10 +30,13 @@ def symPyCAP(element_list):
             nodes.add(element[2])
             nodes.add(element[3])
                 
+            
+        
     number_of_nodes = max(nodes) + 1
     print("Number of nodes: " + str(number_of_nodes))
     
-    currents = [] # I
+    currents = [] # I # make it to be currents[symbolGENERATOR1] and it returns Iug1.
+
     
     node_currents = [] # J
     node_potentials = [] # V
@@ -52,13 +55,15 @@ def symPyCAP(element_list):
         if flag == False:
             return []
         
-    equations = [node_currents[i] for i in range(1,number_of_nodes)]
+#    equations = [node_currents[i] for i in range(1,number_of_nodes)]
+    equations = node_currents[1:number_of_nodes]
     for current_of_element in element_currents:
         equations.append(current_of_element)    
     print(equations)
     
-    variables = [node_potentials[i] for i in range(1,number_of_nodes)]
-    variables.append(Iug)
+#    variables = [node_potentials[i] for i in range(1,number_of_nodes)]
+    variables = node_potentials[1:number_of_nodes]
+    variables.append(Iug) # add current[]
     print(variables)
     
     solution = sympy.linsolve(equations, variables)
