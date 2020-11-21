@@ -57,7 +57,7 @@ def symPyCAP(element_list):
         equations.append(current_of_element)    
     print(equations)
     
-    variables = [node_potentials[i] for i in range(1,number_of_nodes)]    
+    variables = [node_potentials[i] for i in range(1,number_of_nodes)]
     variables.append(Iug)
     print(variables)
     
