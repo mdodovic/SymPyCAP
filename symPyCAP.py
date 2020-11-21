@@ -7,9 +7,16 @@ Created on Fri Nov 20 16:29:58 2020
 
 import sympy
 
-V1, V2, Iug, Ug = sympy.symbols('V1, V2, Iug, Ug')
+Iug, Ug = sympy.symbols('Iug, Ug')
+
+def potential_symbol_definition(n):
+    list_of_potential_symbols = ['V' + str(i) for i in range(n)]
+    for i in range(len(list_of_potential_symbols)):
+        list_of_potential_symbols[i] = sympy.symbols(list_of_potential_symbols[i])
+    return list_of_potential_symbols
 
 def symPyCAP(element_list):
+        
     number_of_nodes = 0
     
     nodes = {0} # ground node is always necessary
@@ -25,7 +32,7 @@ def symPyCAP(element_list):
                 
     number_of_nodes = max(nodes) + 1
     print("Number of nodes: " + str(number_of_nodes))
-
+    
     currents = [] # I
     
     node_currents = [] # J
@@ -36,13 +43,10 @@ def symPyCAP(element_list):
 
     node_currents = [0 for i in range(number_of_nodes)]
     
-    node_potentials = [0 for i in range(number_of_nodes)]
-    node_potentials[1] = V1
-    node_potentials[2] = V2
+    # potentials of nodes:
+    node_potentials = potential_symbol_definition(number_of_nodes) # define Vi potentials 
+    node_potentials[0] = 0 # porential of node 0 is equal to 0
     
-#    print(node_currents)
-#    print(node_potentials)
-
     for element in element_list:
         flag = make_MNA_equation(element, node_currents, node_potentials, currents, element_voltages, element_currents)
         if flag == False:

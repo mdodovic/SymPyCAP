@@ -13,7 +13,7 @@ if __name__ == "__main__":
     #define simbols that are used
     
     Ug, R1, R2, C2, R3, R4, R5 = sympy.symbols('Ug, R1, R2, C2, R3, R4, R5')
-    
+
     List = [
             ["R", "R1", 2, 1, R1],
             ["R", "R2", 1, 0, R2],
