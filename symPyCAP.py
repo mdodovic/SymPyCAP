@@ -53,7 +53,8 @@ def symPyCAP(element_list):
             return []
         
     equations = [node_currents[i] for i in range(1,number_of_nodes)]
-    equations.append(element_currents[0])    
+    for current_of_element in element_currents:
+        equations.append(current_of_element)    
     print(equations)
     
     variables = [node_potentials[i] for i in range(1,number_of_nodes)]    
