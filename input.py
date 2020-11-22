@@ -4,28 +4,35 @@ Created on Fri Nov 20 10:28:58 2020
 
 @author: Matija
 """
-
-import sympy
 from symPyCAP import symPyCAP
 
 if __name__ == "__main__":
     
     #define simbols that are used
     
-    Ug, R1, R2, C2, R3, R4, R5 = sympy.symbols('Ug, R1, R2, C2, R3, R4, R5')
-
-    List = [
+    #Ug, R1, R2, C2, R3, R4, R5 = sympy.symbols('Ug, R1, R2, C2, R3, R4, R5')
+    """
+    list = [ 
             ["R", "R1", 2, 1, R1],
             ["R", "R2", 1, 0, R2],
             ["R", "R3", 1, 0, R3],
-            ["V", "Ug", 2, 0, Ug]          
+            ["V", "Ug", 2, 0, Ug] 
             ]
-
-    solution = symPyCAP(List)
+    """
+    elements = [
+            ["R", "R1", 2, 1],
+            ["R", "R2", 1, 0],
+            ["R", "R3", 1, 0],
+            ["V", "Ug", 2, 0]          
+            ]
+    # Treba da se smisli u kojoj formi da se zadaje lista sa specificnim vrednostima elemenata
+    solution = symPyCAP(elements)
+    #specific_solution = symPyCAP(elements, specific_values_for_elements)
     print(solution)
+    #print(specific_solution)
 
     """    
-    Riordan_shema = [
+    riordan_shema = [
         ["V", "Ug", 1, 0, Ug],
         ["OpAmp", "OpAmp1", [1,4], 5],
         ["R", "R1", 4, 0, R1],
