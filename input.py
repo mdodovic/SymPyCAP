@@ -28,9 +28,11 @@ if __name__ == "__main__":
     # Treba da se smisli u kojoj formi da se zadaje lista sa specificnim vrednostima elemenata
     # moj predlog
     # specific_solution = ["R1 = R", "R2 = 2R"]...
+    # ali samo da bude sistematicno 
     solution = symPyCAP(elements)
     print(solution)
     #general_solution, specific_solution = symPyCAP(elements, specific_values_for_elements)
+    # ovo treba dodati 
     #print(specific_solution)
 
 # Itreriranje kroz listu 

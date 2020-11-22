@@ -88,7 +88,7 @@ def symPyCAP(element_list):
     
     solution = sympy.linsolve(equations, variables)
 #    print(solution)
-    
+    # los format vraanja {()}  treba izbaciti { }
     return solution
             
 def make_MNA_equation(element, symbol, node_currents, node_potentials, current_symbols, element_voltages, element_currents):
