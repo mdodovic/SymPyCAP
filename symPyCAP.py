@@ -11,8 +11,11 @@ import sympy
 # sve se radi automatski
 
 # simboli sa seme se rade automastski 
+
 # potencijali V1 do Vn se rade automatski po broju cvorova
-# struje generatora se dodaju kao simboli u dictionari i onda se tome pristupa na osnovu simbola generatora sa seme
+
+# struje generatora se dodaju kao simboli u dictionari 
+# i onda se tome pristupa na osnovu simbola generatora sa seme
 
 def potential_symbol_definition(number_of_nodes):
     list_of_potential_symbols = ['V' + str(i) for i in range(number_of_nodes)]
@@ -56,7 +59,7 @@ def symPyCAP(element_list):
     for element in element_list:
         element_symbols[element[1]] = sympy.symbols(element[1])
 
-    print(element_symbols)
+#    print(element_symbols)
     
     current_symbols = {} # ovo su I iz maksime 
     # dodavanje IUg u dictionary
@@ -64,7 +67,7 @@ def symPyCAP(element_list):
         if element[0] == 'V':
             current_symbols[element[1]] = sympy.symbols('I' + element[1])
 
-    print(current_symbols)
+#    print(current_symbols)
         
     for element in element_list:
         flag = make_MNA_equation(element, element_symbols[element[1]], node_currents, node_potentials, current_symbols, element_voltages, element_currents)
@@ -89,7 +92,9 @@ def symPyCAP(element_list):
     return solution
             
 def make_MNA_equation(element, symbol, node_currents, node_potentials, current_symbols, element_voltages, element_currents):
-    
+         #                      |                                         | 
+                                # prosledjen je simbol sa seme            |
+                                                                        # prosledjene su sve struje da bi se koristile
     if element[0] == 'R':
         node_A = element[2] # plus node
         node_B = element[3] # minus node
@@ -116,7 +121,7 @@ def make_MNA_equation(element, symbol, node_currents, node_potentials, current_s
         node_A = element[2][0]
         node_B = element[2][1]
         #dodati jednacine
-        
+    #elif dodoati i ostale elemente koji ne zahtevaju diferencijalne jednacine        
     else:
         return False
         
