@@ -7,10 +7,15 @@ Created on Fri Nov 20 16:29:58 2020
 
 import sympy
 
-Iug = sympy.symbols('Iug')
+# Vise nema nikakve definicije simbola
+# sve se radi automatski
 
-def potential_symbol_definition(n):
-    list_of_potential_symbols = ['V' + str(i) for i in range(n)]
+# simboli sa seme se rade automastski 
+# potencijali V1 do Vn se rade automatski po broju cvorova
+# struje generatora se dodaju kao simboli u dictionari i onda se tome pristupa na osnovu simbola generatora sa seme
+
+def potential_symbol_definition(number_of_nodes):
+    list_of_potential_symbols = ['V' + str(i) for i in range(number_of_nodes)]
     for i in range(len(list_of_potential_symbols)):
         list_of_potential_symbols[i] = sympy.symbols(list_of_potential_symbols[i])
     return list_of_potential_symbols
@@ -32,10 +37,7 @@ def symPyCAP(element_list):
         
     number_of_nodes = max(nodes) + 1
     print("Number of nodes: " + str(number_of_nodes))
-    
-    currents = [] # I 
-    #Napraviti da se ovde currents-u pristupa preko elemenata
-    
+        
     node_currents = [] # J
     node_potentials = [] # V
     
@@ -53,12 +55,21 @@ def symPyCAP(element_list):
     # prvi element ce uvek biti ta opsta vrednost    
     for element in element_list:
         element_symbols[element[1]] = sympy.symbols(element[1])
-    
 
+    print(element_symbols)
     
+    current_symbols = {} # ovo su I iz maksime 
+    # dodavanje IUg u dictionary
     for element in element_list:
-        flag = make_MNA_equation(element, element_symbols[element[1]], node_currents, node_potentials, currents, element_voltages, element_currents)
+        if element[0] == 'V':
+            current_symbols[element[1]] = sympy.symbols('I' + element[1])
+
+    print(current_symbols)
+        
+    for element in element_list:
+        flag = make_MNA_equation(element, element_symbols[element[1]], node_currents, node_potentials, current_symbols, element_voltages, element_currents)
         if flag == False:
+            # exception! 
             return []
         
     equations = node_currents[1:number_of_nodes]
@@ -67,7 +78,9 @@ def symPyCAP(element_list):
     print(equations)
     
     variables = node_potentials[1:number_of_nodes]
-    variables.append(Iug) # Treba da se ovde pristupa currents-ima a ne ovako direktno
+    for current in current_symbols: # iteriranje kroz dictionary i dodavanje u listu varijabli koje treba da se 
+        # izracunaju
+        variables.append(current_symbols[current]) # Treba da se ovde pristupa currents-ima a ne ovako direktno
     print(variables)
     
     solution = sympy.linsolve(equations, variables)
@@ -75,7 +88,7 @@ def symPyCAP(element_list):
     
     return solution
             
-def make_MNA_equation(element, symbol, node_currents, node_potentials, currents, element_voltages, element_currents):
+def make_MNA_equation(element, symbol, node_currents, node_potentials, current_symbols, element_voltages, element_currents):
     
     if element[0] == 'R':
         node_A = element[2] # plus node
@@ -88,11 +101,15 @@ def make_MNA_equation(element, symbol, node_currents, node_potentials, currents,
     elif element[0] == 'V':
         node_A = element[2]
         node_B = element[3]
-        node_currents[node_A] = node_currents[node_A] + Iug
-        node_currents[node_B] = node_currents[node_B] - Iug 
-        Ug = symbol
+        Ug = symbol # ovo je simbol sa seme
+        IUg = current_symbols[element[1]] # ovo je struja kroz generator. 
+        # Ne treba da se izracuna struja kroz scaki element vec samo kroz generatore (i mozda jos nesto)
+        # treba proveriri sa ilicem (ili u salexu za sta sve treba da se racuna)
+#        print(IUg)
+        node_currents[node_A] = node_currents[node_A] + IUg
+        node_currents[node_B] = node_currents[node_B] - IUg 
         element_currents.append(node_potentials[node_A] - node_potentials[node_B] - Ug)
-        element_voltages.append(Iug) # ovo mora da ide kao currents[symbol]
+        element_voltages.append(IUg) # ovo mora da ide kao currents[symbol]
         return True
 
     elif element[0] == 'OpAmp':
