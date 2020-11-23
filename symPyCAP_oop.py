@@ -61,7 +61,7 @@ class Solution(object):
         for element in element_list:    
             print(element)
             
-            if isinstance(element[2], set):
+            if isinstance(element[2], list):
                 nodes.add(element[2][0])
                 nodes.add(element[2][1])
             else:
