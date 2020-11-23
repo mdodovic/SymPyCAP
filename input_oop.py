@@ -4,6 +4,9 @@ Created on Mon Nov 23 00:25:17 2020
 
 @author: Katarina
 """
+
+#oop
+
 from symPyCAP_oop import Solution
 
 elements = [
