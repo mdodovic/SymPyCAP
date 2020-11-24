@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 23 00:24:14 2020
-
 @author: Katarina
 """
 import sympy
@@ -14,8 +13,11 @@ class Solution(object):
         self.node_potentials = [] # V
         self.voltage_equations = [] # JJ
         self.current_variables = [] # VV
-        self.element_symbols = {} # ovo su simboli elemenata na osnovu 1. vrednosti iz liste, opsta vrednost
+        self.element_symbols = {} # electric circuit symbols
         
+        self.equations = []
+        self.variables = []
+                
     def __node_currents_init(self):
         self.node_currents = [0 for i in range(self.number_of_nodes)]
     
@@ -24,9 +26,12 @@ class Solution(object):
         self.node_potentials[0] = 0 # potential of node 0 is equal to 0
         
     def __number_of_nodes(self):
+        """
+        set number of nodes to maximum node from electric circuit increased by 1
+        """
         nodes = {0} # ground node is always necessary
         for element in self.element_list:    
-            print(element)
+            # print(element)
             
             if isinstance(element[2], list):
                 nodes.add(element[2][0])
@@ -36,7 +41,6 @@ class Solution(object):
                 nodes.add(element[3])
             
         self.number_of_nodes = max(nodes) + 1
-        print("Number of nodes: " + str(self.number_of_nodes))
         
     def __make_MNA_equation(self, element):
         type_of_element = element[0]
@@ -53,7 +57,7 @@ class Solution(object):
         elif type_of_element == 'V':
             node_A = element[2]
             node_B = element[3]
-            Ug = symbol # ovo je simbol sa seme
+            Ug = symbol 
             IUg = sympy.symbols('I' + element[1]) # ovo je struja kroz generator. 
             # Ne treba da se izracuna struja kroz scaki element vec samo kroz generatore (i mozda jos nesto)
             # treba proveriri sa ilicem (ili u salexu za sta sve treba da se racuna)
@@ -65,15 +69,43 @@ class Solution(object):
             return True
 
         elif type_of_element == 'OpAmp':
-            node_A = element[2][0]
-            node_B = element[2][1]
-            #dodati jednacine
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B = element[3]
+            IOpAmp = sympy.symbols('I' + element[1]) # ovo je struja kroz generator. 
+            self.node_currents[node_B] += IOpAmp
+            self.voltage_equations.append(self.node_potentials[node_A1] - self.node_potentials[node_A2])
+            self.current_variables.append(IOpAmp)
+            return True
+        
+        elif type_of_element == 'I':
+            node_A = element[2]
+            node_B = element[3]
+            Ig = symbol
+            self.node_currents[node_A] += Ig
+            self.node_currents[node_B] -= Ig 
+            return True
+        
+        # elif type_of_element == 'VCVS':
+        #     node_A1 = element[2][0]
+        #     node_A2 = element[2][1]
+        #     node_B1 = element[3][0]
+        #     node_B2 = element[3][1]
+            
+        #     return True
         #elif dodoati i ostale elemente koji ne zahtevaju diferencijalne jednacine        
         else:
             return False
-        #NEMAM RESENO STA SE DESAVA AKO JE STV NESTO FALSE->POGLEDAI SALECX ISTO
         
-    def symPyCAP(self):
+    def __reinitialization(self):        
+        self.voltage_equations = [] # JJ
+        self.current_variables = [] # VV
+
+    def symPyCAP(self, spec_list = []):
+    
+        #------------- Empty all reused lists ------------------
+        self.__reinitialization()
+
         #------------- Number of nodes ------------------
         self.__number_of_nodes()
         
@@ -82,21 +114,43 @@ class Solution(object):
         self.__potential_symbols_definition() # define Vi potentials 
         
         #-------------- Init of user defined symbols -----------------------
-
+        # Ovde lista simbola dolazi do izrazaja! i sve svoje mociiiiiiii bum
         for element in self.element_list:
             self.element_symbols[element[1]] = sympy.symbols(element[1])
 
         #------------- For every element in circuit, creating MNA equations -------
-        result = map(self.__make_MNA_equation, self.element_list)
-        print(list(result))
+        result = list(map(self.__make_MNA_equation, self.element_list))
+
+        #------------- Check validity of every element: TRY-CATCH-FINALLY -------
+        for validation in result:
+            if not validation:
+                print("Unknown element:",self.element_list[result.index(validation)][0])
+                return[]
+                
+        #------------- Solving linear system of equations by variables -------
+        self.equations = self.node_currents[1:self.number_of_nodes]
+        self.equations.extend(self.voltage_equations)    
         
-        equations = self.node_currents[1:self.number_of_nodes]
-        equations.extend(self.voltage_equations)    
-        print(equations)
-        
-        variables = self.node_potentials[1:self.number_of_nodes]
-        variables.extend(self.current_variables)
-        print(variables)
-        
-        solution = sympy.linsolve(equations, variables)
+        self.variables = self.node_potentials[1:self.number_of_nodes]
+        self.variables.extend(self.current_variables)
+        self.electric_circuit_specifications()
+
+        solution = sympy.linsolve(self.equations, self.variables)
+        print(solution)
+        #------------- Preparing solution for output -------
+        self.variables = [str(variable) for variable in self.variables]
+        solution = dict(zip(self.variables, next(iter(solution)))) 
+
         return solution
+    
+    def electric_circuit_specifications(self):
+        # JAVNA FUNKCIJA, pa covek moze da je dobije i u bilo kom trenutku kasnije
+        # radi jer mu se hoće 
+        print("Circuit specifications: ")
+        print("Number of nodes: " + str(self.number_of_nodes))
+        print("Input elements:")
+        for element in self.element_list:
+            print(element)
+        print("Equations: ", self.equations)
+        print("Variables: ", self.variables)
+        print()
