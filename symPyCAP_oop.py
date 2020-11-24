@@ -14,7 +14,9 @@ class Solution(object):
         self.voltage_equations = [] # JJ
         self.current_variables = [] # VV
         self.element_symbols = {} # ovo su simboli elemenata na osnovu 1. vrednosti iz liste, opsta vrednost
-        self.current_symbols = {} # ovo su I iz maksime STA CE NAM OVO
+        
+    def __node_currents_init(self):
+        self.node_currents = [0 for i in range(self.number_of_nodes)]
     
     def __potential_symbols_definition(self):
         self.node_potentials = [sympy.symbols('V' + str(i)) for i in range(self.number_of_nodes)]
@@ -54,11 +56,11 @@ class Solution(object):
             IUg = sympy.symbols('I' + element[1]) # ovo je struja kroz generator. 
             # Ne treba da se izracuna struja kroz scaki element vec samo kroz generatore (i mozda jos nesto)
             # treba proveriri sa ilicem (ili u salexu za sta sve treba da se racuna)
-    #        print(IUg)
+            #print(IUg)
             self.node_currents[node_A] += IUg
             self.node_currents[node_B] -= IUg 
             self.voltage_equations.append(self.node_potentials[node_A] - self.node_potentials[node_B] - Ug)
-            self.current_variables.append(IUg) # ovo mora da ide kao currents[symbol]???
+            self.current_variables.append(IUg)
             return True
 
         elif type_of_element == 'OpAmp':
@@ -75,9 +77,7 @@ class Solution(object):
         self.__number_of_nodes()
         
         #------------ Init of J = {0} and V to symbols Vi ----------------------
-        self.node_currents = [0 for i in range(self.number_of_nodes)]
-    
-        # potentials of nodes: #NODE POTENTIAL SYMBOLS
+        self.__node_currents_init()
         self.__potential_symbols_definition() # define Vi potentials 
         
         #-------------- Init of user defined symbols -----------------------
