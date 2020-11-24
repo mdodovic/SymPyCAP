@@ -13,6 +13,9 @@ elements = [
             ["V", "Ug", 2, 0]          
             ]
 
-rab = Solution()
-print(rab.symPyCAP(elements))
+system = Solution(elements)
+print(system.symPyCAP())
+
+
+
 

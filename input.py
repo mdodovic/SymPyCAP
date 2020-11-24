@@ -20,9 +20,9 @@ if __name__ == "__main__":
             ]
     """
     elements = [
-            ["R", "R1", 2, 1],
-            ["R", "R2", 1, 0],
-            ["R", "R3", 1, 0],
+            ["R", "R", 2, 1],
+            ["R", "R", 1, 0],
+            ["R", "R", 1, 0],
             ["V", "Ug", 2, 0]          
             ]
     solution = symPyCAP(elements)
