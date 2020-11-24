@@ -25,31 +25,5 @@ if __name__ == "__main__":
             ["R", "R3", 1, 0],
             ["V", "Ug", 2, 0]          
             ]
-    # Treba da se smisli u kojoj formi da se zadaje lista sa specificnim vrednostima elemenata
-    # moj predlog
-    # specific_solution = ["R1 = R", "R2 = 2R"]...
-    # ali samo da bude sistematicno 
     solution = symPyCAP(elements)
     print(solution)
-    #general_solution, specific_solution = symPyCAP(elements, specific_values_for_elements)
-    # ovo treba dodati 
-    #print(specific_solution)
-
-# Itreriranje kroz listu 
-#    for partial_solution in solution:
-#        print(partial_solution)
-#    for x in partial_solution:
-#        print(x)
-
-    """    
-    riordan_shema = [
-        ["V", "Ug", 1, 0, Ug],
-        ["OpAmp", "OpAmp1", [1,4], 5],
-        ["R", "R1", 4, 0, R1],
-        ["C", "C2", 4, 5, C2],
-        ["R", "R3", 5, 2, R3],
-        ["OpAmp", "OpAmp2", [1,2], 3],
-        ["R", "R4", 2, 3, R4],
-        ["R", "R5", 1, 3, R5]
-    ]
-    """
