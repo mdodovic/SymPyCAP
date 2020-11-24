@@ -27,6 +27,7 @@ print(solution['V1']) # pojedinacan pristup resenjima
 print(solution['V2'])
 print(solution['IUg'])
 """
+"""
 Riordan_shema = [
     ["V", "Ug", 1, 0],
     ["OpAmp", "OpAmp1", [1,4], 5],
@@ -44,3 +45,20 @@ print(solution) # celokupno resenje u formi var: resenje(var), ...
 print(solution['V1']) # pojedinacan pristup resenjima
 print(solution['V2'])
 print(solution['IUg'])
+
+"""
+
+Sabirac = [
+    ["V", "E1", 1, 0],
+    ["V", "E2", 2, 0],
+    ["V", "E3", 3, 0],
+    ["R", "R", 1, 5],
+    ["R", "R", 2, 5],
+    ["R", "R", 3, 5],
+    ["R", "R", 5, 4],
+    ["OpAmp", "OpAmp1", [0, 5], 4]
+];
+system = Solution(Sabirac)
+solution = system.symPyCAP()
+for sol in solution:
+    print(sol,":",solution[str(sol)])

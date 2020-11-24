@@ -18,7 +18,7 @@ class Solution(object):
         
         self.equations = []
         self.variables = []
-        
+                
     def __node_currents_init(self):
         self.node_currents = [0 for i in range(self.number_of_nodes)]
     
@@ -106,9 +106,6 @@ class Solution(object):
         #------------- For every element in circuit, creating MNA equations -------
         result = list(map(self.__make_MNA_equation, self.element_list))
 
-        self.electric_circuit_specifications()
-
-
         #------------- Check validity of every element: TRY-CATCH-FINALLY -------
         for validation in result:
             if not validation:
@@ -142,3 +139,4 @@ class Solution(object):
         print("Equations: ", self.equations)
         print("Variables: ", self.variables)
         print()
+        
