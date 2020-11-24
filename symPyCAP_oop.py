@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 23 00:24:14 2020
+
 @author: Katarina
 """
 import sympy
@@ -48,7 +49,7 @@ class Solution(object):
             self.node_currents[node_A] += (self.node_potentials[node_A] - self.node_potentials[node_B]) / R
             self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) / R
             return True
-    
+          
         elif type_of_element == 'V':
             node_A = element[2]
             node_B = element[3]
