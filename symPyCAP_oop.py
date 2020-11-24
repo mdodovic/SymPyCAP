@@ -18,7 +18,9 @@ class Solution(object):
         
         self.equations = []
         self.variables = []
-                
+               
+        self.solution = []
+        
     def __node_currents_init(self):
         self.node_currents = [0 for i in range(self.number_of_nodes)]
     
@@ -121,12 +123,12 @@ class Solution(object):
         self.electric_circuit_specifications()
 
         solution = sympy.linsolve(self.equations, self.variables)
-        print(solution)
+
         #------------- Preparing solution for output -------
         self.variables = [str(variable) for variable in self.variables]
-        solution = dict(zip(self.variables, next(iter(solution)))) 
+        self.solution = dict(zip(self.variables, next(iter(solution)))) 
 
-        return solution
+        return self.solution
     
     def electric_circuit_specifications(self):
         # JAVNA FUNKCIJA, pa covek moze da je dobije i u bilo kom trenutku kasnije
@@ -140,3 +142,10 @@ class Solution(object):
         print("Variables: ", self.variables)
         print()
         
+        
+    def output_solution(self):
+        if self.solution == []:
+            print("Solution doesn't computed yet!")
+        else:
+            for sol in self.solution:
+                print(sol,":",self.solution[str(sol)])
