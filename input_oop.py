@@ -45,17 +45,39 @@ print(solution['V2'])
 print(solution['IUg'])
 """
 
-Sabirac = [
-    ["V", "E1", 1, 0],
-    ["V", "E2", 2, 0],
-    ["V", "E3", 3, 0],
-    ["R", "R", 1, 5],
-    ["R", "R", 2, 5],
-    ["R", "R", 3, 5],
-    ["R", "R", 5, 4],
-    ["OpAmp", "OpAmp1", [0, 5], 4]
-];
-system = Solution(Sabirac)
+# Sabirac = [
+#     ["V", "E1", 1, 0],
+#     ["V", "E2", 2, 0],
+#     ["V", "E3", 3, 0],
+#     ["R", "R", 1, 5],
+#     ["R", "R", 2, 5],
+#     ["R", "R", 3, 5],
+#     ["R", "R", 5, 4],
+#     ["OpAmp", "OpAmp1", [0, 5], 4]
+# ];
+# system = Solution(Sabirac)
+# solution = system.symPyCAP()
+# for sol in solution:
+#     print(sol,":",solution[str(sol)])
+
+elements = [
+["V","E1",7,6],
+["R","R3",7,8],
+["R","R2",6,3],
+["R","R1",7,4],
+["I","I2",8,5],
+["I","I1",4,3],
+["R","R4",5,4],
+["R","R5",3,1],
+["V","E2",0,4],
+["V","E3",2,5],
+["R","R6",1,0],
+["R","R7",2,0]
+]
+
+system = Solution(elements)
 solution = system.symPyCAP()
-for sol in solution:
-    print(sol,":",solution[str(sol)])
+for key, value in solution.items():
+    print(key, ":", value)
+
+
