@@ -47,6 +47,7 @@ print(solution['V2'])
 print(solution['IUg'])
 
 """
+"""
 
 Sabirac = [
     ["V", "E1", 1, 0],
@@ -62,3 +63,23 @@ system = Solution(Sabirac)
 solution = system.symPyCAP()
 for sol in solution:
     print(sol,":",solution[str(sol)])
+
+"""
+
+Sabirac_Vlada_Dodovic_HW = [
+    ["V", "Ug1", 1, 0],
+    ["R", "R", 1, 4],
+    ["R", "R", 2, 4],
+    ["V", "Ug2", 2, 0],
+    ["R", "R/3", 5, 0],
+    ["R", "R", 4, 3],
+    ["OpAmp", "OmAmp", [4,5], 3]
+];
+
+
+system = Solution(Sabirac_Vlada_Dodovic_HW)
+system.electric_circuit_specifications()
+solution = system.symPyCAP()
+system.electric_circuit_specifications()
+
+system.output_solution()
