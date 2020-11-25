@@ -1,1 +1,24 @@
+///////  Author  ///////
+
+Katarina Stanković
+Nikola Ilić
+Matija Dodović
+Jelena Bakić
+Dejan V. Tošić
+Milka M. Potrebić
+
+University of Belgrade - School of Electrical Engineering
+
+/////// License  ///////
+
+Creative Commons
+
+//// Acknowledgment ////
+
+?????????? (proveri)
+
+//// About SymPyCAP ////
+
+SymPyCAP is program for solving linear, time-invariant electric circuits. This program is Python-based 
+(It's written entirely in Python) and uses SymPy, a Python library.
 
