@@ -201,3 +201,9 @@ class Solution(object):
         print("Variables: ", self.variables)
         print()
 
+    def output_solution(self):
+        if self.solution == []:
+            print("Solution doesn't computed yet!")
+        else:
+            for sol in self.solution:
+                print(sol,":",self.solution[str(sol)])
