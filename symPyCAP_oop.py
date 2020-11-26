@@ -180,7 +180,7 @@ class Solution(object):
         self.electric_circuit_specifications()
 
         solution = sympy.linsolve(self.equations, self.variables)
-        print(solution)
+        #print(solution)
         #------------- Preparing solution for output -------
         self.variables = [str(variable) for variable in self.variables]
         solution = dict(zip(self.variables, next(iter(solution)))) 
