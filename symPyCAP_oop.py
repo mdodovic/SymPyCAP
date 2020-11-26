@@ -31,7 +31,7 @@ class Solution(object):
         
     def __number_of_nodes(self):
         """
-        set number of nodes to maximum node from electric circuit increased by 1
+        Return number of nodes of given electric circuit
         """
         nodes = {0} # ground node is always necessary
         for element in self.element_list:    
@@ -176,8 +176,61 @@ class Solution(object):
             
             return True
         
+        #------------- In progress -------------------------------------------- 
+        elif type_of_element == 'IdealT':
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B1 = element[3][0]
+            node_B2 = element[3][1]
+
+            #...
+            
+            return True
+
+        elif type_of_element == 'InductiveT':
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B1 = element[3][0]
+            node_B2 = element[3][1]
+
+            #...
+            
+            return True
+
+        elif type_of_element == 'Z':
+            #...
+            
+            return True
+
+        elif type_of_element == 'Y':
+            #...
+            
+            return True
         
-        #elif dodoati i ostale elemente koji ne zahtevaju diferencijalne jednacine        
+        elif type_of_element == '4-R':
+            #...
+            
+            return True
+
+        elif type_of_element == '4-R':
+            #...
+            
+            return True
+
+        elif type_of_element == '4-G':
+            #...
+            
+            return True
+
+        elif type_of_element == '4-H':
+            #...
+            
+            return True
+
+        elif type_of_element == '4-A':
+            #...
+            
+            return True
 
         else:
             return False
