@@ -4,8 +4,8 @@ Katarina Stanković
 Nikola Ilić
 Matija Dodović
 Jelena Bakić
-Dejan V. Tošić
-Milka M. Potrebić
+prof. dr Dejan V. Tošić
+prof. dr Milka M. Potrebić
 
 University of Belgrade - School of Electrical Engineering
 
@@ -76,3 +76,7 @@ Operational Amplifier - Ideal OpAmp
 ["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]
 
 /// Calling SymPyCAP  ///
+
+system = Solution(elements)
+solution = system.symPyCAP()
+
