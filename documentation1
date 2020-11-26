@@ -4,8 +4,8 @@ Katarina Stanković
 Nikola Ilić
 Matija Dodović
 Jelena Bakić
-Dejan V. Tošić
-Milka M. Potrebić
+prof. dr Dejan V. Tošić
+prof. dr Milka M. Potrebić
 
 University of Belgrade - School of Electrical Engineering
 
@@ -15,7 +15,7 @@ Creative Commons
 
 //// Acknowledgment ////
 
-?????????? (proveri)
+We thank prof Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
 
 //// About SymPyCAP ////
 
@@ -52,8 +52,10 @@ The input of this program (the circuit to be analyzed) is specified as a list of
 [list_1, list_2, list_3, ... list_N]
 
 A circuit element (list_I) is specified as a list:
-- for one-port element: [type,label,a,b] 
-- for two-port element: [type, label, [a1,a2],b] 
+- for one-port element: [type, label, a, b] 
+- for two-port element: [type, label, [a1,a2], [b1,b2], p]
+                        [type, label, [a1,a2], b] (b = b1 when b2 is ground node)
+                        
 
 type - string that specifies type of element ("R", "V", "OpAmp")
 label - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")
@@ -61,6 +63,8 @@ a - positive terminal
 b - negative terminal
 a1 - positive terminal of the 1st port
 a2 - negative terminal of the 1st port
+b1 - positive terminal of the 2nd port
+b2 - negative terminal of the 2nd port
  
 /// One-port elements ///
 
@@ -74,6 +78,20 @@ Voltage source - ideal voltage generator
 
 Operational Amplifier - Ideal OpAmp
 ["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]
+
+/// Controlled Sources ///
+
+VCVS
+["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"],
+
+VCCS    
+["VCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "transconductance"],
+
+CCCS
+["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]
+
+CCVS
+["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"],
 
 /// Calling SymPyCAP  ///
 
