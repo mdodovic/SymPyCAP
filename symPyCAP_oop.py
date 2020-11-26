@@ -8,7 +8,7 @@ import sympy
 class Solution(object):
     def __init__(self, element_list):
         self.element_list = element_list
-        self.number_of_nodes = 0
+        self.number_of_nodes = self.__number_of_nodes()
         self.node_currents = [] # J
         self.node_potentials = [] # V
         self.voltage_equations = [] # JJ
@@ -17,7 +17,9 @@ class Solution(object):
         
         self.equations = []
         self.variables = []
-                
+        
+        self.solution = {}       
+        
     def __node_currents_init(self):
         self.node_currents = [0 for i in range(self.number_of_nodes)]
     
@@ -40,7 +42,7 @@ class Solution(object):
                 nodes.add(element[2])
                 nodes.add(element[3])
             
-        self.number_of_nodes = max(nodes) + 1
+        return max(nodes) + 1
         
     def __make_MNA_equation(self, element):
         type_of_element = element[0]
@@ -102,6 +104,7 @@ class Solution(object):
             self.voltage_equations.append(eq)
             self.current_variables.append(I2)
             return True
+
         elif type_of_element == 'VCCS':
             node_A1 = element[2][0]
             node_A2 = element[2][1]
@@ -111,6 +114,7 @@ class Solution(object):
             self.node_currents[node_B1] += transconductance * (self.node_potentials[node_A1] - self.node_potentials[node_A2])
             self.node_currents[node_B2] -= transconductance * (self.node_potentials[node_A1] - self.node_potentials[node_A2])
             return True
+
         elif type_of_element == 'CCCS':
             node_A1 = element[2][0]
             node_A2 = element[2][1]
@@ -125,6 +129,7 @@ class Solution(object):
             self.voltage_equations.append(self.node_potentials[node_A1] - self.node_potentials[node_A2])
             self.current_variables.append(I1)
             return True
+
         elif type_of_element == 'CCVS':
             node_A1 = element[2][0]
             node_A2 = element[2][1]
@@ -139,7 +144,9 @@ class Solution(object):
             self.voltage_equations.append(self.node_potentials[node_A1] - self.node_potentials[node_A2])
             self.current_variables.append(I2)
             return True
+
         #elif dodoati i ostale elemente koji ne zahtevaju diferencijalne jednacine        
+
         else:
             return False
         
@@ -151,9 +158,6 @@ class Solution(object):
     
         #------------- Empty all reused lists ------------------
         self.__reinitialization()
-
-        #------------- Number of nodes ------------------
-        self.__number_of_nodes()
         
         #------------ Init of J = {0} and V to symbols Vi ----------------------
         self.__node_currents_init()
@@ -186,9 +190,9 @@ class Solution(object):
 
         #------------- Preparing solution for output -------
         self.variables = [str(variable) for variable in self.variables]
-        solution = dict(zip(self.variables, next(iter(solution)))) 
+        self.solution = dict(zip(self.variables, next(iter(solution)))) 
 
-        return solution
+        return self.solution
     
     def electric_circuit_specifications(self):
         
@@ -201,3 +205,9 @@ class Solution(object):
         print("Variables: ", self.variables)
         print()
 
+    def output_solution(self):
+        if self.solution == {}:
+            print("Solution doesn't computed yet!")
+        else:
+            for sol in self.solution:
+                print(sol,":",self.solution[str(sol)])
