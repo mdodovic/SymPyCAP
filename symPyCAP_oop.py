@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 23 00:24:14 2020
-
 @author: Katarina
 """
 import sympy
@@ -73,10 +72,72 @@ class Solution(object):
             node_A1 = element[2][0]
             node_A2 = element[2][1]
             node_B = element[3]
-            IOpAmp = sympy.symbols('I' + element[1]) # ovo je struja kroz generator. 
+
+            IOpAmp = sympy.symbols('I' + element[1])  
+
             self.node_currents[node_B] += IOpAmp
             self.voltage_equations.append(self.node_potentials[node_A1] - self.node_potentials[node_A2])
             self.current_variables.append(IOpAmp)
+            return True
+        
+        elif type_of_element == 'I':
+            node_A = element[2]
+            node_B = element[3]
+            Ig = symbol
+            self.node_currents[node_A] += Ig
+            self.node_currents[node_B] -= Ig 
+            return True
+        
+        elif type_of_element == 'VCVS':
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B1 = element[3][0]
+            node_B2 = element[3][1]
+            amplification = sympy.symbols(str(element[4])) #razmatranje
+            I2 = sympy.symbols('I' + element[1])
+            self.node_currents[node_B1] += I2
+            self.node_currents[node_B2] -= I2
+            eq = self.node_potentials[node_B1] - self.node_potentials[node_B2] - \
+                amplification * (self.node_potentials[node_A1] - self.node_potentials[node_A2])
+            self.voltage_equations.append(eq)
+            self.current_variables.append(I2)
+            return True
+        elif type_of_element == 'VCCS':
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B1 = element[3][0]
+            node_B2 = element[3][1]
+            transconductance = sympy.symbols(str(element[4])) #razmatranje
+            self.node_currents[node_B1] += transconductance * (self.node_potentials[node_A1] - self.node_potentials[node_A2])
+            self.node_currents[node_B2] -= transconductance * (self.node_potentials[node_A1] - self.node_potentials[node_A2])
+            return True
+        elif type_of_element == 'CCCS':
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B1 = element[3][0]
+            node_B2 = element[3][1]
+            amplification = sympy.symbols(str(element[4])) #razmatranje
+            I1 = sympy.symbols('I' + element[1])
+            self.node_currents[node_A1] += I1
+            self.node_currents[node_A2] -= I1
+            self.node_currents[node_B1] += amplification * I1
+            self.node_currents[node_B2] -= amplification * I1
+            self.voltage_equations.append(self.node_potentials[node_A1] - self.node_potentials[node_A2])
+            self.current_variables.append(I1)
+            return True
+        elif type_of_element == 'CCVS':
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B1 = element[3][0]
+            node_B2 = element[3][1]
+            transresistance = sympy.symbols(str(element[4])) #razmatranje
+            I2 = sympy.symbols('I' + element[1])
+            self.node_currents[node_A1] += (self.node_potentials[node_B1] - self.node_potentials[node_B2])/transresistance
+            self.node_currents[node_A2] -= (self.node_potentials[node_B1] - self.node_potentials[node_B2])/transresistance
+            self.node_currents[node_B1] += I2
+            self.node_currents[node_B2] -= I2
+            self.voltage_equations.append(self.node_potentials[node_A1] - self.node_potentials[node_A2])
+            self.current_variables.append(I2)
             return True
         #elif dodoati i ostale elemente koji ne zahtevaju diferencijalne jednacine        
         else:
@@ -121,7 +182,8 @@ class Solution(object):
         self.electric_circuit_specifications()
 
         solution = sympy.linsolve(self.equations, self.variables)
-        print(solution)
+        #print(solution)
+
         #------------- Preparing solution for output -------
         self.variables = [str(variable) for variable in self.variables]
         solution = dict(zip(self.variables, next(iter(solution)))) 
@@ -139,4 +201,4 @@ class Solution(object):
         print("Equations: ", self.equations)
         print("Variables: ", self.variables)
         print()
-        
+
