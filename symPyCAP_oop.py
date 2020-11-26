@@ -72,7 +72,9 @@ class Solution(object):
             node_A1 = element[2][0]
             node_A2 = element[2][1]
             node_B = element[3]
+
             IOpAmp = sympy.symbols('I' + element[1])  
+
             self.node_currents[node_B] += IOpAmp
             self.voltage_equations.append(self.node_potentials[node_A1] - self.node_potentials[node_A2])
             self.current_variables.append(IOpAmp)
@@ -181,6 +183,7 @@ class Solution(object):
 
         solution = sympy.linsolve(self.equations, self.variables)
         #print(solution)
+
         #------------- Preparing solution for output -------
         self.variables = [str(variable) for variable in self.variables]
         solution = dict(zip(self.variables, next(iter(solution)))) 
@@ -198,3 +201,4 @@ class Solution(object):
         print("Equations: ", self.equations)
         print("Variables: ", self.variables)
         print()
+

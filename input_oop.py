@@ -37,6 +37,7 @@ Riordan_shema = [
     ["R", "R4", 2, 3],
     ["R", "R5", 1, 3]
 ]
+
 system = Solution(Riordan_shema)
 solution = system.symPyCAP()
 print(solution) # celokupno resenje u formi var: resenje(var), ...
@@ -112,3 +113,19 @@ for key, value in solution.items():
     print(key, ":", value)
 
 
+"""
+
+Sabirac = [
+    ["V", "E1", 1, 0],
+    ["V", "E2", 2, 0],
+    ["V", "E3", 3, 0],
+    ["R", "R", 1, 5],
+    ["R", "R", 2, 5],
+    ["R", "R", 3, 5],
+    ["R", "R", 5, 4],
+    ["OpAmp", "OpAmp1", [0, 5], 4]
+];
+system = Solution(Sabirac)
+solution = system.symPyCAP()
+for sol in solution:
+    print(sol,":",solution[str(sol)])
