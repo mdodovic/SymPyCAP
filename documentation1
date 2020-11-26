@@ -36,3 +36,43 @@ Here is already two important differences between SymPy and other computer algeb
 Third advantage of SymPy is that it is lightweight program. It has no dependencies other than Python,
 so it can be used almost anywhere easily. 
 And finally, it can be used as a library. You can just import it in your own Python application.
+
+////// Algorithm //////
+
+(MNA??)
+
+//////   Units   //////
+
+All quantities are in the International System of Units (SI).
+
+// Electric Circuit  //
+
+The input of this program (the circuit to be analyzed) is specified as a list of circuit elements (list
+ of lists):
+[list_1, list_2, list_3, ... list_N]
+
+A circuit element (list_I) is specified as a list:
+- for one-port element: [type,label,a,b] 
+- for two-port element: [type, label, [a1,a2],b] 
+
+type - string that specifies type of element ("R", "V", "OpAmp")
+label - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")
+a - positive terminal
+b - negative terminal
+a1 - positive terminal of the 1st port
+a2 - negative terminal of the 1st port
+ 
+/// One-port elements ///
+
+Resistor 
+["R", "ID", plusTerm, minusTerm]
+
+Voltage source - ideal voltage generator
+["V", "ID", plusTerm, minusTerm]
+
+/// Two-port elements ///
+
+Operational Amplifier - Ideal OpAmp
+["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]
+
+/// Calling SymPyCAP  ///
