@@ -140,7 +140,7 @@ LC_circuit = [
 
 circuit = Solution(LC_circuit)
 
-solution = circuit.symPyCAP("W")
+solution = circuit.symPyCAP()
 
 circuit.electric_circuit_specifications()
 circuit.output_solution()

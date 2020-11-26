@@ -195,7 +195,7 @@ class Solution(object):
         #------------- Time (in)variant analysis ---------------
         if omega == "":
             self.time_domain = True
-            self.s = sympy.symbol('s')
+            self.s = sympy.Symbol('s')
         else:
             w = sympy.Symbol(omega)
             self.time_domain = False
