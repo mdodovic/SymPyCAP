@@ -95,38 +95,52 @@ print(solution['IUg'])
 #    ["R","R3",4,0]
 #]
 
-elements = [
-    ["VCVS","VCVS1",[2,0],[3,0],"a1"],
-    ["VCCS","VCCS1",[3,0],[4,0],"g1"],
-    ["CCCS","CCCS1",[4,0],[5,0],"a2"],
-    ["CCVS","CCVS1",[5,0],[6,0],"r1"],
+#elements = [
+#    ["VCVS","VCVS1",[2,0],[3,0],"a1"],
+#    ["VCCS","VCCS1",[3,0],[4,0],"g1"],
+#    ["CCCS","CCCS1",[4,0],[5,0],"a2"],
+#    ["CCVS","CCVS1",[5,0],[6,0],"r1"],
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["R","R2",2,0],
+#    ["R","R3",6,7],
+#    ["R","R4",7,0]
+#]
+#
+#
+#system = Solution(elements)
+#solution = system.symPyCAP()
+#system.electric_circuit_specifications()
+#print(solution)
+#for key, value in solution.items():
+#    print(key, ":", value)
+#
+#print(solution['V2'])
+
+
+#elements = [
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["R","R2",2,0],
+#]
+#
+#system = Solution(elements)
+#
+#solution = system.symPyCAP()
+#
+#system.electric_circuit_specifications()
+#system.output_solution()
+
+LC_circuit = [
+    ["L","L1",2,0],
+    ["C","C1",1,0],
     ["V","E1",1,0],
-    ["R","R1",1,2],
-    ["R","R2",2,0],
-    ["R","R3",6,7],
-    ["R","R4",7,0]
-]
+    ["I","I1",2,1]
+    ]
 
+circuit = Solution(LC_circuit)
 
-system = Solution(elements)
-solution = system.symPyCAP()
-system.electric_circuit_specifications()
-print(solution)
-for key, value in solution.items():
-    print(key, ":", value)
+solution = circuit.symPyCAP("W")
 
-print(solution['V2'])
-
-
-elements = [
-    ["V","E1",1,0],
-    ["R","R1",1,2],
-    ["R","R2",2,0],
-]
-
-system = Solution(elements)
-
-solution = system.symPyCAP()
-
-system.electric_circuit_specifications()
-system.output_solution()
+circuit.electric_circuit_specifications()
+circuit.output_solution()

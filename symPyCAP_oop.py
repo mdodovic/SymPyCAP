@@ -18,6 +18,8 @@ class Solution(object):
         self.equations = []
         self.variables = []
         
+        self.time_domain = False
+        
         self.solution = {}       
         
     def __node_currents_init(self):
@@ -145,6 +147,36 @@ class Solution(object):
             self.current_variables.append(I2)
             return True
 
+        elif type_of_element == 'L':
+            node_A = element[2]
+            node_B = element[3]
+            I0 = 0
+            if len(element) == 5:
+                I0 = sympy.Symbol(element[4])
+
+            if self.time_domain == True:
+                 I0 = 0
+            L = sympy.symbols(element[1])
+            self.node_currents[node_A] += (self.node_potentials[node_A] - self.node_potentials[node_B]) / (self.s * L) + I0 / self.s
+            self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) / (self.s * L) - I0 / self.s
+            return True
+            
+        elif type_of_element == 'C':
+            node_A = element[2]
+            node_B = element[3]
+            U0 = 0
+            if len(element) == 5:
+                U0 = sympy.Symbol(element[4])
+
+            if self.time_domain == True:
+                 U0 = 0
+            C = sympy.symbols(element[1])
+            self.node_currents[node_A] += (self.node_potentials[node_A] - self.node_potentials[node_B]) * self.s * C - U0 * C
+            self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) * self.s * C + U0 * C
+            
+            return True
+        
+        
         #elif dodoati i ostale elemente koji ne zahtevaju diferencijalne jednacine        
 
         else:
@@ -153,11 +185,21 @@ class Solution(object):
     def __reinitialization(self):        
         self.voltage_equations = [] # JJ
         self.current_variables = [] # VV
+        self.time_domain = False
 
-    def symPyCAP(self, spec_list = []):
+    def symPyCAP(self, omega = "", spec_list = []):
     
         #------------- Empty all reused lists ------------------
         self.__reinitialization()
+
+        #------------- Time (in)variant analysis ---------------
+        if omega == "":
+            self.time_domain = True
+            self.s = sympy.symbol('s')
+        else:
+            w = sympy.Symbol(omega)
+            self.time_domain = False
+            self.s = sympy.Symbol('j' + str(w))
         
         #------------ Init of J = {0} and V to symbols Vi ----------------------
         self.__node_currents_init()
