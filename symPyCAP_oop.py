@@ -53,7 +53,7 @@ class Solution(object):
             self.node_currents[node_A] += (self.node_potentials[node_A] - self.node_potentials[node_B]) / R
             self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) / R
             return True
-          
+        
         elif type_of_element == 'V':
             node_A = element[2]
             node_B = element[3]
@@ -179,7 +179,7 @@ class Solution(object):
         
         self.variables = self.node_potentials[1:self.number_of_nodes]
         self.variables.extend(self.current_variables)
-        self.electric_circuit_specifications()
+        #self.electric_circuit_specifications()
 
         solution = sympy.linsolve(self.equations, self.variables)
         #print(solution)
@@ -191,8 +191,7 @@ class Solution(object):
         return solution
     
     def electric_circuit_specifications(self):
-        # JAVNA FUNKCIJA, pa covek moze da je dobije i u bilo kom trenutku kasnije
-        # radi jer mu se hoće 
+        
         print("Circuit specifications: ")
         print("Number of nodes: " + str(self.number_of_nodes))
         print("Input elements:")
