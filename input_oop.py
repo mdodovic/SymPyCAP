@@ -20,6 +20,7 @@ print(solution['V1']) # pojedinacan pristup resenjima
 print(solution['V2'])
 print(solution['IUg'])
 """
+
 """
 solution = system.symPyCAP([]) # Treba se odluciti
 print(solution) # celokupno resenje u formi var: resenje(var), ...
@@ -27,6 +28,7 @@ print(solution['V1']) # pojedinacan pristup resenjima
 print(solution['V2'])
 print(solution['IUg'])
 """
+
 """
 Riordan_shema = [
     ["V", "Ug", 1, 0],
@@ -47,6 +49,7 @@ print(solution['V2'])
 print(solution['IUg'])
 
 """
+
 """
 
 Sabirac = [
@@ -65,7 +68,6 @@ for sol in solution:
     print(sol,":",solution[str(sol)])
 
 """
-
 Sabirac_Vlada_Dodovic_HW = [
     ["V", "Ug1", 1, 0],
     ["R", "R", 1, 4],
@@ -75,7 +77,6 @@ Sabirac_Vlada_Dodovic_HW = [
     ["R", "R", 4, 3],
     ["OpAmp", "OmAmp", [4,5], 3]
 ];
-
 
 system = Solution(Sabirac_Vlada_Dodovic_HW)
 system.electric_circuit_specifications()

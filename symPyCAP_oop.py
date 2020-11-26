@@ -121,7 +121,8 @@ class Solution(object):
         self.variables = self.node_potentials[1:self.number_of_nodes]
         self.variables.extend(self.current_variables)
         #self.electric_circuit_specifications()
-
+        print(self.equations)
+        print(self.variables)
         solution = sympy.linsolve(self.equations, self.variables)
 
         #------------- Preparing solution for output -------
