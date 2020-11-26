@@ -94,7 +94,7 @@ print(solution['IUg'])
 #    ["R","R2",2,0],
 #    ["R","R3",4,0]
 #]
-"""
+
 elements = [
     ["VCVS","VCVS1",[2,0],[3,0],"a1"],
     ["VCCS","VCCS1",[3,0],[4,0],"g1"],
@@ -116,7 +116,7 @@ for key, value in solution.items():
     print(key, ":", value)
 
 print(solution['V2'])
-"""
+
 
 elements = [
     ["V","E1",1,0],
@@ -129,6 +129,4 @@ system = Solution(elements)
 solution = system.symPyCAP()
 
 system.electric_circuit_specifications()
-
-print(solution)
-print(solution['V2'])
+system.output_solution()
