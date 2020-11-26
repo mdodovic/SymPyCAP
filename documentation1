@@ -53,7 +53,7 @@ The input of this program (the circuit to be analyzed) is specified as a list of
 
 A circuit element (list_I) is specified as a list:
 - for one-port element: [type, label, a, b] 
-- for two-port element: [type, label, [a1,a2], [b1,b2]]
+- for two-port element: [type, label, [a1,a2], [b1,b2], p]
                         [type, label, [a1,a2], b] (b = b1 when b2 is ground node)
                         
 
@@ -78,6 +78,20 @@ Voltage source - ideal voltage generator
 
 Operational Amplifier - Ideal OpAmp
 ["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]
+
+/// Controlled Sources ///
+
+VCVS
+["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"],
+
+VCCS    
+["VCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "transconductance"],
+
+CCCS
+["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]
+
+CCVS
+["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"],
 
 /// Calling SymPyCAP  ///
 
