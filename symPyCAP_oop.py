@@ -147,6 +147,8 @@ class Solution(object):
             self.current_variables.append(I2)
             return True
 
+        #------------- To be checked -------------------------------------------- 
+
         elif type_of_element == 'L':
             node_A = element[2]
             node_B = element[3]
@@ -183,32 +185,52 @@ class Solution(object):
             node_B1 = element[3][0]
             node_B2 = element[3][1]
 
-            #...
+            IT = sympy.symbols('I' + element[1])  
+            m = sympy.symbols(str(element[4]))
             
+            self.node_currents[node_A1] += IT
+            self.node_currents[node_A2] -= IT
+            self.node_currents[node_B1] += - m * IT
+            self.node_currents[node_B2] -= m * IT
+            
+            self.voltage_equations.append(self.node_potentials[node_A1] - self.node_potentials[node_A2] - m * (self.node_potentials[node_B1] - self.node_potentials[node_B2]))
+            self.current_variables.append(IT)
+                        
             return True
 
         elif type_of_element == 'InductiveT':
             node_A1 = element[2][0]
             node_A2 = element[2][1]
             node_B1 = element[3][0]
+            
+            
+            
             node_B2 = element[3][1]
 
             #...
             
             return True
 
+
         elif type_of_element == 'Z':
-            #...
-            
+            node_A = element[2] # plus node
+            node_B = element[3] # minus node
+            Z = symbol
+            self.node_currents[node_A] += (self.node_potentials[node_A] - self.node_potentials[node_B]) / Z
+            self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) / Z            
+
             return True
 
         elif type_of_element == 'Y':
-            #...
-            
+            node_A = element[2] # plus node
+            node_B = element[3] # minus node
+            Y = symbol
+            self.node_currents[node_A] += (self.node_potentials[node_A] - self.node_potentials[node_B]) * Y
+            self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) * Y
+
             return True
         
-        elif type_of_element == '4-R':
-            #...
+        elif type_of_element == '4-A':
             
             return True
 
@@ -223,11 +245,6 @@ class Solution(object):
             return True
 
         elif type_of_element == '4-H':
-            #...
-            
-            return True
-
-        elif type_of_element == '4-A':
             #...
             
             return True
