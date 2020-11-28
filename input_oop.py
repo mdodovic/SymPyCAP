@@ -131,14 +131,60 @@ print(solution['IUg'])
 #system.electric_circuit_specifications()
 #system.output_solution()
 
-LC_circuit = [
-    ["L","L1",2,0],
-    ["C","C1",1,0],
-    ["V","E1",1,0],
-    ["I","I1",2,1]
-    ]
+#------------------- Dinamicki elementi ---------------------------------------
 
-circuit = Solution(LC_circuit)
+#LC_circuit = [
+#    ["L","L1",2,0],
+#    ["C","C1",1,0],
+#    ["V","E1",1,0],
+#    ["I","I1",2,1]
+#    ]
+#
+#circuit = Solution(LC_circuit)
+#
+#solution = circuit.symPyCAP("W")
+#
+#circuit.electric_circuit_specifications()
+#circuit.output_solution()
+
+
+#OTA_C = [
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["C","C1",3,0],
+#    ["VCCS","VCCS1",[0,2],[3,0],"g"],
+#    ["VCCS","VCCS2",[3,0],[2,0],"g"]
+#]
+#circuit = Solution(OTA_C)
+#
+#solution = circuit.symPyCAP()
+#
+#circuit.electric_circuit_specifications()
+#circuit.output_solution()
+
+
+#LC_filter_sema = [
+#    ["V","E",1,0],
+#    ["R","R",1,2],
+#    ["C","C",2,3],
+#    ["R","R",3,0],
+#    ["L","L",3,0]
+#];
+#circuit = Solution(LC_filter_sema)
+#
+#solution = circuit.symPyCAP("W")
+#
+#circuit.electric_circuit_specifications()
+#circuit.output_solution()
+
+
+InductiveT = [
+    ["V","E1",1,0],
+    ["R","R1",1,2],
+    ["R","R2",2,3],
+    ["InductiveT","LT1",[2,0],[3,0],["L1","L2","L12"],["I01","0"]]
+    ]
+circuit = Solution(InductiveT)
 
 solution = circuit.symPyCAP()
 

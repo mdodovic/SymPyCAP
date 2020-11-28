@@ -4,6 +4,7 @@ Created on Mon Nov 23 00:24:14 2020
 @author: Katarina
 """
 import sympy
+from sympy import I
 
 class Solution(object):
     def __init__(self, element_list):
@@ -62,10 +63,7 @@ class Solution(object):
             node_A = element[2]
             node_B = element[3]
             Ug = symbol 
-            IUg = sympy.symbols('I' + element[1]) # ovo je struja kroz generator. 
-            # Ne treba da se izracuna struja kroz scaki element vec samo kroz generatore (i mozda jos nesto)
-            # treba proveriri sa ilicem (ili u salexu za sta sve treba da se racuna)
-            #print(IUg)
+            IUg = sympy.symbols('i' + element[1]) 
             self.node_currents[node_A] += IUg
             self.node_currents[node_B] -= IUg 
             self.voltage_equations.append(self.node_potentials[node_A] - self.node_potentials[node_B] - Ug)
@@ -158,7 +156,7 @@ class Solution(object):
 
             if self.time_domain == True:
                  I0 = 0
-            L = sympy.symbols(element[1])
+            L = symbol
             self.node_currents[node_A] += (self.node_potentials[node_A] - self.node_potentials[node_B]) / (self.s * L) + I0 / self.s
             self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) / (self.s * L) - I0 / self.s
             return True
@@ -172,7 +170,7 @@ class Solution(object):
 
             if self.time_domain == True:
                  U0 = 0
-            C = sympy.symbols(element[1])
+            C = symbol
             self.node_currents[node_A] += (self.node_potentials[node_A] - self.node_potentials[node_B]) * self.s * C - U0 * C
             self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) * self.s * C + U0 * C
             
@@ -199,15 +197,49 @@ class Solution(object):
             return True
 
         elif type_of_element == 'InductiveT':
+            
+            # L1, L2, L12, I01, I02
+            
             node_A1 = element[2][0]
             node_A2 = element[2][1]
             node_B1 = element[3][0]
-            
-            
-            
             node_B2 = element[3][1]
+            
+            L1 = sympy.symbols(element[4][0])
+            L2 = sympy.symbols(element[4][1])
+            L12 = sympy.symbols(element[4][2]) 
 
-            #...
+            I01 = 0
+            I02 = 0
+
+            if len(element) == 6:
+                I01 = sympy.Symbol(str(element[5][0]))
+                I02 = sympy.Symbol(str(element[5][1]))
+                
+            if self.time_domain == True:
+                I01 = 0
+                I02 = 0
+            
+            IK_A = sympy.symbols('I' + element[1] + "_" + str(node_A1))
+            IK_B = sympy.symbols('I' + element[1] + "_" + str(node_B1))
+    
+            self.node_currents[node_A1] += IK_A
+            self.node_currents[node_A2] -= IK_A
+            self.node_currents[node_B1] += IK_B
+            self.node_currents[node_B2] -= IK_B
+            
+            self.voltage_equations.append(
+                self.node_potentials[node_A1] - self.node_potentials[node_A2] - 
+                ( L1 * self.s * IK_A - L1 * I01 + 
+                L12 * self.s * IK_B - L12 * I02 ) )
+            
+            self.voltage_equations.append(
+                self.node_potentials[node_B1] - self.node_potentials[node_B2] - 
+                ( L12 * self.s * IK_A - L12 * I01 + 
+                L2 * self.s * IK_B - L2 * I02 ) )
+            
+            self.current_variables.append(IK_A)
+            self.current_variables.append(IK_B)
             
             return True
 
@@ -264,13 +296,12 @@ class Solution(object):
 
         #------------- Time (in)variant analysis ---------------
         if omega == "":
-            self.time_domain = True
+            self.time_domain = False
             self.s = sympy.Symbol('s')
         else:
-            w = sympy.Symbol(omega)
-            self.time_domain = False
-            self.s = sympy.Symbol('j' + str(w))
-        
+            self.time_domain = True
+            self.s = I*sympy.Symbol(omega)
+            
         #------------ Init of J = {0} and V to symbols Vi ----------------------
         self.__node_currents_init()
         self.__potential_symbols_definition() # define Vi potentials 
@@ -297,15 +328,24 @@ class Solution(object):
         self.variables.extend(self.current_variables)
         #self.electric_circuit_specifications()
 
-        solution = sympy.linsolve(self.equations, self.variables)
-        #print(solution)
-
-        #------------- Preparing solution for output -------
-        self.variables = [str(variable) for variable in self.variables]
-        self.solution = dict(zip(self.variables, next(iter(solution)))) 
-
-        return self.solution
+        #------------- Returning solution -------------------------------------
+        if omega == "":        
+            #------------- System is linear, use linsolve ---------------------
+            solution = sympy.linsolve(self.equations, self.variables)
     
+            self.variables = [str(variable) for variable in self.variables]
+            self.solution = dict(zip(self.variables, next(iter(solution)))) 
+    
+            return self.solution
+    
+        else:
+            #------------- System is complex, use most general solver ---------
+            solution = sympy.solve(self.equations, self.variables)            
+            self.solution = {str(var): sol for var, sol in solution.items()}
+            #for var, sol in solution.items():
+            #    self.solution[str(var)] = sol
+            return self.solution
+        
     def electric_circuit_specifications(self):
         
         print("Circuit specifications: ")
@@ -315,6 +355,8 @@ class Solution(object):
             print(element)
         print("Equations: ", self.equations)
         print("Variables: ", self.variables)
+        if self.time_domain == True:
+            print("Frequency: ", self.s)
         print()
 
     def output_solution(self):
