@@ -182,7 +182,7 @@ InductiveT = [
     ["V","E1",1,0],
     ["R","R1",1,2],
     ["R","R2",2,3],
-    ["InductiveT","LT1",[2,0],[3,0],["L1","L2","L12"],["I01","0"]]
+    ["InductiveT","K1",[2,0],[3,0],["L1","L2","L12"],["I01",0]]
     ]
 circuit = Solution(InductiveT)
 

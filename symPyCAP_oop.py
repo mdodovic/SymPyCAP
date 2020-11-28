@@ -212,9 +212,11 @@ class Solution(object):
             I01 = 0
             I02 = 0
 
-            if len(element) == 6:
-                I01 = sympy.Symbol(str(element[5][0]))
-                I02 = sympy.Symbol(str(element[5][1]))
+            if len(element) == 6:  
+                if element[5][0] != 0:
+                    I01 = sympy.Symbol(element[5][0])
+                if element[5][1] != 0:
+                    I02 = sympy.Symbol(element[5][1])
                 
             if self.time_domain == True:
                 I01 = 0
@@ -326,7 +328,6 @@ class Solution(object):
         
         self.variables = self.node_potentials[1:self.number_of_nodes]
         self.variables.extend(self.current_variables)
-        #self.electric_circuit_specifications()
 
         #------------- Returning solution -------------------------------------
         if omega == "":        
@@ -364,4 +365,5 @@ class Solution(object):
             print("Solution doesn't computed yet!")
         else:
             for sol in self.solution:
-                print(sol,":",self.solution[str(sol)])
+                print(sol,":",sympy.simplify(self.solution[str(sol)]),"\n")
+                
