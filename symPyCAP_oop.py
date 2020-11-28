@@ -176,7 +176,6 @@ class Solution(object):
             
             return True
         
-        #------------- In progress -------------------------------------------- 
         elif type_of_element == 'IdealT':
             node_A1 = element[2][0]
             node_A2 = element[2][1]
@@ -244,7 +243,43 @@ class Solution(object):
             self.current_variables.append(IK_B)
             
             return True
+        
+        elif type_of_element == '4-A':
+            
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B1 = element[3][0]
+            node_B2 = element[3][1]
 
+            a11 = sympy.symbols(element[4][0])
+            a12 = sympy.symbols(element[4][1])
+            a21 = sympy.symbols(element[4][2]) 
+            a22 = sympy.symbols(element[4][3]) 
+
+            IA_A = sympy.symbols('I' + element[1] + "_" + str(node_A1))
+            IA_B = sympy.symbols('I' + element[1] + "_" + str(node_B1))
+        
+            self.node_currents[node_A1] += IA_A
+            self.node_currents[node_A2] -= IA_A
+            self.node_currents[node_B1] -= IA_B
+            self.node_currents[node_B2] += IA_B
+
+            self.voltage_equations.append(
+                self.node_potentials[node_A1] - self.node_potentials[node_A2] - 
+                (a11 * self.node_potentials[node_B1] - self.node_potentials[node_B2]
+                 + a12 * IA_B) 
+            )
+
+            self.voltage_equations.append(
+                IA_A - 
+                (a21 * self.node_potentials[node_B1] - self.node_potentials[node_B2]
+                 + a22 * IA_B) 
+            )
+             
+            self.current_variables.append(IA_A)
+            self.current_variables.append(IA_B)                
+            
+            return True
 
         elif type_of_element == 'Z':
             node_A = element[2] # plus node
@@ -263,11 +298,8 @@ class Solution(object):
             self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) * Y
 
             return True
-        
-        elif type_of_element == '4-A':
-            
-            return True
 
+        #------------- In progress -------------------------------------------- 
         elif type_of_element == '4-R':
             #...
             
