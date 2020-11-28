@@ -118,19 +118,20 @@ print(solution['IUg'])
 #print(solution['V2'])
 
 
-#elements = [
-#    ["V","E1",1,0],
-#    ["R","R1",1,2],
-#    ["R","R2",2,0],
-#]
-#
-#system = Solution(elements)
-#
-#solution = system.symPyCAP()
-#
-#system.electric_circuit_specifications()
-#system.output_solution()
+elements = [
+    ["V","E1",1,0],
+    ["R","R1",1,2],
+    ["R","R2",2,0],
+]
 
+system = Solution(elements)
+
+solution = system.symPyCAP(replacement = ["R1=R", "R2=R"])
+
+#system.electric_circuit_specifications()
+system.print_solution()
+system.print_specific_solution()
+system.print_solution()
 #------------------- Dinamicki elementi ---------------------------------------
 
 #LC_circuit = [
@@ -165,28 +166,29 @@ print(solution['IUg'])
 
 #LC_filter_sema = [
 #    ["V","E",1,0],
-#    ["R","R",1,2],
+#    ["R","R1",1,2],
 #    ["C","C",2,3],
-#    ["R","R",3,0],
+#    ["R","R2",3,0],
 #    ["L","L",3,0]
 #];
+#values = ["R1=R", "R2 = R"]
 #circuit = Solution(LC_filter_sema)
 #
-#solution = circuit.symPyCAP("W")
+#solution = circuit.symPyCAP(w = "W", replacement = values)
 #
 #circuit.electric_circuit_specifications()
 #circuit.output_solution()
 
 
-InductiveT = [
-    ["V","E1",1,0],
-    ["R","R1",1,2],
-    ["R","R2",2,3],
-    ["InductiveT","K1",[2,0],[3,0],["L1","L2","L12"],["I01",0]]
-    ]
-circuit = Solution(InductiveT)
-
-solution = circuit.symPyCAP()
-
-circuit.electric_circuit_specifications()
-circuit.output_solution()
+#InductiveT = [
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["R","R2",2,3],
+#    ["InductiveT","K1",[2,0],[3,0],["L1","L2","L12"],["I01",0]]
+#    ]
+#circuit = Solution(InductiveT)
+#
+#solution = circuit.symPyCAP()
+#
+#circuit.electric_circuit_specifications()
+#circuit.output_solution()

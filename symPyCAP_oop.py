@@ -18,10 +18,11 @@ class Solution(object):
         
         self.equations = []
         self.variables = []
-        
         self.time_domain = False
         
         self.solution = {}       
+        self.replacement_rule = {}
+        self.evaluated_solution = {}
         
     def __node_currents_init(self):
         self.node_currents = [0 for i in range(self.number_of_nodes)]
@@ -322,12 +323,32 @@ class Solution(object):
         self.voltage_equations = [] # JJ
         self.current_variables = [] # VV
         self.time_domain = False
+        self.solution = {} 
+        self.replacement_rule = {} 
 
-    def symPyCAP(self, omega = "", spec_list = []):
-    
+    def __make_replacement_rule(self, list_of_rules):
+        self.replacement_rule = {rule.split("=")[0] : sympy.Symbol(rule.split("=")[1]) for rule in list_of_rules}
+        
+    def __replace_by_rule(self):
+        if self.replacement_rule != {}:
+            self.evaluated_solution = {str(var): sol for var, sol in self.solution.items()}
+            
+            for elem,val in self.replacement_rule.items():    
+                for x,y in self.evaluated_solution.items():
+                    self.evaluated_solution[x] = y.subs(elem,val)                    
+            
+    def symPyCAP(self, **kwargs):
+
         #------------- Empty all reused lists ------------------
+        omega = ""
         self.__reinitialization()
 
+        for arg in kwargs:
+            if arg == "w":
+                omega = kwargs.get(arg)
+            if arg == "replacement":
+                 self.__make_replacement_rule(kwargs.get(arg))
+        
         #------------- Time (in)variant analysis ---------------
         if omega == "":
             self.time_domain = False
@@ -368,15 +389,18 @@ class Solution(object):
     
             self.variables = [str(variable) for variable in self.variables]
             self.solution = dict(zip(self.variables, next(iter(solution)))) 
-    
+            
+            self.__replace_by_rule()
+
             return self.solution
     
         else:
             #------------- System is complex, use most general solver ---------
             solution = sympy.solve(self.equations, self.variables)            
             self.solution = {str(var): sol for var, sol in solution.items()}
-            #for var, sol in solution.items():
-            #    self.solution[str(var)] = sol
+
+            self.__replace_by_rule()
+
             return self.solution
         
     def electric_circuit_specifications(self):
@@ -386,16 +410,28 @@ class Solution(object):
         print("Input elements:")
         for element in self.element_list:
             print(element)
+        print("Replacement rule: ",self.replacement_rule)
         print("Equations: ", self.equations)
         print("Variables: ", self.variables)
         if self.time_domain == True:
             print("Frequency: ", self.s)
         print()
 
-    def output_solution(self):
+    def print_solution(self):
         if self.solution == {}:
             print("Solution doesn't computed yet!")
         else:
             for sol in self.solution:
                 print(sol,":",sympy.simplify(self.solution[str(sol)]),"\n")
-                
+    def print_specific_solution(self):
+        if self.evaluated_solution == {}:
+            print("Neither replacement rule forwarded")
+        else:
+            for sol in self.evaluated_solution:
+                print(sol,":",sympy.simplify(self.evaluated_solution[str(sol)]),"\n")
+
+    def get_solution(self):
+        return self.solution
+    
+    def get_specific_solution(self):
+        return self.evaluated_solution
