@@ -20,9 +20,9 @@ class Solution(object):
         self.variables = []
         self.time_domain = False
         
-        self.solution = {}       
+        self.solutions = {}       
         self.replacement_rule = {}
-        self.evaluated_solution = {}
+        self.evaluated_solutions = {}
         
     def __node_currents_init(self):
         self.node_currents = [0 for i in range(self.number_of_nodes)]
@@ -323,7 +323,7 @@ class Solution(object):
         self.voltage_equations = [] # JJ
         self.current_variables = [] # VV
         self.time_domain = False
-        self.solution = {} 
+        self.solutions = {} 
         self.replacement_rule = {} 
 
     def __make_replacement_rule(self, list_of_rules):
@@ -331,11 +331,11 @@ class Solution(object):
         
     def __replace_by_rule(self):
         if self.replacement_rule != {}:
-            self.evaluated_solution = {str(var): sol for var, sol in self.solution.items()}
+            self.evaluated_solutions = {str(var): sol for var, sol in self.solutions.items()}
             
             for elem,val in self.replacement_rule.items():    
-                for x,y in self.evaluated_solution.items():
-                    self.evaluated_solution[x] = y.subs(elem,val)                    
+                for unknown,solution in self.evaluated_solutions.items():
+                    self.evaluated_solutions[unknown] = solution.subs(elem,val)                    
             
     def symPyCAP(self, **kwargs):
 
@@ -385,23 +385,23 @@ class Solution(object):
         #------------- Returning solution -------------------------------------
         if omega == "":        
             #------------- System is linear, use linsolve ---------------------
-            solution = sympy.linsolve(self.equations, self.variables)
+            solutions = sympy.linsolve(self.equations, self.variables)
     
             self.variables = [str(variable) for variable in self.variables]
-            self.solution = dict(zip(self.variables, next(iter(solution)))) 
+            self.solutions = dict(zip(self.variables, next(iter(solutions)))) 
             
             self.__replace_by_rule()
 
-            return self.solution
+            return self.solutions
     
         else:
             #------------- System is complex, use most general solver ---------
-            solution = sympy.solve(self.equations, self.variables)            
-            self.solution = {str(var): sol for var, sol in solution.items()}
+            solutions = sympy.solve(self.equations, self.variables)            
+            self.solutions = {str(var): sol for var, sol in solutions.items()}
 
             self.__replace_by_rule()
 
-            return self.solution
+            return self.solutions
         
     def electric_circuit_specifications(self):
         
@@ -417,21 +417,21 @@ class Solution(object):
             print("Frequency: ", self.s)
         print()
 
-    def print_solution(self):
-        if self.solution == {}:
-            print("Solution doesn't computed yet!")
+    def print_solutions(self):
+        if self.solutions == {}:
+            print("solutions doesn't computed yet!")
         else:
-            for sol in self.solution:
-                print(sol,":",sympy.simplify(self.solution[str(sol)]),"\n")
-    def print_specific_solution(self):
-        if self.evaluated_solution == {}:
+            for sol in self.solutions:
+                print(sol,":",sympy.simplify(self.solutions[str(sol)]),"\n")
+    def print_specific_solutions(self):
+        if self.evaluated_solutions == {}:
             print("Neither replacement rule forwarded")
         else:
-            for sol in self.evaluated_solution:
-                print(sol,":",sympy.simplify(self.evaluated_solution[str(sol)]),"\n")
+            for sol in self.evaluated_solutions:
+                print(sol,":",sympy.simplify(self.evaluated_solutions[str(sol)]),"\n")
 
-    def get_solution(self):
-        return self.solution
+    def get_solutions(self):
+        return self.solutions
     
-    def get_specific_solution(self):
-        return self.evaluated_solution
+    def get_specific_solutions(self):
+        return self.evaluated_solutions

@@ -129,9 +129,10 @@ system = Solution(elements)
 solution = system.symPyCAP(replacement = ["R1=R", "R2=R"])
 
 #system.electric_circuit_specifications()
-system.print_solution()
-system.print_specific_solution()
-system.print_solution()
+system.print_solutions()
+system.print_specific_solutions()
+system.print_solutions()
+
 #------------------- Dinamicki elementi ---------------------------------------
 
 #LC_circuit = [
