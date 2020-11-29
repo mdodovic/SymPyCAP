@@ -339,17 +339,18 @@ class Solution(object):
             
     def symPyCAP(self, **kwargs):
 
-        #------------- Empty all reused lists ------------------
+        #------------- Empty all reused elements ------------------------------
         omega = ""
         self.__reinitialization()
 
+        #------------- Reading values for omega and replacement list ----------
         for arg in kwargs:
             if arg == "w":
                 omega = kwargs.get(arg)
             if arg == "replacement":
                  self.__make_replacement_rule(kwargs.get(arg))
         
-        #------------- Time (in)variant analysis ---------------
+        #------------- Time (in)variant analysis ------------------------------
         if omega == "":
             self.time_domain = False
             self.s = sympy.Symbol('s')
@@ -357,25 +358,24 @@ class Solution(object):
             self.time_domain = True
             self.s = I*sympy.Symbol(omega)
             
-        #------------ Init of J = {0} and V to symbols Vi ----------------------
+        #------------ Init of J = {0} and V to symbols Vi ---------------------
         self.__node_currents_init()
         self.__potential_symbols_definition() # define Vi potentials 
         
-        #-------------- Init of user defined symbols -----------------------
-        # Ovde lista simbola dolazi do izrazaja! i sve svoje mociiiiiiii bum
+        #-------------- Init of user defined symbols --------------------------
         for element in self.element_list:
             self.element_symbols[element[1]] = sympy.symbols(element[1])
 
-        #------------- For every element in circuit, creating MNA equations -------
+        #------------- For every element in circuit, creating MNA equations ---
         result = list(map(self.__make_MNA_equation, self.element_list))
 
-        #------------- Check validity of every element: TRY-CATCH-FINALLY -------
+        #------------- Check validity of every element: TRY-CATCH-FINALLY -----
         for validation in result:
             if not validation:
                 print("Unknown element:",self.element_list[result.index(validation)][0])
                 return[]
                 
-        #------------- Solving linear system of equations by variables -------
+        #------------- Solving linear system of equations by variables --------
         self.equations = self.node_currents[1:self.number_of_nodes]
         self.equations.extend(self.voltage_equations)    
         
