@@ -118,20 +118,20 @@ print(solution['IUg'])
 #print(solution['V2'])
 
 
-elements = [
-    ["V","E1",1,0],
-    ["R","R1",1,2],
-    ["R","R2",2,0],
-]
-
-system = Solution(elements)
-
-solution = system.symPyCAP(replacement = ["R1=R", "R2=R"])
-
-#system.electric_circuit_specifications()
-system.print_solutions()
-system.print_specific_solutions()
-system.print_solutions()
+#elements = [
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["R","R2",2,0],
+#]
+#
+#system = Solution(elements)
+#
+#solution = system.symPyCAP(replacement = ["R1=R", "R2=R"])
+#
+##system.electric_circuit_specifications()
+#system.print_solutions()
+#system.print_specific_solutions()
+#system.print_solutions()
 
 #------------------- Dinamicki elementi ---------------------------------------
 
@@ -193,3 +193,19 @@ system.print_solutions()
 #
 #circuit.electric_circuit_specifications()
 #circuit.output_solution()
+
+
+RLC = [
+    ["V","E1",1,0],
+    ["R","R1",1,2],
+    ["L","L1",2,3],
+    ["C","C1",3,0]
+]
+
+circuit = Solution(RLC)
+
+solution = circuit.symPyCAP(w = "W", replacement = ["E1=E", "R1=R", "C1=C","L1=L"])
+
+circuit.electric_circuit_specifications()
+#circuit.print_solutions()
+circuit.print_specific_solutions()
