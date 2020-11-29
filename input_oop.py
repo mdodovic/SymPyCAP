@@ -95,38 +95,151 @@ print(solution['IUg'])
 #    ["R","R3",4,0]
 #]
 
-elements = [
-    ["VCVS","VCVS1",[2,0],[3,0],"a1"],
-    ["VCCS","VCCS1",[3,0],[4,0],"g1"],
-    ["CCCS","CCCS1",[4,0],[5,0],"a2"],
-    ["CCVS","CCVS1",[5,0],[6,0],"r1"],
+#elements = [
+#    ["VCVS","VCVS1",[2,0],[3,0],"a1"],
+#    ["VCCS","VCCS1",[3,0],[4,0],"g1"],
+#    ["CCCS","CCCS1",[4,0],[5,0],"a2"],
+#    ["CCVS","CCVS1",[5,0],[6,0],"r1"],
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["R","R2",2,0],
+#    ["R","R3",6,7],
+#    ["R","R4",7,0]
+#]
+#
+#
+#system = Solution(elements)
+#solution = system.symPyCAP()
+#system.electric_circuit_specifications()
+#print(solution)
+#for key, value in solution.items():
+#    print(key, ":", value)
+#
+#print(solution['V2'])
+
+
+#elements = [
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["R","R2",2,0],
+#]
+#
+#system = Solution(elements)
+#
+#solution = system.symPyCAP(replacement = ["R1=R", "R2=R"])
+#
+##system.electric_circuit_specifications()
+#system.print_solutions()
+#system.print_specific_solutions()
+#system.print_solutions()
+
+#------------------- Dinamicki elementi ---------------------------------------
+
+#LC_circuit = [
+#    ["L","L1",2,0],
+#    ["C","C1",1,0],
+#    ["V","E1",1,0],
+#    ["I","I1",2,1]
+#    ]
+#
+#circuit = Solution(LC_circuit)
+#
+#solution = circuit.symPyCAP("W")
+#
+#circuit.electric_circuit_specifications()
+#circuit.output_solution()
+
+
+#OTA_C = [
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["C","C1",3,0],
+#    ["VCCS","VCCS1",[0,2],[3,0],"g"],
+#    ["VCCS","VCCS2",[3,0],[2,0],"g"]
+#]
+#circuit = Solution(OTA_C)
+#
+#solution = circuit.symPyCAP()
+#
+#circuit.electric_circuit_specifications()
+#circuit.output_solution()
+
+
+#LC_filter_sema = [
+#    ["V","E",1,0],
+#    ["R","R1",1,2],
+#    ["C","C",2,3],
+#    ["R","R2",3,0],
+#    ["L","L",3,0]
+#];
+#values = ["R1=R", "R2 = R"]
+#circuit = Solution(LC_filter_sema)
+#
+#solution = circuit.symPyCAP(w = "W", replacement = values)
+#
+#circuit.electric_circuit_specifications()
+#circuit.output_solution()
+
+
+#InductiveT = [
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["R","R2",2,3],
+#    ["InductiveT","K1",[2,0],[3,0],["L1","L2","L12"],["I01",0]]
+#    ]
+#circuit = Solution(InductiveT)
+#
+#solution = circuit.symPyCAP()
+#
+#circuit.electric_circuit_specifications()
+#circuit.output_solution()
+
+
+#RLC = [
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["L","L1",2,3],
+#    ["C","C1",3,0]
+#]
+#
+#circuit = Solution(RLC)
+#
+#solution = circuit.symPyCAP(w = "W", replacement = ["E1=E", "R1=R", "C1=C","L1=L"])
+#
+#circuit.electric_circuit_specifications()
+##circuit.print_solutions()
+#circuit.print_specific_solutions()
+
+#Initial_enegy = [
+#    ["VCVS","VCVS1",[1,0],[3,0],"a"],
+#    ["C","C1",1,0,"U0"],
+#    ["R","R1",1,0],
+#    ["R","R2",1,2],
+#    ["C","C2",2,3],
+#    ["R","R3",3,0]
+#]
+#
+#
+#
+#circuit = Solution(Initial_enegy)
+#
+#solution = circuit.symPyCAP(replacement = ["C1=C", "R1=R", "R2=R", "C2=C","R3=R"])
+#
+#circuit.electric_circuit_specifications()
+##circuit.print_solutions()
+#circuit.print_specific_solutions()
+
+
+IT_circuit = [
+    ["IdealT","IT1",[1,0],[2,0],"n"],
     ["V","E1",1,0],
-    ["R","R1",1,2],
-    ["R","R2",2,0],
-    ["R","R3",6,7],
-    ["R","R4",7,0]
+    ["R","R1",2,0]
 ]
+circuit = Solution(IT_circuit)
 
+solution = circuit.symPyCAP(replacement = ["R1=R","E1=E"])
 
-system = Solution(elements)
-solution = system.symPyCAP()
-system.electric_circuit_specifications()
-print(solution)
-for key, value in solution.items():
-    print(key, ":", value)
+circuit.electric_circuit_specifications()
+#circuit.print_solutions()
+circuit.print_specific_solutions()
 
-print(solution['V2'])
-
-
-elements = [
-    ["V","E1",1,0],
-    ["R","R1",1,2],
-    ["R","R2",2,0],
-]
-
-system = Solution(elements)
-
-solution = system.symPyCAP()
-
-system.electric_circuit_specifications()
-system.output_solution()
