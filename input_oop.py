@@ -195,16 +195,35 @@ print(solution['IUg'])
 #circuit.output_solution()
 
 
-RLC = [
-    ["V","E1",1,0],
-    ["R","R1",1,2],
-    ["L","L1",2,3],
-    ["C","C1",3,0]
+#RLC = [
+#    ["V","E1",1,0],
+#    ["R","R1",1,2],
+#    ["L","L1",2,3],
+#    ["C","C1",3,0]
+#]
+#
+#circuit = Solution(RLC)
+#
+#solution = circuit.symPyCAP(w = "W", replacement = ["E1=E", "R1=R", "C1=C","L1=L"])
+#
+#circuit.electric_circuit_specifications()
+##circuit.print_solutions()
+#circuit.print_specific_solutions()
+
+Initial_enegy = [
+    ["VCVS","VCVS1",[1,0],[3,0],"a"],
+    ["C","C1",1,0,"U0"],
+    ["R","R1",1,0],
+    ["R","R2",1,2],
+    ["C","C2",2,3],
+    ["R","R3",3,0]
 ]
 
-circuit = Solution(RLC)
 
-solution = circuit.symPyCAP(w = "W", replacement = ["E1=E", "R1=R", "C1=C","L1=L"])
+
+circuit = Solution(Initial_enegy)
+
+solution = circuit.symPyCAP(replacement = ["C1=C", "R1=R", "R2=R", "C2=C","R3=R"])
 
 circuit.electric_circuit_specifications()
 #circuit.print_solutions()
