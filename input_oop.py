@@ -210,21 +210,36 @@ print(solution['IUg'])
 ##circuit.print_solutions()
 #circuit.print_specific_solutions()
 
-Initial_enegy = [
-    ["VCVS","VCVS1",[1,0],[3,0],"a"],
-    ["C","C1",1,0,"U0"],
-    ["R","R1",1,0],
-    ["R","R2",1,2],
-    ["C","C2",2,3],
-    ["R","R3",3,0]
+#Initial_enegy = [
+#    ["VCVS","VCVS1",[1,0],[3,0],"a"],
+#    ["C","C1",1,0,"U0"],
+#    ["R","R1",1,0],
+#    ["R","R2",1,2],
+#    ["C","C2",2,3],
+#    ["R","R3",3,0]
+#]
+#
+#
+#
+#circuit = Solution(Initial_enegy)
+#
+#solution = circuit.symPyCAP(replacement = ["C1=C", "R1=R", "R2=R", "C2=C","R3=R"])
+#
+#circuit.electric_circuit_specifications()
+##circuit.print_solutions()
+#circuit.print_specific_solutions()
+
+
+IT_circuit = [
+    ["IdealT","IT1",[1,0],[2,0],"n"],
+    ["V","E1",1,0],
+    ["R","R1",2,0]
 ]
+circuit = Solution(IT_circuit)
 
-
-
-circuit = Solution(Initial_enegy)
-
-solution = circuit.symPyCAP(replacement = ["C1=C", "R1=R", "R2=R", "C2=C","R3=R"])
+solution = circuit.symPyCAP(replacement = ["R1=R","E1=E"])
 
 circuit.electric_circuit_specifications()
 #circuit.print_solutions()
 circuit.print_specific_solutions()
+
