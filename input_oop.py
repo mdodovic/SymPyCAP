@@ -230,12 +230,25 @@ print(solution['IUg'])
 #circuit.print_specific_solutions()
 
 
-IT_circuit = [
-    ["IdealT","IT1",[1,0],[2,0],"n"],
+#IT_circuit = [
+#    ["IdealT","IT1",[1,0],[2,0],"n"],
+#    ["V","E1",1,0],
+#    ["R","R1",2,0]
+#]
+#circuit = Solution(IT_circuit)
+#
+#solution = circuit.symPyCAP(replacement = ["R1=R","E1=E"])
+#
+#circuit.electric_circuit_specifications()
+##circuit.print_solutions()
+#circuit.print_specific_solutions()
+
+quatropol = [
+    ["4-A","4-A1",[1,0],[2,0],["a","c","b","d"]],
     ["V","E1",1,0],
     ["R","R1",2,0]
 ]
-circuit = Solution(IT_circuit)
+circuit = Solution(quatropol)
 
 solution = circuit.symPyCAP(replacement = ["R1=R","E1=E"])
 
