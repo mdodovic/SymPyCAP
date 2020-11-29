@@ -146,8 +146,6 @@ class Solution(object):
             self.current_variables.append(I2)
             return True
 
-        #------------- To be checked -------------------------------------------- 
-
         elif type_of_element == 'L':
             node_A = element[2]
             node_B = element[3]
@@ -177,6 +175,8 @@ class Solution(object):
             
             return True
         
+        #------------- To be checked -------------------------------------------- 
+
         elif type_of_element == 'IdealT':
             node_A1 = element[2][0]
             node_A2 = element[2][1]
