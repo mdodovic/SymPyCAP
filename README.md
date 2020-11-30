@@ -1,13 +1,13 @@
 # SymPyCAP
 
-The SymPyCAP is software for linear, time invariant circuit analysis. It is developed by following team of students from [University of Belgrade – School of Electrical Engineering](https://www.etf.bg.ac.rs): 
+The SymPyCAP is software for linear, time invariant circuit analysis. It is developed by following team of students and profesors from [University of Belgrade – School of Electrical Engineering](https://www.etf.bg.ac.rs): 
 
 * Katarina Stanković
 * Matija Dodović
 * Nikola Ilić
 * Jelena Bakić.
-
-documentation1 - u pripremi
+* [Prof. Dr. Dejan V. Tošić](http://home.etf.rs/~tosic/)
+* Prof. Dr. Milka M. Potrebić
 
 input_oop.py - user interface
 
