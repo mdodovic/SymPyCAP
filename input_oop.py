@@ -2,7 +2,9 @@
 """
 Created on Mon Nov 23 00:25:17 2020
 
-@author: Katarina
+@authors: 
+    Katarina Stanković (sk180183d@student.etf.bg.ac.rs)
+    Matija Dodović (dm180072d@student.etf.bg.ac.rs)
 """
 from symPyCAP_oop import Solution
 
@@ -195,20 +197,20 @@ print(solution['IUg'])
 #circuit.output_solution()
 
 
-#RLC = [
-#    ["V","E1",1,0],
-#    ["R","R1",1,2],
-#    ["L","L1",2,3],
-#    ["C","C1",3,0]
-#]
-#
-#circuit = Solution(RLC)
-#
-#solution = circuit.symPyCAP(w = "W", replacement = ["E1=E", "R1=R", "C1=C","L1=L"])
-#
-#circuit.electric_circuit_specifications()
-##circuit.print_solutions()
-#circuit.print_specific_solutions()
+RLC = [
+    ["V","E1",1,0],
+    ["R","R1",1,2],
+    ["L","L1",2,3],
+    ["C","C1",3,0,"U0"]
+]
+
+circuit = Solution(RLC)
+
+solution = circuit.symPyCAP(omega = "W", r = ["E1=E", "R1=R", "C1=C","L1=L"])
+
+circuit.electric_circuit_specifications()
+#circuit.print_solutions()
+circuit.print_specific_solutions()
 
 #Initial_enegy = [
 #    ["VCVS","VCVS1",[1,0],[3,0],"a"],
@@ -243,16 +245,16 @@ print(solution['IUg'])
 ##circuit.print_solutions()
 #circuit.print_specific_solutions()
 
-quatropol = [
-    ["4-A","4-A1",[1,0],[2,0],["a","c","b","d"]],
-    ["V","E1",1,0],
-    ["R","R1",2,0]
-]
-circuit = Solution(quatropol)
-
-solution = circuit.symPyCAP(replacement = ["R1=R","E1=E"])
-
-circuit.electric_circuit_specifications()
-#circuit.print_solutions()
-circuit.print_specific_solutions()
+#quatropol = [
+#    ["4-A","4-A1",[1,0],[2,0],["a","c","b","d"]],
+#    ["V","E1",1,0],
+#    ["R","R1",2,0]
+#]
+#circuit = Solution(quatropol)
+#circuit.electric_circuit_specifications()
+#solution = circuit.symPyCAP(replacement = ["R1=R","E1=E"])
+#
+#
+##circuit.print_solutions()
+#circuit.print_specific_solutions()
 

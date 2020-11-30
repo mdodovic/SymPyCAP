@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 23 00:24:14 2020
-@author: Katarina
+
+@authors: 
+    Katarina Stanković (sk180183d@student.etf.bg.ac.rs)
+    Matija Dodović (dm180072d@student.etf.bg.ac.rs)
 """
 import sympy
-from sympy import I
+from sympy import I as j
 
 class Solution(object):
     def __init__(self, element_list):
@@ -64,7 +67,7 @@ class Solution(object):
             node_A = element[2]
             node_B = element[3]
             Ug = symbol 
-            IUg = sympy.symbols('i' + element[1]) 
+            IUg = sympy.symbols('I' + element[1]) 
             self.node_currents[node_A] += IUg
             self.node_currents[node_B] -= IUg 
             self.voltage_equations.append(self.node_potentials[node_A] - self.node_potentials[node_B] - Ug)
@@ -96,7 +99,7 @@ class Solution(object):
             node_A2 = element[2][1]
             node_B1 = element[3][0]
             node_B2 = element[3][1]
-            amplification = sympy.symbols(str(element[4])) #razmatranje
+            amplification = sympy.symbols(element[4]) #razmatranje
             I2 = sympy.symbols('I' + element[1])
             self.node_currents[node_B1] += I2
             self.node_currents[node_B2] -= I2
@@ -111,7 +114,7 @@ class Solution(object):
             node_A2 = element[2][1]
             node_B1 = element[3][0]
             node_B2 = element[3][1]
-            transconductance = sympy.symbols(str(element[4])) #razmatranje
+            transconductance = sympy.symbols(element[4]) #razmatranje
             self.node_currents[node_B1] += transconductance * (self.node_potentials[node_A1] - self.node_potentials[node_A2])
             self.node_currents[node_B2] -= transconductance * (self.node_potentials[node_A1] - self.node_potentials[node_A2])
             return True
@@ -121,7 +124,7 @@ class Solution(object):
             node_A2 = element[2][1]
             node_B1 = element[3][0]
             node_B2 = element[3][1]
-            amplification = sympy.symbols(str(element[4])) #razmatranje
+            amplification = sympy.symbols(element[4]) #razmatranje
             I1 = sympy.symbols('I' + element[1])
             self.node_currents[node_A1] += I1
             self.node_currents[node_A2] -= I1
@@ -136,7 +139,7 @@ class Solution(object):
             node_A2 = element[2][1]
             node_B1 = element[3][0]
             node_B2 = element[3][1]
-            transresistance = sympy.symbols(str(element[4])) #razmatranje
+            transresistance = sympy.symbols(element[4]) #razmatranje
             I2 = sympy.symbols('I' + element[1])
             self.node_currents[node_A1] += (self.node_potentials[node_B1] - self.node_potentials[node_B2])/transresistance
             self.node_currents[node_A2] -= (self.node_potentials[node_B1] - self.node_potentials[node_B2])/transresistance
@@ -174,8 +177,6 @@ class Solution(object):
             self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) * self.s * C + U0 * C
             
             return True
-        
-        #------------- To be checked -------------------------------------------- 
 
         elif type_of_element == 'IdealT':
             node_A1 = element[2][0]
@@ -184,7 +185,7 @@ class Solution(object):
             node_B2 = element[3][1]
 
             IT = sympy.symbols('I' + element[1])  
-            m = sympy.symbols(str(element[4]))
+            m = sympy.symbols(element[4])
             
             self.node_currents[node_A1] += IT
             self.node_currents[node_A2] -= IT
@@ -327,15 +328,15 @@ class Solution(object):
         self.replacement_rule = {} 
 
     def __make_replacement_rule(self, list_of_rules):
-        self.replacement_rule = {rule.split("=")[0] : sympy.Symbol(rule.split("=")[1]) for rule in list_of_rules}
+        self.replacement_rule = {rule.split("=")[0] : int(rule.split("=")[1]) if rule.split("=")[1].isdigit() else sympy.Symbol(rule.split("=")[1]) for rule in list_of_rules }
         
     def __replace_by_rule(self):
         if self.replacement_rule != {}:
             self.evaluated_solutions = {str(var): sol for var, sol in self.solutions.items()}
             
-            for elem,val in self.replacement_rule.items():    
-                for unknown,solution in self.evaluated_solutions.items():
-                    self.evaluated_solutions[unknown] = solution.subs(elem,val)                    
+            for elem, val in self.replacement_rule.items():    
+                for unknown, solution in self.evaluated_solutions.items():
+                    self.evaluated_solutions[unknown] = solution.subs(elem, val, simultaneous = True)
             
     def symPyCAP(self, **kwargs):
 
@@ -345,9 +346,9 @@ class Solution(object):
 
         #------------- Reading values for omega and replacement list ----------
         for arg in kwargs:
-            if arg == "w":
+            if arg == "w" or arg == "omega":
                 omega = kwargs.get(arg)
-            if arg == "replacement":
+            if arg == "replacement" or arg == "r":
                  self.__make_replacement_rule(kwargs.get(arg))
         
         #------------- Time (in)variant analysis ------------------------------
@@ -356,7 +357,7 @@ class Solution(object):
             self.s = sympy.Symbol('s')
         else:
             self.time_domain = True
-            self.s = I*sympy.Symbol(omega)
+            self.s = j*sympy.Symbol(omega)
             
         #------------ Init of J = {0} and V to symbols Vi ---------------------
         self.__node_currents_init()
@@ -423,12 +424,16 @@ class Solution(object):
         else:
             for sol in self.solutions:
                 print(sol,":",sympy.simplify(self.solutions[str(sol)]),"\n")
+    
     def print_specific_solutions(self):
-        if self.evaluated_solutions == {}:
-            print("Neither replacement rule forwarded")
+        if self.solutions == {}:
+            print("solutions doesn't computed yet!")
         else:
-            for sol in self.evaluated_solutions:
-                print(sol,":",sympy.simplify(self.evaluated_solutions[str(sol)]),"\n")
+            if self.evaluated_solutions == {}:
+                print("Neither replacement rule forwarded!")
+            else:
+                for sol in self.evaluated_solutions:
+                    print(sol,":",sympy.simplify(self.evaluated_solutions[str(sol)]),"\n")
 
     def get_solutions(self):
         return self.solutions
