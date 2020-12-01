@@ -39,7 +39,6 @@ SymPyCAP uses MNA (Modified Nodal Analysis) to formulate
 equations.
 
 
-
 ##   Units   
 
 All quantities are in the International System of Units (SI).
@@ -54,64 +53,48 @@ The input of this program (the circuit to be analyzed) is specified as a list of
 A circuit element (list_I) is specified as a list:
 
 * for one-port element:\
-        *[type, label, a, b]* 
+           *[type, label, a, b]* 
      
-* for two-port element: 
-
-     *[type, label, [a1,a2], [b1,b2], p]*
-
+* for two-port element:\ 
+     *[type, label, [a1,a2], [b1,b2], p]*\
      *[type, label, [a1,a2], b]* (b = b1 when b2 is ground node)
                         
 
-*type* - string that specifies type of element ("R", "V", "OpAmp")
-
-*label* - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")
-
-*a* - positive terminal
-
-*b* - negative terminal
-
-*a1* - positive terminal of the 1st port
-
-*a2* - negative terminal of the 1st port
-
-*b1* - positive terminal of the 2nd port
-
-*b2* - negative terminal of the 2nd port
+*type* - string that specifies type of element ("R", "V", "OpAmp")\
+*label* - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")\
+*a* - positive terminal\
+*b* - negative terminal\
+*a1* - positive terminal of the 1st port\
+*a2* - negative terminal of the 1st port\
+*b1* - positive terminal of the 2nd port\
+*b2* - negative terminal of the 2nd port\
  
 #### One-port elements: 
 
-* <ins> **Resistor** </ins>
-
+* <ins> **Resistor** </ins>\
      ["R", "ID", plusTerm, minusTerm]
 
-* <ins> **Voltage source - ideal voltage generator** </ins>
-
-["V", "ID", plusTerm, minusTerm]
+* <ins> **Voltage source - ideal voltage generator** </ins>\
+     ["V", "ID", plusTerm, minusTerm]
 
 #### Two-port elements: 
 
-* <ins> **Operational Amplifier - Ideal OpAmp** </ins>
-
-["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]
+* <ins> **Operational Amplifier - Ideal OpAmp** </ins>\
+     ["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]
 
 #### Controlled Sources: 
 
-* <ins> **VCVS** </ins>
+* <ins> **VCVS** </ins>\
+     ["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"],
 
-["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"],
+* <ins> **VCCS** </ins>\
+     ["VCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "transconductance"],
 
-* <ins> **VCCS** </ins>
+* <ins> **CCCS** </ins>\
+     ["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]
 
-["VCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "transconductance"],
-
-* <ins> **CCCS** </ins>
-
-["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]
-
-* <ins> **CCVS** </ins>
-
-["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"],
+* <ins> **CCVS** </ins>\
+     ["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"],
 
 ## Calling SymPyCAP  
 ```
