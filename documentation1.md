@@ -49,7 +49,7 @@ All quantities are in the International System of Units (SI).
 The input of this program (the circuit to be analyzed) is specified as a list of circuit elements (list
  of lists):
  
-                   `[list_1, list_2, list_3, ... list_N]`
+                   [list_1, list_2, list_3, ... list_N]
 
 A circuit element (list_I) is specified as a list:
 
@@ -78,7 +78,7 @@ b2 - negative terminal of the 2nd port
 
 * `Resistor`
 
-["R", "ID", plusTerm, minusTerm]
+     ["R", "ID", plusTerm, minusTerm]
 
 * `Voltage source - ideal voltage generator`
 
