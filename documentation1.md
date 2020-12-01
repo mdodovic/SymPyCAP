@@ -65,7 +65,7 @@ A circuit element (list_I) is specified as a list:
                         
 
 *type* - string that specifies type of element ("R", "L", "C", "Z", "Y", "I", "V", "OpAmp", "IdelalT", "InductiveT", "VCVS", "VCCS", "CCCS", "CCVS")\
-*label* - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")\
+*label* - string that identifies circuit element ("R1", "L1", "C1", "Ug", "OpAmp1", "I1", "VCVS1", etc.)\
 *a* - positive terminal\
 *b* - negative terminal\
 *a1* - positive terminal of the 1st port\
