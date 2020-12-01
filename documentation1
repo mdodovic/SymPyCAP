@@ -4,8 +4,8 @@ Katarina Stanković
 Nikola Ilić
 Matija Dodović
 Jelena Bakić
-prof. dr Dejan V. Tošić
-prof. dr Milka M. Potrebić
+Prof. Dr Dejan V. Tošić
+Prof. Dr Milka M. Potrebić
 
 University of Belgrade - School of Electrical Engineering
 
@@ -15,7 +15,7 @@ Creative Commons
 
 //// Acknowledgment ////
 
-We thank prof Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
+We thank Prof. Dr Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
 
 //// About SymPyCAP ////
 
@@ -25,7 +25,9 @@ SymPyCAP is program for solving linear, time-invariant electric circuits. This p
 ///// Why SymPy?  /////
 
 SymPy is completely free, open source and licensed under the BSD license. So, you can modify the 
-source code end sell it if you want to. SymPy uses Python as its language. This means that if you
+source code end sell it if you want to. 
+
+SymPy uses Python as its language. This means that if you
 know Python, it is much easier to get started with SymPy (because you already knows the syntax). 
 And if you don't know Python, it is really easy to learn. 
 
@@ -35,7 +37,9 @@ And finally, it can be used as a library. You can just import it in your own Pyt
 
 ////// Algorithm //////
 
-(MNA??)
+SymPyCAP uses MNA (Modified Nodal Analysis) to formulate 
+equations.
+
 
 //////   Units   //////
 
@@ -53,8 +57,8 @@ A circuit element (list_I) is specified as a list:
                         [type, label, [a1,a2], b] (b = b1 when b2 is ground node)
                         
 
-type - string that specifies type of element ("R", "V", "OpAmp")
-label - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")
+type - string that specifies type of element ("R", "L", "C", "Z", "Y", "I", "V", "OpAmp", "IdelalT", "InductiveT", "VCVS", "VCCS", "CCCS", "CCVS")
+label - string that identifies circuit element ("R1", "L1", "C1", "Ug", "OpAmp1", "I1", "VCVS1", etc.)
 a - positive terminal
 b - negative terminal
 a1 - positive terminal of the 1st port
@@ -66,6 +70,22 @@ b2 - negative terminal of the 2nd port
 
 Resistor 
 ["R", "ID", plusTerm, minusTerm]
+
+Capacitor 
+["C", "ID", plusTermi, minusTerm, "U0"]
+
+Inductor
+["L", "ID", plusTerm, minusTerm]
+["L", "ID", plusTerm, minusTerm, "I0"]
+
+Impedance 
+["Z", "ID", plusTerm, minusTerm]
+
+Admitance
+["Y", "ID", plusTerm, minusTerm]
+
+Current source - ideal current generator 
+["I", "ID", plusTerm, minusTerm] (from plusTerm, across the element, to minusTerm)
 
 Voltage source - ideal voltage generator
 ["V", "ID", plusTerm, minusTerm]
@@ -88,6 +108,14 @@ CCCS
 
 CCVS
 ["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"],
+
+/////  Transformers  /////
+
+Ideal Transformer
+["IT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], turnsRatio]
+
+Inductive Transformer
+["K", "id", [plusPrimaryTerminal, minusPrimaryTerminal], [plusSecondaryTerminal, minusSecondaryTerminal], [L1,L2,L12], [Io1,Io2]]
 
 /// Calling SymPyCAP  ///
 
