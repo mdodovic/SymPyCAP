@@ -73,10 +73,15 @@ Resistor
 
 Capacitor 
 ["C", "ID", plusTermi, minusTerm, "U0"]
+-U0 is initial condition, initial voltage at 0 - minus ( U0 = V[plusTerm] - V[minusTerm] )
+["C", "ID", plusTermi, minusTerm]
+-U0 is here 0, by default
 
-Inductor
-["L", "ID", plusTerm, minusTerm]
-["L", "ID", plusTerm, minusTerm, "I0"]
+Inductor 
+["L", "ID", plusTerm, minusTerm, "I0"] 
+-I0 is initial condition, initial current at 0 - minus (from plusTerm, across the element, to minusTerm)
+["L", "ID", plusTerm, minusTerm] 
+-I0 is here 0, by default
 
 Impedance 
 ["Z", "ID", plusTerm, minusTerm]
@@ -88,7 +93,7 @@ Current source - ideal current generator
 ["I", "ID", plusTerm, minusTerm] (from plusTerm, across the element, to minusTerm)
 
 Voltage source - ideal voltage generator
-["V", "ID", plusTerm, minusTerm]
+["V", "ID", plusTerm, minusTerm] ( V = V[plusTerm] - V[minusTerm] )
 
 /// Two-port elements ///
 
