@@ -126,7 +126,7 @@ A circuit element (list_I) is specified as a list:
 * <ins> **Operational Amplifier - Ideal OpAmp** </ins>\
      `["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]`
 * <ins> **ABCD two-port** </ins>\
-     `["ABCD", "ID", [plusPrimaryTerm minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], [["A", "B", "C", "D"]]]
+     `["ABCD", "ID", [plusPrimaryTerm minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], [["A", "B", "C", "D"]]]`
 
 #### Controlled Sources: 
 
