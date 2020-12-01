@@ -1,11 +1,11 @@
-#  Author  #
+##  Author  ##
 
-Katarina Stanković
-Nikola Ilić
-Matija Dodović
-Jelena Bakić
-prof. dr Dejan V. Tošić
-prof. dr Milka M. Potrebić
+* Katarina Stanković
+* Nikola Ilić
+* Matija Dodović
+* Jelena Bakić
+* Prof. Dr Dejan V. Tošić
+* Prof. Dr Milka M. Potrebić
 
 University of Belgrade - School of Electrical Engineering
 
