@@ -62,7 +62,7 @@ a2 - negative terminal of the 1st port
 b1 - positive terminal of the 2nd port
 b2 - negative terminal of the 2nd port
  
-### One-port elements 
+#### One-port elements: 
 
 * `Resistor`
 
@@ -72,13 +72,13 @@ b2 - negative terminal of the 2nd port
 
 ["V", "ID", plusTerm, minusTerm]
 
-### Two-port elements 
+#### Two-port elements: 
 
 * `Operational Amplifier - Ideal OpAmp`
 
 ["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]
 
-### Controlled Sources 
+#### Controlled Sources: 
 
 * `VCVS`
 
