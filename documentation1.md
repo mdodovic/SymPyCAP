@@ -49,7 +49,7 @@ All quantities are in the International System of Units (SI).
 The input of this program (the circuit to be analyzed) is specified as a list of circuit elements (list
  of lists):
  
-                   [list_1, list_2, list_3, ... list_N]
+   [list_1, list_2, list_3, ... list_N]
 
 A circuit element (list_I) is specified as a list:
 
@@ -58,11 +58,11 @@ A circuit element (list_I) is specified as a list:
                         [type, label, [a1,a2], b] (b = b1 when b2 is ground node)
                         
 
-*type - string that specifies type of element ("R", "V", "OpAmp")
+*type* - string that specifies type of element ("R", "V", "OpAmp")
 
-*label - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")
+*label* - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")
 
-*a - positive terminal
+<ins>a</ins> - positive terminal
 
 b - negative terminal
 
