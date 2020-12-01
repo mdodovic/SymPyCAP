@@ -78,13 +78,13 @@ A circuit element (list_I) is specified as a list:
 * <ins> **Resistor** </ins>\
      `["R", "ID", plusTerm, minusTerm]`
      
-* <ins> **Capacitor** </ins>\ 
+* <ins> **Capacitor** </ins>\
      `["C", "ID", plusTermi, minusTerm]`
 
 * <ins> **Inductor** </ins>\
      `["L", "ID", plusTerm, minusTerm]`
 
-* <ins> **Current source - ideal current generator** </ins>\ 
+* <ins> **Current source - ideal current generator** </ins>\
      `["I", "ID", plusTerm, minusTerm]` (from plusTerm, across the element, to minusTerm)     
 
 * <ins> **Voltage source - ideal voltage generator** </ins>\
