@@ -46,14 +46,17 @@ so it can be used almost anywhere easily.
 
 #### The Kirchhoff’s current law equations
 
-* SymPyCAP formulates the KCL equations for all nodes, except reference node (for *other nodes*).\
-* The currents are expressed in terms of node voltages.\
+* SymPyCAP formulates the KCL equations for all nodes, except reference node (for *other nodes*).
+* The currents are expressed in terms of node voltages.
 * The reference direction for current is **out of the node**.
 
 #### Modified Nodal Analysis
 
-* SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.\
-*MNA variables:* node voltages and currents which cannot be expressed in terms of node voltages. These currents are labeled by I"ID" ("ID" specifies a circuit element).
+SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.\
+<ins> *MNA variables:* </ins> node voltages and currents which cannot be expressed in terms of node voltages.\
+* Node voltages are labeled by V1, V2, V3...
+* V0 = 0 by default
+* Currents are labeled by I"ID" ("ID" specifies a circuit element).
 
 ##   Units   
  
@@ -69,8 +72,8 @@ The input of this program (the circuit to be analyzed) is specified as a list of
 A circuit element (list_I) is specified as a list:
 
 * for one-port element:\
-           `[type, label, a, b] `
-     
+           `[type, label, a, b] `\
+           `[type, label, a, b, IC]`\
 * for two-port element:\
      `[type, label, [a1,a2], [b1,b2], p]`\
      `[type, label, [a1,a2], b]*` (b = b1 when b2 is ground node)
@@ -80,10 +83,12 @@ A circuit element (list_I) is specified as a list:
 *label* - string that identifies circuit element ("R1", "L1", "C1", "Ug", "OpAmp1", "I1", "VCVS1", etc.)\
 *a* - positive terminal\
 *b* - negative terminal\
+*IC* - initial conditions at 0 - minus\
 *a1* - positive terminal of the 1st port\
 *a2* - negative terminal of the 1st port\
 *b1* - positive terminal of the 2nd port\
 *b2* - negative terminal of the 2nd port\
+*p* - parameter of parameters
  
 #### One-port elements: 
 
@@ -120,6 +125,8 @@ A circuit element (list_I) is specified as a list:
 
 * <ins> **Operational Amplifier - Ideal OpAmp** </ins>\
      `["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]`
+* <ins> **ABCD two-port** </ins>\
+     `["ABCD", "ID", [plusPrimaryTerm minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], [["A", "B", "C", "D"]]]
 
 #### Controlled Sources: 
 
@@ -144,6 +151,7 @@ A circuit element (list_I) is specified as a list:
 
 * <ins> **Inductive Transformer** </ins>\
      `["K", "id", [plusPrimaryTerminal, minusPrimaryTerminal], [plusSecondaryTerminal, minusSecondaryTerminal], [L1,L2,L12], [Io1,Io2]]`
+
 
 ## Calling SymPyCAP  
 ```
