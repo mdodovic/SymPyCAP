@@ -53,9 +53,14 @@ The input of this program (the circuit to be analyzed) is specified as a list of
 
 A circuit element (list_I) is specified as a list:
 
-* for one-port element: *[type, label, a, b]* 
-* for two-port element: *[type, label, [a1,a2], [b1,b2], p]*
-                        [type, label, [a1,a2], b] (b = b1 when b2 is ground node)
+* for one-port element:\
+        *[type, label, a, b]* 
+     
+* for two-port element: 
+
+     *[type, label, [a1,a2], [b1,b2], p]*
+
+     *[type, label, [a1,a2], b]* (b = b1 when b2 is ground node)
                         
 
 *type* - string that specifies type of element ("R", "V", "OpAmp")
