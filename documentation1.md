@@ -41,9 +41,16 @@ so it can be used almost anywhere easily.
 
 #### Nodes:
 
-* Refference node - one node, labeled by zero, 0 (default node).
+* Reference node - one node, labeled by zero, 0 (default node). The node voltage of this node (reference node) is set to zero, 0.
 * Other nodes - labeled by consecutive integers, starting from one, 1.
 
+#### The Kirchhoff’s current law equations
+
+* SymPyCAP formulates the KCL equations for all nodes, except reference node (for *other nodes*).\
+* The currents are expressed in terms of node voltages.\
+* The reference direction for current is **out of the node**.
+
+### Modified Nodal Analysis
 
 SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.
 
