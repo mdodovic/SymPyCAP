@@ -79,16 +79,22 @@ A circuit element (list_I) is specified as a list:
      `["R", "ID", plusTerm, minusTerm]`
      
 * <ins> **Capacitor** </ins>\
-     `["C", "ID", plusTermi, minusTerm]`
+     `["C", "ID", plusTermi, minusTerm, "U0"]`\
+     -U0 is initial condition, initial voltage at 0 - minus ( U0 = V[plusTerm] - V[minusTerm] )\
+     `["C", "ID", plusTermi, minusTerm]`\
+     U0 is here 0, by default
 
 * <ins> **Inductor** </ins>\
-     `["L", "ID", plusTerm, minusTerm]`
+     `["L", "ID", plusTerm, minusTerm, "I0"]`\
+     -I0 is initial condition, initial current at 0 - minus (from plusTerm, across the element, to minusTerm)\
+     `["L", "ID", plusTerm, minusTerm]`\
+     -I0 is here 0, by default
 
 * <ins> **Current source - ideal current generator** </ins>\
      `["I", "ID", plusTerm, minusTerm]` (from plusTerm, across the element, to minusTerm)     
 
 * <ins> **Voltage source - ideal voltage generator** </ins>\
-     `["V", "ID", plusTerm, minusTerm]`
+     `["V", "ID", plusTerm, minusTerm]` (voltage = V[plusTerm] - V[minusTerm])
 
 #### Two-port elements: 
 
