@@ -50,10 +50,10 @@ so it can be used almost anywhere easily.
 * The currents are expressed in terms of node voltages.\
 * The reference direction for current is **out of the node**.
 
-### Modified Nodal Analysis
+#### Modified Nodal Analysis
 
-SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.
-
+* SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.\
+*MNA variables:* node voltages and currents which cannot be expressed in terms of node voltages. These currents are labeled by I"ID" ("ID" specifies a circuit element).
 
 ##   Units   
  
