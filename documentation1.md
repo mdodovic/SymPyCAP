@@ -15,7 +15,7 @@ Creative Commons
 
 ## Acknowledgment 
 
-We thank prof Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
+We thank Prof. Dr Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
 
 ## About SymPyCAP 
 
@@ -35,7 +35,10 @@ so it can be used almost anywhere easily.
 
 ## Algorithm 
 
-(MNA??)
+SymPyCAP uses MNA (Modified Nodal Analysis) to formulate 
+equations.
+
+
 
 ##   Units   
 
@@ -46,7 +49,7 @@ All quantities are in the International System of Units (SI).
 The input of this program (the circuit to be analyzed) is specified as a list of circuit elements (list
  of lists):
  
-[list_1, list_2, list_3, ... list_N]
+                   `[list_1, list_2, list_3, ... list_N]`
 
 A circuit element (list_I) is specified as a list:
 
