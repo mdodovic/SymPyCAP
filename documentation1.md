@@ -1,3 +1,7 @@
+# <ins>Documentation for SymPyCAP</ins>
+
+
+
 ##  Author  
 
 * Katarina Stanković
@@ -40,7 +44,7 @@ equations.
 
 
 ##   Units   
-
+ 
 All quantities are in the International System of Units (SI).
 
 ## Electric Circuit  
@@ -55,12 +59,12 @@ A circuit element (list_I) is specified as a list:
 * for one-port element:\
            `*[type, label, a, b]* `
      
-* for two-port element:\ 
+* for two-port element:<br/>
      `*[type, label, [a1,a2], [b1,b2], p]*`\
      `*[type, label, [a1,a2], b]*` (b = b1 when b2 is ground node)
                         
 
-*type* - string that specifies type of element ("R", "V", "OpAmp")\
+*type* - string that specifies type of element ("R", "L", "C", "Z", "Y", "I", "V", "OpAmp", "IdelalT", "InductiveT", "VCVS", "VCCS", "CCCS", "CCVS")\
 *label* - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")\
 *a* - positive terminal\
 *b* - negative terminal\
