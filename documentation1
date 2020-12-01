@@ -29,10 +29,6 @@ source code end sell it if you want to. SymPy uses Python as its language. This 
 know Python, it is much easier to get started with SymPy (because you already knows the syntax). 
 And if you don't know Python, it is really easy to learn. 
 
-Here is already two important differences between SymPy and other computer algebra systems: 
-* SymPy is free, while others can cost hundreds of dollars in licenses
-* SymPy uses Python, while most CAS invent their own language
-
 Third advantage of SymPy is that it is lightweight program. It has no dependencies other than Python,
 so it can be used almost anywhere easily. 
 And finally, it can be used as a library. You can just import it in your own Python application.
