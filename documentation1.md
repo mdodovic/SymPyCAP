@@ -52,16 +52,16 @@ All quantities are in the International System of Units (SI).
 The input of this program (the circuit to be analyzed) is specified as a list of circuit elements (list
  of lists):
  
-   `*[list_1, list_2, list_3, ... list_N]*`
+   `[list_1, list_2, list_3, ... list_N]`
 
 A circuit element (list_I) is specified as a list:
 
 * for one-port element:\
-           `*[type, label, a, b]* `
+           `[type, label, a, b] `
      
-* for two-port element:<br/>
-     `*[type, label, [a1,a2], [b1,b2], p]*`\
-     `*[type, label, [a1,a2], b]*` (b = b1 when b2 is ground node)
+* for two-port element:\
+     `[type, label, [a1,a2], [b1,b2], p]`\
+     `[type, label, [a1,a2], b]*` (b = b1 when b2 is ground node)
                         
 
 *type* - string that specifies type of element ("R", "L", "C", "Z", "Y", "I", "V", "OpAmp", "IdelalT", "InductiveT", "VCVS", "VCCS", "CCCS", "CCVS")\
@@ -80,21 +80,27 @@ A circuit element (list_I) is specified as a list:
      
 * <ins> **Capacitor** </ins>\
      `["C", "ID", plusTermi, minusTerm, "U0"]`\
-     -U0 is initial condition, initial voltage at 0 - minus ( U0 = V[plusTerm] - V[minusTerm] )\
+     -U0 is initial condition, initial voltage at 0 - minus ( U0 = V [plusTerm] - V [minusTerm] )\
      `["C", "ID", plusTermi, minusTerm]`\
-     U0 is here 0, by default
+     U0 is here 0, by default (for time domain)
 
 * <ins> **Inductor** </ins>\
      `["L", "ID", plusTerm, minusTerm, "I0"]`\
      -I0 is initial condition, initial current at 0 - minus (from plusTerm, across the element, to minusTerm)\
      `["L", "ID", plusTerm, minusTerm]`\
-     -I0 is here 0, by default
+     -I0 is here 0, by default (for time domain)
+     
+* <ins> **Impedance** </ins>\ 
+     `["Z", "ID", plusTerm, minusTerm]`
+
+* <ins> **Admitance** </ins>\
+     `["Y", "ID", plusTerm, minusTerm]`
 
 * <ins> **Current source - ideal current generator** </ins>\
      `["I", "ID", plusTerm, minusTerm]` (from plusTerm, across the element, to minusTerm)     
 
 * <ins> **Voltage source - ideal voltage generator** </ins>\
-     `["V", "ID", plusTerm, minusTerm]` (voltage = V[plusTerm] - V[minusTerm])
+     `["V", "ID", plusTerm, minusTerm]` ( V = V [plusTerm] - V [minusTerm] )
 
 #### Two-port elements: 
 
@@ -120,4 +126,4 @@ A circuit element (list_I) is specified as a list:
 system = Solution(elements)
 solution = system.symPyCAP()
 ```
-
+....
