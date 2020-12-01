@@ -1,4 +1,4 @@
-///////  Author  ///////
+#  Author  #
 
 Katarina Stanković
 Nikola Ilić
@@ -9,7 +9,7 @@ prof. dr Milka M. Potrebić
 
 University of Belgrade - School of Electrical Engineering
 
-/////// License  ///////
+## License  ##
 
 Creative Commons
 
