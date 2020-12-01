@@ -90,17 +90,19 @@ A circuit element (list_I) is specified as a list:
      `["L", "ID", plusTerm, minusTerm]`\
      -I0 is here 0, by default (for time domain)
      
-* <ins> **Impedance** </ins>\ 
+* <ins> **Impedance** </ins>\
      `["Z", "ID", plusTerm, minusTerm]`
 
 * <ins> **Admitance** </ins>\
      `["Y", "ID", plusTerm, minusTerm]`
 
 * <ins> **Current source - ideal current generator** </ins>\
-     `["I", "ID", plusTerm, minusTerm]` (from plusTerm, across the element, to minusTerm)     
+     `["I", "ID", plusTerm, minusTerm]`\
+      (from plusTerm, across the element, to minusTerm)     
 
 * <ins> **Voltage source - ideal voltage generator** </ins>\
-     `["V", "ID", plusTerm, minusTerm]` ( V = V [plusTerm] - V [minusTerm] )
+     `["V", "ID", plusTerm, minusTerm]`\
+      ( V = V [plusTerm] - V [minusTerm] )
 
 #### Two-port elements: 
 
@@ -110,16 +112,26 @@ A circuit element (list_I) is specified as a list:
 #### Controlled Sources: 
 
 * <ins> **VCVS** </ins>\
-     `["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"]`
+     `["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"]`\
+     -I["ID"] is current into plusControlledTerm
 
 * <ins> **VCCS** </ins>\
     `["VCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "transconductance"]`
 
 * <ins> **CCCS** </ins>\
-     `["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]`
+     `["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]`\
+     -I["ID"] is current into plusControllingTerm
 
 * <ins> **CCVS** </ins>\
      `["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"]`
+     
+#### Transformers:
+
+* <ins> **Ideal Transformer** </ins>\
+     `["IT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], turnsRatio]`
+
+* <ins> **Inductive Transformer** </ins>\
+     `["K", "id", [plusPrimaryTerminal, minusPrimaryTerminal], [plusSecondaryTerminal, minusSecondaryTerminal], [L1,L2,L12], [Io1,Io2]]`
 
 ## Calling SymPyCAP  
 ```
