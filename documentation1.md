@@ -41,8 +41,8 @@ so it can be used almost anywhere easily.
 
 #### Nodes:
 
-* Refference node --- one node, labeled by zero, 0 (default node).
-* Other nodes --- labeled by consecutive integers, starting from one (1).
+* Refference node - one node, labeled by zero, 0 (default node).
+* Other nodes - labeled by consecutive integers, starting from one, 1.
 
 
 SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.
