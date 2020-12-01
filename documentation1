@@ -37,6 +37,12 @@ And finally, it can be used as a library. You can just import it in your own Pyt
 
 ////// Algorithm //////
 
+Nodes:
+
+* Refference node - one node, labeled by zero, 0 (default node).
+* Other nodes - labeled by consecutive integers, starting from one, 1.
+
+
 SymPyCAP uses MNA (Modified Nodal Analysis) to formulate 
 equations.
 
@@ -104,12 +110,14 @@ Operational Amplifier - Ideal OpAmp
 
 VCVS
 ["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"],
+-I["ID"] is current into plusControlledTerm
 
 VCCS    
 ["VCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "transconductance"],
 
 CCCS
 ["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]
+-I["ID"] is current into plusControllingTerm
 
 CCVS
 ["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"],
