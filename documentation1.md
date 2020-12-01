@@ -13,39 +13,35 @@ University of Belgrade - School of Electrical Engineering
 
 Creative Commons
 
-//// Acknowledgment ////
+## Acknowledgment ##
 
 We thank prof Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
 
-//// About SymPyCAP ////
+## About SymPyCAP ##
 
 SymPyCAP is program for solving linear, time-invariant electric circuits. This program is Python-based 
 (It's written entirely in Python) and uses SymPy, a Python library for symbolic mathematics.
 
-///// Why SymPy?  /////
+## Why SymPy?  ##
 
-SymPy is completely free, open source and licensed under the BSD license. So, you can modify the 
-source code end sell it if you want to. SymPy uses Python as its language. This means that if you
+* SymPy is completely free, open source and licensed under the BSD license. So, you can modify the 
+source code end sell it if you want to.
+* SymPy uses Python as its language. This means that if you
 know Python, it is much easier to get started with SymPy (because you already knows the syntax). 
 And if you don't know Python, it is really easy to learn. 
-
-Here is already two important differences between SymPy and other computer algebra systems: 
-* SymPy is free, while others can cost hundreds of dollars in licenses
-* SymPy uses Python, while most CAS invent their own language
-
-Third advantage of SymPy is that it is lightweight program. It has no dependencies other than Python,
+* Third advantage of SymPy is that it is lightweight program. It has no dependencies other than Python,
 so it can be used almost anywhere easily. 
-And finally, it can be used as a library. You can just import it in your own Python application.
+* And finally, it can be used as a library. You can just import it in your own Python application.
 
-////// Algorithm //////
+## Algorithm ##
 
 (MNA??)
 
-//////   Units   //////
+##   Units   ##
 
 All quantities are in the International System of Units (SI).
 
-// Electric Circuit  //
+## Electric Circuit  ##
 
 The input of this program (the circuit to be analyzed) is specified as a list of circuit elements (list
  of lists):
@@ -66,34 +62,34 @@ a2 - negative terminal of the 1st port
 b1 - positive terminal of the 2nd port
 b2 - negative terminal of the 2nd port
  
-/// One-port elements ///
+### One-port elements ###
 
-Resistor 
+* Resistor 
 ["R", "ID", plusTerm, minusTerm]
 
-Voltage source - ideal voltage generator
+* Voltage source - ideal voltage generator
 ["V", "ID", plusTerm, minusTerm]
 
-/// Two-port elements ///
+### Two-port elements ###
 
-Operational Amplifier - Ideal OpAmp
+* Operational Amplifier - Ideal OpAmp
 ["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]
 
-/// Controlled Sources ///
+### Controlled Sources ###
 
-VCVS
+* VCVS
 ["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"],
 
-VCCS    
+* VCCS    
 ["VCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "transconductance"],
 
-CCCS
+* CCCS
 ["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]
 
-CCVS
+* CCVS
 ["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"],
 
-/// Calling SymPyCAP  ///
+## Calling SymPyCAP  ##
 
 system = Solution(elements)
 solution = system.symPyCAP()
