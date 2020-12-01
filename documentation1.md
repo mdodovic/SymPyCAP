@@ -48,16 +48,16 @@ All quantities are in the International System of Units (SI).
 The input of this program (the circuit to be analyzed) is specified as a list of circuit elements (list
  of lists):
  
-   *[list_1, list_2, list_3, ... list_N]*
+   `*[list_1, list_2, list_3, ... list_N]*`
 
 A circuit element (list_I) is specified as a list:
 
 * for one-port element:\
-           *[type, label, a, b]* 
+           `*[type, label, a, b]* `
      
 * for two-port element:\ 
-     *[type, label, [a1,a2], [b1,b2], p]*\
-     *[type, label, [a1,a2], b]* (b = b1 when b2 is ground node)
+     `*[type, label, [a1,a2], [b1,b2], p]*`\
+     `*[type, label, [a1,a2], b]*` (b = b1 when b2 is ground node)
                         
 
 *type* - string that specifies type of element ("R", "V", "OpAmp")\
@@ -72,29 +72,29 @@ A circuit element (list_I) is specified as a list:
 #### One-port elements: 
 
 * <ins> **Resistor** </ins>\
-     ["R", "ID", plusTerm, minusTerm]
+     `["R", "ID", plusTerm, minusTerm]`
 
 * <ins> **Voltage source - ideal voltage generator** </ins>\
-     ["V", "ID", plusTerm, minusTerm]
+     `["V", "ID", plusTerm, minusTerm]`
 
 #### Two-port elements: 
 
 * <ins> **Operational Amplifier - Ideal OpAmp** </ins>\
-     ["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]
+     `["OpAmp", "ID", [nonInvertingTerm, invertingTerm], 2ndTerm]`
 
 #### Controlled Sources: 
 
 * <ins> **VCVS** </ins>\
-     ["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"],
+     `["VCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "voltageGain"]`
 
 * <ins> **VCCS** </ins>\
-     ["VCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "transconductance"],
+    `["VCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm], "transconductance"]`
 
 * <ins> **CCCS** </ins>\
-     ["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]
+     `["CCCS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"currentGain"]`
 
 * <ins> **CCVS** </ins>\
-     ["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"],
+     `["CCVS","ID",[plusControllingTerm, minusControllingTerm],[plusControlledTerm, minusControlledTerm],"transresistance"]`
 
 ## Calling SymPyCAP  
 ```
