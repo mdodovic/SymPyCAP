@@ -45,21 +45,30 @@ All quantities are in the International System of Units (SI).
 
 The input of this program (the circuit to be analyzed) is specified as a list of circuit elements (list
  of lists):
+ 
 [list_1, list_2, list_3, ... list_N]
 
 A circuit element (list_I) is specified as a list:
+
 * for one-port element: [type, label, a, b] 
 * for two-port element: [type, label, [a1,a2], [b1,b2], p]
                         [type, label, [a1,a2], b] (b = b1 when b2 is ground node)
                         
 
 type - string that specifies type of element ("R", "V", "OpAmp")
+
 label - string that identifies circuit element ("R1", "R2", "Ug", "OpAmp1")
+
 a - positive terminal
+
 b - negative terminal
+
 a1 - positive terminal of the 1st port
+
 a2 - negative terminal of the 1st port
+
 b1 - positive terminal of the 2nd port
+
 b2 - negative terminal of the 2nd port
  
 #### One-port elements: 
@@ -99,5 +108,6 @@ b2 - negative terminal of the 2nd port
 ## Calling SymPyCAP  
 
 system = Solution(elements)
+
 solution = system.symPyCAP()
 
