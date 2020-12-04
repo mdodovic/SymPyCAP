@@ -218,11 +218,11 @@ for sol in solution:`
 
 ## References
 
-1) SymPy - https://www.sympy.org/en/index.html
+**1)** SymPy - https://www.sympy.org/en/index.html
 
-2) SymPy (Wikipedia) - https://en.wikipedia.org/wiki/SymPy
+**2)** SymPy (Wikipedia) - https://en.wikipedia.org/wiki/SymPy
 
-3) Electric circuit elements - https://www.electronicshub.org/basic-electrical-circuits-componentstypes
+**3)** Electric circuit elements - https://www.electronicshub.org/basic-electrical-circuits-componentstypes
 
 
 
