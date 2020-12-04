@@ -186,8 +186,12 @@ It can be replaced with:\
 **1)** `print(solution)` - this function returns the solution in the following form:\
 *{ variable1: solution(variable1), variable2: solution(variable2)... }*
 
-**2)** `for sol in solution:`\
-           `print(sol,":",solution[str(sol)])` -solution in form:\
+**2)** ```
+for sol in solution:`\
+           `print(sol,":",solution[str(sol)])
+           ```
+           
+   -solution in form:\
            variable1: solution(variable1)\
            variable2: solution(variable2)\
                       ...
