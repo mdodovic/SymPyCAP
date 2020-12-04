@@ -154,8 +154,34 @@ A circuit element (list_I) is specified as a list:
 
 
 ## Calling SymPyCAP  
+
+* <ins> **For time-invariant analysis:** </ins>
 ```
 system = Solution(elements)
 solution = system.symPyCAP()
 ```
+-*elements* - arbitrary name for list of circuit elements (it can be any other word..)\
+-*system* - instance of class Solution (main class of the program)\
+-`symPyCAP()` - this method initializes V (to Vi), user defined symbols, creates MNA equations, for every element in circuit, solves linear system of equations by variables, checks validity of every element and returns the solution\
+-also, it can read replacement list for user symbols,  for example:\
+ -> `solution = system.symPyCAP(replacement = ["R1=R", "R2=R"])`\
+ -> `solution = system.symPyCAP(r = ["R1=R", "R2=R"])`\
+ 
+ * <ins> **For time-variant analysis:** </ins>
+```
+system = Solution(elements)
+solution = system.symPyCAP("W")
+```
+-*"W"* - complex frequency.\
+It can be replaced with:\
+  -> " "  `solution = system.symPyCAP()`\ 
+  this means that frequency is not specified - by default, it will be marked as "s" in the solution\
+  -> w = "W"   `solution = system.symPyCAP( w = "W")`\
+  -> omega = "W"  `solution = system.symPyCAP( omega = "W")`\
+-in this version, also, method can read replacement list, for example:\
+- `solution = system.symPyCAP( w= "W", replacement = ["R1=R", "R2=R"])` etc.
+
+* <ins> **Outpututs** </ins>
+
+  
 ....
