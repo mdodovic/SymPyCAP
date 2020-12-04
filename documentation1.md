@@ -186,16 +186,38 @@ It can be replaced with:\
 **1)** `print(solution)` - this function returns the solution in the following form:\
 *{ variable1: solution(variable1), variable2: solution(variable2)... }*
 
-**2)** ```
-for sol in solution:`\
+**2)** 
+```
+for sol in solution:`
            `print(sol,":",solution[str(sol)])
-           ```
+```
            
    -solution in form:\
-           variable1: solution(variable1)\
-           variable2: solution(variable2)\
-                      ...
+           *variable1: solution(variable1)*\
+           *variable2: solution(variable2)*\
+           ...
 
-**3)**
+**3)** `print(solution['Vi']) ` - solution for a single node (Vi):\
+*solution(Vi)*
+
+**4)** `system.electric_circuit_specifications()` - this function returns:\
+*Circuit specifications:*\
+*Number of nodes: N*\
+*Input elements: list of elements*\
+*Replacement rule:  {}*\
+*Equations:  []*\
+*Variables:  []*
+
+**5)** `system.print_solutions()` - returns exactly like 2):\
+*variable1: solution(variable1)*
+*variable2: solution(variable2)*
+...
+
+**6)** `system.print_specific_solutions()` - - returns the solution in the same form as 5) and 2), <ins> but with applied replacement rules (R1=R, C2=C,...) </ins>
+ 
+
+
+
+
 
 ....
