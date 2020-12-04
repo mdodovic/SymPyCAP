@@ -209,15 +209,20 @@ for sol in solution:`
 *Variables:  []*
 
 **5)** `system.print_solutions()` - returns exactly like 2):\
-*variable1: solution(variable1)*
-*variable2: solution(variable2)*
+*variable1: solution(variable1)*\
+*variable2: solution(variable2)*\
 ...
 
 **6)** `system.print_specific_solutions()` - - returns the solution in the same form as 5) and 2), <ins> but with applied replacement rules (R1=R, C2=C,...) </ins>
  
 
+## References
+
+1) SymPy - https://www.sympy.org/en/index.html
+
+2) SymPy (Wikipedia) - https://en.wikipedia.org/wiki/SymPy
+
+3) Electric circuit elements - https://www.electronicshub.org/basic-electrical-circuits-componentstypes
 
 
 
-
-....
