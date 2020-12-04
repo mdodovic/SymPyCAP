@@ -176,7 +176,7 @@ It can be replaced with:
 __________________
 1) print(solution)  
 __________________
-- this function gives back the solution in next form: { variable1: solution(variable1), variable2: solution(variable2)... }
+- this function returns the solution in the following form: { variable1: solution(variable1), variable2: solution(variable2)... }
 
 ______________________________________
 2) for sol in solution:
@@ -186,6 +186,40 @@ ______________________________________
                    variable2: solution(variable2)
                    ...
                    
-_____________________                  
-3) 
+________________________                
+3) print(solution['Vi']) 
+________________________
+- solution for a single node (Vi): solution(Vi)
+
+__________________________________________
+4) system.electric_circuit_specifications()
+__________________________________________
+-this function returns:  Circuit specifications: 
+                         Number of nodes: N
+                         Input elements: list of elements
+                         Replacement rule:  {}
+                         Equations:  []
+                         Variables:  []
+                            
+___________________________                           
+5) system.print_solutions()
+___________________________
+- returns exactly like 2): variable1: solution(variable1)
+                           variable2: solution(variable2)
+                           ...
+
+____________________________________
+6) system.print_specific_solutions()
+____________________________________
+- returns the solution in the same form as 5) and 2), but with applied replacement rules (R1=R, C2=C,...)
+
+////// References //////
+
+1)SymPy - https://www.sympy.org/en/index.html
+
+2)SymPy (Wikipedia) - https://en.wikipedia.org/wiki/SymPy
+
+3)Electric circuit elements - https://www.electronicshub.org/basic-electrical-circuits-componentstypes
+
+
 
