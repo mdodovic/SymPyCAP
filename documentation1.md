@@ -179,21 +179,17 @@ It can be replaced with:\
   -> w = "W"   `solution = system.symPyCAP( w = "W")`\
   -> omega = "W"  `solution = system.symPyCAP( omega = "W")`\
 -in this version, also, method can read replacement list, for example:\
-- `solution = system.symPyCAP( w= "W", replacement = ["R1=R", "R2=R"])` etc.
+ `solution = system.symPyCAP( w= "W", replacement = ["R1=R", "R2=R"])` etc.
 
 * <ins> **Outputs** </ins>
 
 **1)** `print(solution)` - this function returns the solution in the following form:\
 *{ variable1: solution(variable1), variable2: solution(variable2)... }*
 
-**2)**
-```
-       for sol in solution:
-           print(sol,":",solution[str(sol)])
-```     
-          
-   -solution in form: variable1: solution(variable1)\
-                      variable2: solution(variable2)\
+**2)** `for sol in solution:`\
+           `print(sol,":",solution[str(sol)])` -solution in form:\
+           variable1: solution(variable1)\
+           variable2: solution(variable2)\
                       ...
 
 **3)**
