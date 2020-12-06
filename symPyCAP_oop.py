@@ -415,7 +415,7 @@ class Solution(object):
         print("Equations: ", self.equations)
         print("Variables: ", self.variables)
         if self.time_domain == True:
-            print("Frequency: ", self.s)
+            print("Frequency: ", (-self.s * j))
         print()
 
     def print_solutions(self):
