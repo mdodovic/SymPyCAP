@@ -44,7 +44,7 @@ so it can be used almost anywhere easily.
 * Reference node - one node, labeled by zero, 0 (default node). The node voltage of this node (reference node) is set to zero, 0.
 * Other nodes - labeled by consecutive integers, starting from one, 1.
 
-#### The Kirchoff’s current law equations
+#### The Kirchhoff’s current law equations
 
 * SymPyCAP formulates the KCL equations for all nodes, except reference node (for *other nodes*).
 * The currents are expressed in terms of node voltages.
