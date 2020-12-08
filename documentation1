@@ -146,6 +146,78 @@ Inductive Transformer
 
 /// Calling SymPyCAP  ///
 
+--- For time-invariant analysis:
+____________________________
 system = Solution(elements)
 solution = system.symPyCAP()
+____________________________
+-elements - arbitrary name for list of circuit elements (it can be any other word..)
+-system - instance of class Solution (main class of the program)
+-symPyCAP() - this method initializes V (to Vi), user defined symbols, creates MNA equations, for every element in circuit, solves linear system of equations by variables, checks validity of every element and returns the solution
+-also, it can read replacement list for user symbols,  for example:
+ - solution = system.symPyCAP(replacement = ["R1=R", "R2=R"])
+ - solution = system.symPyCAP(r = ["R1=R", "R2=R"])
+ 
+ --- For time-variant analysis: 
+_______________________________
+system = Solution(elements)
+solution = system.symPyCAP("W")
+_______________________________
+-"W" - complex frequency.
+It can be replaced with:
+  -> " "  - solution = system.symPyCAP()
+  this means that frequency is not specified - by default, it will be marked as "s" in the solution
+  -> w = "W"  - solution = system.symPyCAP( w = "W")
+  -> omega = "W"  solution = system.symPyCAP( omega = "W")
+-in this version, also, method can read replacement list, for example:
+- solution = system.symPyCAP( w= "W", replacement = ["R1=R", "R2=R"]) etc.
+
+--- Outputs:
+__________________
+1) print(solution)  
+__________________
+- this function returns the solution in the following form: { variable1: solution(variable1), variable2: solution(variable2)... }
+
+______________________________________
+2) for sol in solution:
+     print(sol,":",solution[str(sol)])
+______________________________________
+-solution in form: variable1: solution(variable1)
+                   variable2: solution(variable2)
+                   ...
+                   
+________________________                
+3) print(solution['Vi']) 
+________________________
+- solution for a single node (Vi): solution(Vi)
+
+__________________________________________
+4) system.electric_circuit_specifications()
+__________________________________________
+-this function returns:  Circuit specifications: 
+                         Number of nodes: N
+                         Input elements: list of elements
+                         Replacement rule:  {}
+                         Equations:  []
+                         Variables:  []
+                            
+___________________________                           
+5) system.print_solutions()
+___________________________
+- returns exactly like 2): variable1: solution(variable1)
+                           variable2: solution(variable2)
+                           ...
+
+____________________________________
+6) system.print_specific_solutions()
+____________________________________
+- returns the solution in the same form as 5) and 2), but with applied replacement rules (R1=R, C2=C,...)
+
+////// References //////
+
+1)SymPy - https://www.sympy.org/en/index.html
+
+2)SymPy (Wikipedia) - https://en.wikipedia.org/wiki/SymPy
+
+3)Electric circuit elements - https://www.electronicshub.org/basic-electrical-circuits-componentstypes
 
