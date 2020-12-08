@@ -24,7 +24,8 @@ We thank Prof. Dr Dejan V. Tošić for recommending this software project to us 
 ## About SymPyCAP 
 
 SymPyCAP is program for solving linear, time-invariant electric circuits. This program is Python-based 
-(It's written entirely in Python) and uses SymPy, a Python library for symbolic mathematics.
+(It's written entirely in Python) and uses SymPy, a Python library for symbolic mathematics.\
+SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.  $$E_0=mc^2$$.
 
 ## Why SymPy?  
 
@@ -52,15 +53,11 @@ so it can be used almost anywhere easily.
 
 #### Modified Nodal Analysis
 
-SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.\
 <ins> *MNA variables:* </ins> node voltages and currents which cannot be expressed in terms of node voltages.
 * Node voltages are labeled by V1, V2, V3...
 * V0 = 0 by default
 * Currents are labeled by I"ID" ("ID" specifies a circuit element).
 
-##   Units   
- 
-All quantities are in the International System of Units (SI).
 
 ## Electric Circuit  
 
@@ -72,15 +69,15 @@ The input of this program (the circuit to be analyzed) is specified as a list of
 A circuit element (list_I) is specified as a list:
 
 * for one-port element:\
-           `[type, label, a, b] `\
-           `[type, label, a, b, IC]`\
+           `[type, ID, a, b] `\
+           `[type, ID, a, b, IC]`\
 * for two-port element:\
-     `[type, label, [a1,a2], [b1,b2], p]`\
-     `[type, label, [a1,a2], b]*` (b = b1 when b2 is ground node)
+     `[type, ID, [a1, a2], [b1, b2], p]`\
+     `[type, ID, [a1, a2], b]*` (b = b1 when b2 is ground node)
                         
 
 *type* - string that specifies type of element ("R", "L", "C", "Z", "Y", "I", "V", "OpAmp", "IdelalT", "InductiveT", "VCVS", "VCCS", "CCCS", "CCVS")\
-*label* - string that identifies circuit element ("R1", "L1", "C1", "Ug", "OpAmp1", "I1", "VCVS1", etc.)\
+*ID* - string that identifies circuit element ("R1", "L1", "C1", "Ug", "OpAmp1", "I1", "VCVS1", etc.)\
 *a* - positive terminal\
 *b* - negative terminal\
 *IC* - initial conditions at 0 - minus\
@@ -96,9 +93,8 @@ A circuit element (list_I) is specified as a list:
      `["R", "ID", plusTerm, minusTerm]`
      
 * <ins> **Capacitor** </ins>\
-     `["C", "ID", plusTermi, minusTerm, "U0"]`\
-     -U0 is initial condition, initial voltage at 0 - minus ( U0 = V [plusTerm] - V [minusTerm] )\
-     `["C", "ID", plusTermi, minusTerm]`\
+     `["C", "ID", plusTerm, minusTerm, "U0"]`\
+     `["C", "ID", plusTerm, minusTerm]`\
      U0 is here 0, by default (for time domain)
 
 * <ins> **Inductor** </ins>\
