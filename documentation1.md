@@ -34,9 +34,9 @@ source code end sell it if you want to.
 * SymPy uses Python as its language. This means that if you
 know Python, it is much easier to get started with SymPy (because you already knows the syntax). 
 And if you don't know Python, it is really easy to learn. 
-* *3*^rd^ advantage of SymPy is that it is lightweight program. It has no dependencies other than Python,
+* $3^2$ advantage of SymPy is that it is lightweight program. It has no dependencies other than Python,
 so it can be used almost anywhere easily. 
-* And finally, it can be used as a library. You can just import it in your own Python application.
+* And finally, it can be used as a library. You can just import it in your own Python application.\
 
 ## Algorithm 
 
