@@ -25,7 +25,7 @@ We thank Prof. Dr Dejan V. Tošić for recommending this software project to us 
 
 SymPyCAP is program for solving linear, time-invariant electric circuits. This program is Python-based 
 (It's written entirely in Python) and uses SymPy, a Python library for symbolic mathematics.\
-SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.  $$E_0=mc^2$$.
+SymPyCAP uses MNA (Modified Nodal Analysis) to formulate ande solve equations.
 
 ## Why SymPy?  
 
@@ -34,7 +34,7 @@ source code end sell it if you want to.
 * SymPy uses Python as its language. This means that if you
 know Python, it is much easier to get started with SymPy (because you already knows the syntax). 
 And if you don't know Python, it is really easy to learn. 
-* Third advantage of SymPy is that it is lightweight program. It has no dependencies other than Python,
+* *3*^rd^ advantage of SymPy is that it is lightweight program. It has no dependencies other than Python,
 so it can be used almost anywhere easily. 
 * And finally, it can be used as a library. You can just import it in your own Python application.
 
