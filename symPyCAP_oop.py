@@ -446,7 +446,7 @@ class Solution(object):
         print("Replacement rule: ",self.replacement_rule)
         print("Equations: ", self.equations)
         print("Variables: ", self.variables)
-        if self.time_domain == True:
+if self.time_domain == True:
             print("Frequency: ", (-self.s * j))
         print()
 
