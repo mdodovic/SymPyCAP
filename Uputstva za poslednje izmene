@@ -1,0 +1,35 @@
+- Rezervisani nazivi, slova:
+	- nijedan id ne sme imati naziv Vi, gde i ide od 1 do max broja cvora
+	- u w/replacement ne treba nigde da bude s i I (vrv radi, samo ce vec figurisati)
+- Jedinstvenost mora biti zadovoljena gde? Tamo gde su dictionaries!
+	- svaki id elementa (for element in element_list: element[1])
+- unos: korisnik da deklarise simbole i da ih prosledi (npr. sa dict za r) -> obavezna
+proba sa 2*R i 3*R odjednom -> lepo se racuna u 6
+- naci onaj primer sa vezbi sa nekakvim kalemovima u kome moras ispocetka da 
+pises jednacine ako je nesto nula (u zavisnosti od resenja koji se vrati, treba 
+napomenuti u docs sta to znaci i da je to posledica ciste zamene u opste resenje)
+NISAM URADILA
+-treba napomenuti u docs da moze a i ne mora da se pise nesto = sympycap..
+jer postoji zaseban ispis, moze se samo pozvati metoda, ne dodeliti je
+
+Konstruktor:
+- dodaj spisak kako se pise koji element, oblike one
+- dictionaries su: self.element_symbols, self.solutions, self.replacement_rule, 
+self.evaluated_solutions
+
+symPyCAP:
+- da li pored omega/w i r/replacement moze da bude jos nesto?
+- tipovi za to njih?? string za w? Preporuka: izbaciti opciju da bude string
+
+
+Izmene u kodu: 
+- dodat docstring za __init__
+- dodat docstring za __number_of_nodes
+- promenjen __make_replacement_rule
+- dodat docstring za sympycap nedovrsen
+- za time (in)variant analysis dodat za omegu ako nije string vec simbol -> preporuka
+- u returning solution, izvucen self.__replace_by_rule() i return self.solutions kao 
+zajednicko
+- u prints skroz dole ispravljen engleski
+
+-input fajl takodje izmenjen zbog testova
