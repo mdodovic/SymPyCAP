@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 23 00:24:14 2020
-
 @authors: 
     Katarina Stanković (sk180183d@student.etf.bg.ac.rs)
     Matija Dodović (dm180072d@student.etf.bg.ac.rs)
@@ -9,8 +8,20 @@ Created on Mon Nov 23 00:24:14 2020
 import sympy
 from sympy import I as j
 
-class Solution(object):
+class Solution(object):    
     def __init__(self, element_list):
+        """
+        
+        Parameters
+        ----------
+        element_list : list
+            list of all electric circuit elements defined in the documentation
+            /* LINK */
+        Returns
+        -------
+        None.
+
+        """
         self.element_list = element_list
         self.number_of_nodes = self.__number_of_nodes()
         self.node_currents = [] # J
@@ -35,13 +46,8 @@ class Solution(object):
         self.node_potentials[0] = 0 # potential of node 0 is equal to 0
         
     def __number_of_nodes(self):
-        """
-        Return number of nodes of given electric circuit
-        """
         nodes = {0} # ground node is always necessary
-        for element in self.element_list:    
-            # print(element)
-            
+        for element in self.element_list:                
             if isinstance(element[2], list):
                 nodes.add(element[2][0])
                 nodes.add(element[2][1])
@@ -327,8 +333,10 @@ class Solution(object):
         self.solutions = {} 
         self.replacement_rule = {} 
 
-    def __make_replacement_rule(self, list_of_rules):
-        self.replacement_rule = {rule.split("=")[0] : int(rule.split("=")[1]) if rule.split("=")[1].isdigit() else sympy.Symbol(rule.split("=")[1]) for rule in list_of_rules }
+    # def __make_replacement_rule(self, list_of_rules):
+    #     self.replacement_rule = {rule.split("=")[0] : int(rule.split("=")[1]) if rule.split("=")[1].isdigit() else sympy.Symbol(rule.split("=")[1]) for rule in list_of_rules }
+    def __make_replacement_rule(self, list_of_rules):  
+        self.replacement_rule = list_of_rules
         
     def __replace_by_rule(self):
         if self.replacement_rule != {}:
@@ -339,11 +347,28 @@ class Solution(object):
                     self.evaluated_solutions[unknown] = solution.subs(elem, val, simultaneous = True)
             
     def symPyCAP(self, **kwargs):
+        
+        """
+
+        Parameters
+        ----------
+        Possible keyworded arguments are:
+            w -- symbol/symbolic expression of frequency for time invariant analysis
+            omega -- another name for w
+            r -- dictionary of replacements in the form: {..., "id" : symbolic_value, ...}
+            replacement -- another name for r
+
+        Returns
+        -------
+        dictionary
+            Keys are potentials and specific currents, values are solutions 
+
+        """
 
         #------------- Empty all reused elements ------------------------------
         omega = ""
         self.__reinitialization()
-
+        
         #------------- Reading values for omega and replacement list ----------
         for arg in kwargs:
             if arg == "w" or arg == "omega":
@@ -357,7 +382,10 @@ class Solution(object):
             self.s = sympy.Symbol('s')
         else:
             self.time_domain = True
-            self.s = j*sympy.Symbol(omega)
+            if  isinstance(omega, str):
+                self.s = j*sympy.Symbol(omega)
+            else:
+                self.s = j*(omega)
             
         #------------ Init of J = {0} and V to symbols Vi ---------------------
         self.__node_currents_init()
@@ -373,7 +401,7 @@ class Solution(object):
         #------------- Check validity of every element: TRY-CATCH-FINALLY -----
         for validation in result:
             if not validation:
-                print("Unknown element:",self.element_list[result.index(validation)][0])
+                print("Unknown element:", self.element_list[result.index(validation)][0])
                 return[]
                 
         #------------- Solving linear system of equations by variables --------
@@ -390,22 +418,17 @@ class Solution(object):
     
             self.variables = [str(variable) for variable in self.variables]
             self.solutions = dict(zip(self.variables, next(iter(solutions)))) 
-            
-            self.__replace_by_rule()
-
-            return self.solutions
     
         else:
             #------------- System is complex, use most general solver ---------
             solutions = sympy.solve(self.equations, self.variables)            
             self.solutions = {str(var): sol for var, sol in solutions.items()}
 
-            self.__replace_by_rule()
+        self.__replace_by_rule()
 
-            return self.solutions
+        return self.solutions
         
     def electric_circuit_specifications(self):
-        
         print("Circuit specifications: ")
         print("Number of nodes: " + str(self.number_of_nodes))
         print("Input elements:")
@@ -418,19 +441,19 @@ class Solution(object):
             print("Frequency: ", (-self.s * j))
         print()
 
-    def print_solutions(self):
+    def print_solutions(self):      
         if self.solutions == {}:
-            print("solutions doesn't computed yet!")
+            print("Solutions aren't computed yet!")
         else:
             for sol in self.solutions:
                 print(sol,":",sympy.simplify(self.solutions[str(sol)]),"\n")
     
     def print_specific_solutions(self):
         if self.solutions == {}:
-            print("solutions doesn't computed yet!")
+            print("Solutions aren't computed yet!")
         else:
             if self.evaluated_solutions == {}:
-                print("Neither replacement rule forwarded!")
+                print("A replacement rule hasn't been forwarded!")
             else:
                 for sol in self.evaluated_solutions:
                     print(sol,":",sympy.simplify(self.evaluated_solutions[str(sol)]),"\n")
