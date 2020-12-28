@@ -15,8 +15,8 @@ class Solution(object):
         Parameters
         ----------
         element_list : list
-            list of all electric circuit elements defined in the following form:
-                SPISAK IZ DOKUMENTACIJE?????????????????????????????????????????
+            list of all electric circuit elements defined in the documentation
+            /* LINK */
         Returns
         -------
         None.
@@ -46,15 +46,6 @@ class Solution(object):
         self.node_potentials[0] = 0 # potential of node 0 is equal to 0
         
     def __number_of_nodes(self):
-        """
-        
-        Returns
-        -------
-        integer
-            Number of nodes of electric circuit.
-
-        """
-        
         nodes = {0} # ground node is always necessary
         for element in self.element_list:                
             if isinstance(element[2], list):
@@ -356,14 +347,15 @@ class Solution(object):
                     self.evaluated_solutions[unknown] = solution.subs(elem, val, simultaneous = True)
             
     def symPyCAP(self, **kwargs):
+        
         """
 
         Parameters
         ----------
         Possible keyworded arguments are:
-            w -- ????????????????? 
+            w -- symbol/symbolic expression of frequency for time invariant analysis
             omega -- another name for w
-            r -- list of replacements in the form: ?????????????????????
+            r -- dictionary of replacements in the form: {..., "id" : symbolic_value, ...}
             replacement -- another name for r
 
         Returns
@@ -437,7 +429,6 @@ class Solution(object):
         return self.solutions
         
     def electric_circuit_specifications(self):
-        
         print("Circuit specifications: ")
         print("Number of nodes: " + str(self.number_of_nodes))
         print("Input elements:")
@@ -446,11 +437,11 @@ class Solution(object):
         print("Replacement rule: ",self.replacement_rule)
         print("Equations: ", self.equations)
         print("Variables: ", self.variables)
-if self.time_domain == True:
+        if self.time_domain == True:
             print("Frequency: ", (-self.s * j))
         print()
 
-    def print_solutions(self):
+    def print_solutions(self):      
         if self.solutions == {}:
             print("Solutions aren't computed yet!")
         else:
