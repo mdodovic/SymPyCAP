@@ -8,7 +8,7 @@ Created on Mon Nov 23 00:24:14 2020
 import sympy
 from sympy import I as j
 import math
-
+from sympy.functions import exp
 class Solution(object):    
     def __init__(self, element_list):
         """
@@ -37,6 +37,8 @@ class Solution(object):
         self.solutions = {}       
         self.replacement_rule = {}
         self.evaluated_solutions = {}
+        
+        self.correct_solution_flag = True
         
     def __node_currents_init(self):
         self.node_currents = [0 for i in range(self.number_of_nodes)]
@@ -357,14 +359,14 @@ class Solution(object):
             
             self.voltage_equations.append(
                 self.node_potentials[node_A1] - self.node_potentials[node_A2] 
-                - (Zc*IA_A + Zc*IA_B*math.exp(-tau*self.s) + 
-                   (self.node_potentials[node_B1] - self.node_potentials[node_B2])*math.exp(-tau*self.s))
+                - (Zc*IA_A + Zc*IA_B*exp(-tau*self.s) + 
+                   (self.node_potentials[node_B1] - self.node_potentials[node_B2])*exp(-tau*self.s))
                 )
             
             self.voltage_equations.append(
                 self.node_potentials[node_B1] - self.node_potentials[node_B2] 
-                - (Zc*IA_B + Zc*IA_A*math.exp(-tau*self.s) + 
-                   (self.node_potentials[node_A1] - self.node_potentials[node_A2])*math.exp(-tau*self.s))
+                - (Zc*IA_B + Zc*IA_A*exp(-tau*self.s) + 
+                   (self.node_potentials[node_A1] - self.node_potentials[node_A2])*exp(-tau*self.s))
                 )
             
             self.current_variables.append(IA_A)
@@ -477,17 +479,24 @@ class Solution(object):
         if omega == "":        
             #------------- System is linear, use linsolve ---------------------
             solutions = sympy.linsolve(self.equations, self.variables)
-            self.variables = [str(variable) for variable in self.variables]
-            self.solutions = dict(zip(self.variables, next(iter(solutions)))) 
-    
+
+            if len(solutions) == 0:  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+                self.solutions = {}
+                self.correct_solution_flag = False
+            else:
+                self.variables = [str(variable) for variable in self.variables]
+                self.solutions = dict(zip(self.variables, next(iter(solutions)))) 
+
         else:
             #------------- System is complex, use most general solver ---------
-            solutions = sympy.solve(self.equations, self.variables)            
-            self.solutions = {str(var): sol for var, sol in solutions.items()}
+            if len(solutions) == 0:  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                self.solutions = {}
+                self.correct_solution_flag = False
+            else:
+                solutions = sympy.solve(self.equations, self.variables)            
+                self.solutions = {str(var): sol for var, sol in solutions.items()}
 
         self.__replace_by_rule()
-
-        return self.solutions
         
     def electric_circuit_specifications(self):
         print("Circuit specifications: ")
@@ -503,6 +512,9 @@ class Solution(object):
         print()
 
     def print_solutions(self):      
+        if self.correct_solution_flag == False:
+            print("Solution does not exist!")
+            return
         if self.solutions == {}:
             print("Solutions aren't computed yet!")
         else:
@@ -510,6 +522,9 @@ class Solution(object):
                 print(sol, ":", sympy.simplify(self.solutions[str(sol)]),"\n")
     
     def print_specific_solutions(self): #, tol = 1e-6):
+        if self.correct_solution_flag == False:
+            print("Solution does not exist!")
+            return
        # tol = 1e-6 - 
         if self.solutions == {}:
             print("Solutions aren't computed yet!")
