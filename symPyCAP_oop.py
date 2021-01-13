@@ -7,7 +7,8 @@ Created on Mon Nov 23 00:24:14 2020
 """
 import sympy
 from sympy import I as j
-
+import math
+from sympy.functions import exp
 class Solution(object):    
     def __init__(self, element_list):
         """
@@ -20,7 +21,6 @@ class Solution(object):
         Returns
         -------
         None.
-
         """
         self.element_list = element_list
         self.number_of_nodes = self.__number_of_nodes()
@@ -37,6 +37,8 @@ class Solution(object):
         self.solutions = {}       
         self.replacement_rule = {}
         self.evaluated_solutions = {}
+        
+        self.correct_solution_flag = True
         
     def __node_currents_init(self):
         self.node_currents = [0 for i in range(self.number_of_nodes)]
@@ -306,6 +308,71 @@ class Solution(object):
             self.node_currents[node_B] += (self.node_potentials[node_B] - self.node_potentials[node_A]) * Y
 
             return True
+        
+        elif type_of_element == 'T' and self.time_domain: #lici na cetvoropol
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B1 = element[3][0]
+            node_B2 = element[3][1]
+            Zc = element[4][0] # sympy.symbols(element[4][0])
+            theta = element[4][1] # sympy.symbols(element[4][1]) 
+            
+            IA_A = sympy.symbols('I' + element[1] + "_" + str(node_A1))
+            IA_B = sympy.symbols('I' + element[1] + "_" + str(node_B1))
+            
+            self.node_currents[node_A1] += IA_A
+            self.node_currents[node_A2] -= IA_A
+            self.node_currents[node_B1] -= IA_B
+            self.node_currents[node_B2] += IA_B
+            
+            self.voltage_equations.append(
+                self.node_potentials[node_A1] - self.node_potentials[node_A2] 
+                - (math.cos(theta)*(self.node_potentials[node_B1] - self.node_potentials[node_B2]) + 
+                   j*Zc*math.sin(theta)*IA_B)
+                )
+            
+            self.voltage_equations.append(
+                IA_A - (j*(1/Zc)*math.sin(theta)*(self.node_potentials[node_B1] - self.node_potentials[node_B2]) + 
+                   math.cos(theta)*IA_B)
+                )
+            
+            self.current_variables.append(IA_A)
+            self.current_variables.append(IA_B) 
+            
+            return True
+        
+        elif type_of_element == 'T': #braninove jednacine
+            node_A1 = element[2][0]
+            node_A2 = element[2][1]
+            node_B1 = element[3][0]
+            node_B2 = element[3][1]
+            Zc = element[4][0] # sympy.symbols(element[4][0])
+            tau = element[4][1] # sympy.symbols(element[4][1]) 
+            
+            IA_A = sympy.symbols('I' + element[1] + "_" + str(node_A1))
+            IA_B = sympy.symbols('I' + element[1] + "_" + str(node_B1))
+            
+            self.node_currents[node_A1] += IA_A
+            self.node_currents[node_A2] -= IA_A
+            self.node_currents[node_B1] += IA_B
+            self.node_currents[node_B2] -= IA_B
+            
+            self.voltage_equations.append(
+                self.node_potentials[node_A1] - self.node_potentials[node_A2] 
+                - (Zc*IA_A + Zc*IA_B*exp(-tau*self.s) + 
+                   (self.node_potentials[node_B1] - self.node_potentials[node_B2])*exp(-tau*self.s))
+                )
+            
+            self.voltage_equations.append(
+                self.node_potentials[node_B1] - self.node_potentials[node_B2] 
+                - (Zc*IA_B + Zc*IA_A*exp(-tau*self.s) + 
+                   (self.node_potentials[node_A1] - self.node_potentials[node_A2])*exp(-tau*self.s))
+                )
+            
+            self.current_variables.append(IA_A)
+            self.current_variables.append(IA_B) 
+            
+            return True
 
         #------------- In progress -------------------------------------------- 
         elif type_of_element == '4-R':
@@ -349,7 +416,6 @@ class Solution(object):
     def symPyCAP(self, **kwargs):
         
         """
-
         Parameters
         ----------
         Possible keyworded arguments are:
@@ -357,12 +423,10 @@ class Solution(object):
             omega -- another name for w
             r -- dictionary of replacements in the form: {..., "id" : symbolic_value, ...}
             replacement -- another name for r
-
         Returns
         -------
         dictionary
             Keys are potentials and specific currents, values are solutions 
-
         """
 
         #------------- Empty all reused elements ------------------------------
@@ -415,18 +479,24 @@ class Solution(object):
         if omega == "":        
             #------------- System is linear, use linsolve ---------------------
             solutions = sympy.linsolve(self.equations, self.variables)
-    
-            self.variables = [str(variable) for variable in self.variables]
-            self.solutions = dict(zip(self.variables, next(iter(solutions)))) 
-    
+
+            if len(solutions) == 0:  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+                self.solutions = {}
+                self.correct_solution_flag = False
+            else:
+                self.variables = [str(variable) for variable in self.variables]
+                self.solutions = dict(zip(self.variables, next(iter(solutions)))) 
+
         else:
             #------------- System is complex, use most general solver ---------
-            solutions = sympy.solve(self.equations, self.variables)            
-            self.solutions = {str(var): sol for var, sol in solutions.items()}
+            if len(solutions) == 0:  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                self.solutions = {}
+                self.correct_solution_flag = False
+            else:
+                solutions = sympy.solve(self.equations, self.variables)            
+                self.solutions = {str(var): sol for var, sol in solutions.items()}
 
         self.__replace_by_rule()
-
-        return self.solutions
         
     def electric_circuit_specifications(self):
         print("Circuit specifications: ")
@@ -442,13 +512,20 @@ class Solution(object):
         print()
 
     def print_solutions(self):      
+        if self.correct_solution_flag == False:
+            print("Solution does not exist!")
+            return
         if self.solutions == {}:
             print("Solutions aren't computed yet!")
         else:
             for sol in self.solutions:
-                print(sol,":",sympy.simplify(self.solutions[str(sol)]),"\n")
+                print(sol, ":", sympy.simplify(self.solutions[str(sol)]),"\n")
     
-    def print_specific_solutions(self):
+    def print_specific_solutions(self): #, tol = 1e-6):
+        if self.correct_solution_flag == False:
+            print("Solution does not exist!")
+            return
+       # tol = 1e-6 - 
         if self.solutions == {}:
             print("Solutions aren't computed yet!")
         else:
@@ -456,7 +533,8 @@ class Solution(object):
                 print("A replacement rule hasn't been forwarded!")
             else:
                 for sol in self.evaluated_solutions:
-                    print(sol,":",sympy.simplify(self.evaluated_solutions[str(sol)]),"\n")
+                    print(sol, ":", sympy.simplify(self.evaluated_solutions[str(sol)]),"\n")
+#                    print(sol, ":", sympy.nsimplify(sympy.simplify(self.evaluated_solutions[str(sol)]), tolerance=tol),"\n")
 
     def get_solutions(self):
         return self.solutions
