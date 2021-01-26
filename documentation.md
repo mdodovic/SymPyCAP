@@ -50,7 +50,7 @@ SymPyCAP uses MNA (Modified Nodal Analysis) to formulate and solve equations.
 
 #### Passive sign convention
 
-![smer.png](attachment:smer.png "Passive sign convection")
+![smer.png](C:\Users\jelana\Desktop\smer.png)
 * Whenever the reference direction for the current in an element is in the direction of the reference voltage drop across the element (as in this picture), use a positive sign in any expression that relates the voltage to the current. Otherwise, use a negative sign.
 
 * We apply this sign convention.
