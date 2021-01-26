@@ -257,7 +257,7 @@ Variables:  [ V1, ... Vn, I["id"]...]*
 ...
 
 **6)** `system.print_specific_solutions()` - - returns the solution in the same form as 5) and 2), <ins> but with applied replacement rules ("R1" : R, "C2" : C,...) </ins>\
--Replacement rule physically changes id with symbols, so this function can return the solution in the form $\frac{1}{0}$.
+-Replacement rule physically changes id with symbols, so this function can return the solution in the form 1/0.
 
 
 * <ins> **Getters** </ins>
