@@ -44,24 +44,36 @@ SymPyCAP uses MNA (Modified Nodal Analysis) to formulate and solve equations.
 * Reference node - one node, labeled by zero, 0 (default node). The node voltage of this node (reference node) is set to zero, 0.
 * Other nodes - labeled by consecutive integers, starting from one, 1.
 
-#### The Kirchhoff’s current law equations
+#### The Kirchhoff’s current law equations (KCL)
 
 * SymPyCAP formulates the KCL equations for all nodes, except reference node (for *other nodes*).
-* The currents are expressed in terms of node voltages.
-* The reference direction for current is **out of the node**.
-* Plus terminal of voltage is a terminal through which a current first passes.
 
-$$I $$
-$$+ \longrightarrow -$$
-   
+#### Passive sign convention
+
+![smer.png](attachment:smer.png "Passive sign convection")
+* Whenever the reference direction for the current in an element is in the direction of the reference voltage drop across the element (as in this picture), use a positive sign in any expression that relates the voltage to the current. Otherwise, use a negative sign.
+
+* We apply this sign convention.
 
 
 #### Modified Nodal Analysis
 
 <ins> *MNA variables:* </ins> node voltages and currents which cannot be expressed in terms of node voltages.
-* Node voltages are labeled by $V_1$, V2, V3...
-* V0 = 0, by default
+* Node voltages are labeled by V$_1$, V$_2$, V$_3$...
+* V$_0$ = 0, by default
 * Currents are labeled by I"id" ("id" specifies a circuit element).
+
+
+#### Reserved symbols
+
+* *I* - MNA current variables ( I[id] )
+* *V* - MNA voltage variables (V$_0$, V$_1$, V$_2$...)
+* *r* - dictionary of replacements in the form:\
+{..., "id" : symbolic_value, ...}
+* *replacement* - another name for r
+* *w* - symbol/symbolic expression of frequency for time-invariant analysis
+* *omega* - another name for w
+
 
 
 ## Electric Circuit  
@@ -71,7 +83,7 @@ Input to SymPyCAP (the circuit to be analyzed) is specified as a list of circuit
  
    `[list_1, list_2, list_3, ... list_N]`
 
-A circuit element ($list_I$) is specified as a list:
+A circuit element (list$_i$) is specified as a list:
 
 * for one-port element:\
      `[type, id, a, b]`\
@@ -87,11 +99,11 @@ A circuit element ($list_I$) is specified as a list:
 *id* - string that identifies circuit element ("R1", "L1", "C1", "Ug", "OpAmp1", "I1", "VCVS1", etc.)\
 *a* - positive terminal\
 *b* - negative terminal\
-*IC* - initial conditions at t$_{[0]}$-\
+*IC* - initial conditions at t$_{[0]}$- (V0 for capacitors, I0 for inductors,  [I_01,I_02] for linear inductive transformers)\
 *a1* - positive terminal of the 1$^{st}$ port\
 *a2* - negative terminal of the 1$^{st}$ port\
-*b1* - positive terminal of the 2nd port\
-*b2* - negative terminal of the 2nd port\
+*b1* - positive terminal of the 2$^{nd}$ port\
+*b2* - negative terminal of the 2$^{nd}$ port\
 *p* - parameter of parameters
  
 #### One-port elements: 
@@ -102,12 +114,12 @@ A circuit element ($list_I$) is specified as a list:
 * <ins> **Capacitor** </ins>\
      `["C", "id", plusTerm, minusTerm, "U0"]`\
      `["C", "id", plusTerm, minusTerm]`\
-     U0 is here 0, by default.
+     U$_0$ is here 0, by default.
 
 * <ins> **Inductor** </ins>\
      `["L", "id", plusTerm, minusTerm, "I0"]`\
      `["L", "id", plusTerm, minusTerm]`\
-    I0 is here 0, by default.
+    I$_0$ is here 0, by default.
      
 * <ins> **Impedance** </ins>\
      `["Z", "id", plusTerm, minusTerm]`
@@ -155,42 +167,54 @@ A circuit element ($list_I$) is specified as a list:
 * <ins> **Inductive Transformer** </ins>\
 `["InductiveT", "id", [plusPrimaryTerminal, minusPrimaryTerminal], [plusSecondaryTerminal, minusSecondaryTerminal], [L1,L2,L12]]`
 
-`["InductiveT", "id", [plusPrimaryTerminal, minusPrimaryTerminal], [plusSecondaryTerminal, minusSecondaryTerminal], [L1,L2,L12], [I_01,I_02]]`
+    `["InductiveT", "id", [plusPrimaryTerminal, minusPrimaryTerminal], [plusSecondaryTerminal, minusSecondaryTerminal], [L1,L2,L12], [I_01,I_02]]`
 
 
 ## Calling SymPyCAP  
 
+* <ins> **Importing symbols:** </ins>
+
+`from symPyCAP_oop import Solution
+from sympy import symbols
+S1, S2,.. = symbols('S1,S2')
+`
+
+-symbols() function returns a sequence of symbols with names taken from names argument, which can be a comma or whitespace delimited string, or a sequence of strings\
+-*S1,S2* - symbols that will be used for circuit analysis (for example: E, R, L, W..). In this sequence can't be reserved symbols.
+
 * <ins> **For time-invariant analysis:** </ins>
 
-```
-from symPyCAP_oop import Solution
+`from symPyCAP_oop import Solution
+from sympy import symbols
 system = Solution(elements)
 solution = system.symPyCAP()
-```
+`
 
 -*elements* - arbitrary name for list of circuit elements (it can be any other word..)\
 -*system* - instance of class Solution (main class of the program)\
 -`symPyCAP()` - this method initializes V (to Vi), user defined symbols, creates MNA equations, for every element in circuit, solves linear system of equations by variables, checks validity of every element and returns the solution\
 -also, it can read replacement list for user symbols,  for example:\
- -> `solution = system.symPyCAP(replacement = ["R1=R", "R2=R"])`\
- -> `solution = system.symPyCAP(r = ["R1=R", "R2=R"])`
+ -> `solution = system.symPyCAP(replacement = {"R1" : R, "R2" : R})`\
+ -> `solution = system.symPyCAP(r = {"R1" : R, "R2" : R})`
  
 * <ins> **For time varying excitations:** </ins>
 
-```
+`
 from symPyCAP_oop import Solution
+from sympy import symbols
 system = Solution(elements)
 solution = system.symPyCAP("W")
-```
+`
 
-*W* - angular frequency [rad/s]\
-It can be replaced with:\
+*W* - angular frequency [rad/s]
+
+<ins>It can be replaced with:</ins>\
   -> "  "  `solution = system.symPyCAP()`\
   this means that frequency is not specified - by default, it will be marked as "s" in the solution\
   -> w = "W"   `solution = system.symPyCAP( w = "W")`\
   -> omega = "W"  `solution = system.symPyCAP( omega = "W")`\
 -in this version, also, method can read replacement list, for example:\
- `solution = system.symPyCAP( w= "W", replacement = ["R1" : R, "R2" : R])` etc.
+ `solution = system.symPyCAP( w= "W", replacement = {"R1" : R, "R2" : R})` etc.
 
 * <ins> **Outputs** </ins>
 
@@ -198,10 +222,10 @@ It can be replaced with:\
 *{ variable1: solution(variable1), variable2: solution(variable2)... }*
 
 **2)** 
-```
+`
 for sol in solution:`
            `print(sol,":",solution[str(sol)])
-```
+`
            
    -solution in form:\
            *variable1: solution(variable1)*\
@@ -214,10 +238,12 @@ for sol in solution:`
 **4)** 
 
 `from symPyCAP_oop import Solution`\
+`from sympy import symbols`\
 `system = Solution(elements)`\
 `solution = system.symPyCAP()`
 
-`system.electric_circuit_specifications()` - this function returns:\
+`system.electric_circuit_specifications()` - this function returns:
+
 *Circuit specifications:  *\
 Number of nodes: <"positive_integer">\
 Input elements: <"list of elements">*\
@@ -230,16 +256,84 @@ Variables:  [ V1, ... Vn, I["id"]...]*
 *variable2: solution(variable2)*\
 ...
 
-**6)** `system.print_specific_solutions()` - - returns the solution in the same form as 5) and 2), <ins> but with applied replacement rules (R1=R, C2=C,...) </ins>
+**6)** `system.print_specific_solutions()` - - returns the solution in the same form as 5) and 2), <ins> but with applied replacement rules ("R1" : R, "C2" : C,...) </ins>\
+-Replacement rule physically changes id with symbols, so this function can return the solution in the form $\frac{1}{0}$.
+
+
+* <ins> **Getters** </ins>
+
+**1)** `get_solutions()`
+        
+    
+**2)** `get_specific_solutions()`
+        
+
  
 
 ## References
 
-**1)** SymPy - https://www.sympy.org/en/index.html
 
-**2)** Electric circuit elements - https://www.electronicshub.org/basic-electrical-circuits-componentstypes
+Allen Downey, Think Python: How to Think Like a Computer Scientist, Green
+Tea Press, 2008.
 
- 
+Paul Gerrard, Lean Python: Learn Just Enough Python to Build Useful Tools,
+Apress, 2016.
+
+
+
+##### Classic
+
+Charles A. Desoer, Ernest S. Kuh,
+Basic Circuit Theory, New York, NY, McGraw-Hill, 1969.
+
+Leon O. Chua, Charles A. Desoer, and Ernest S. Kuh,
+Linear and nonlinear circuits, New York, NY, McGraw-Hill, 1987.
+
+
+
+##### General
+
+Charles K. Alexander, Matthew N. O. Sadiku,
+Fundamentals of Electric Circuits, 6/e, New York, NY, McGraw-Hill, 2017.
+
+James W. Nilsson, Susan A. Riedel,
+Electric Circuits, 10/e, Upper Saddle River, NJ, Prentice Hall, 2015.
+
+J. David Irwin, R. Mark Nelms,
+Basic Engineering Circuit Analysis, 11/e, Hoboken, NJ, Wiley, 2015.
+
+James A. Svoboda, Richard C. Dorf,
+Introduction to Electric Circuits, 9/e, Hoboken, NJ, Wiley, 2014.
+
+William H. Hayt, Jr., Jack E. Kemmerly, Steven M. Durbin,
+Engineering circuit analysis, 8/e, New York, NY, McGraw-Hill, 2012.
+
+Farid N. Najm, Circuit Simulation,
+Hoboken, New Jersey, John Wiley & Sons, 2010.
+
+Omar Wing, Classical Circuit Theory,
+Springer Science+Business Media, LLC, New York, NY, 2008.
+
+Wai-Kai Chen (Editor),
+Circuit Analysis and Feedback Amplifier Theory,
+CRC Press, Taylor & Francis Group, Boca Raton, FL, 2006.
+
+
+
+##### Power Engineering
+
+Arieh L. Shenkman, Transient Analysis of Electric Power Circuits Handbook,
+Springer,  Dordrecht, The Netherlands, 2005.
+
+Arieh L. Shenkman, Circuit Analysis for Power Engineering Handbook,
+Springer, Dordrecht, The Netherlands, 1998.
+
+
+
+##### Transmission Lines
+
+Paul R. Clayton, Analysis of Multiconductor Transmission Lines, 2/e,
+Hoboken, NJ, Wiley IEEE Press, 2008.
 
 
 
