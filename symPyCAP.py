@@ -38,6 +38,7 @@ class Circuit(object):
         self.evaluated_solutions = {}
         
         self.correct_solution_flag = True
+        self.solution_at_specific_frequency = True
         
     def __node_currents_init(self):
         self.node_currents = [0 for i in range(self.number_of_nodes)]
@@ -485,7 +486,7 @@ class Circuit(object):
             else:
                 self.variables = [str(variable) for variable in self.variables]
                 self.solutions = dict(zip(self.variables, next(iter(solutions)))) 
-
+                
         else:
             #------------- System is complex, use most general solver ---------
             solutions = sympy.solve(self.equations, self.variables)            
@@ -497,7 +498,11 @@ class Circuit(object):
                 self.solutions = {str(var): sol for var, sol in solutions.items()}
 
         self.__replace_by_rule()
-        
+
+        for sol in self.evaluated_solutions:
+            if self.evaluated_solutions[str(sol)].has(sympy.zoo):
+                self.solution_at_specific_frequency = False
+                
     def electric_circuit_specifications(self):
         print("Circuit specifications: ")
         print("Number of nodes: " + str(self.number_of_nodes))
@@ -521,11 +526,15 @@ class Circuit(object):
             for sol in self.solutions:
                 print(sol, ":", sympy.simplify(self.solutions[str(sol)]),"\n")
     
-    def print_specific_solutions(self): #, tol = 1e-6):
+    def print_specific_solutions(self):
         if self.correct_solution_flag == False:
             print("Solution does not exist!")
             return
-       # tol = 1e-6 - 
+
+        if self.solution_at_specific_frequency == False:
+            print("Steady-state response does not exist at frequency " + str(-self.s * j))
+            return
+        
         if self.solutions == {}:
             print("Solutions aren't computed yet!")
         else:
@@ -534,7 +543,6 @@ class Circuit(object):
             else:
                 for sol in self.evaluated_solutions:
                     print(sol, ":", sympy.simplify(self.evaluated_solutions[str(sol)]),"\n")
-#                    print(sol, ":", sympy.nsimplify(sympy.simplify(self.evaluated_solutions[str(sol)]), tolerance=tol),"\n")
 
     def get_solutions(self):
         return self.solutions
