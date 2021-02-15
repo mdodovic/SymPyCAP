@@ -6,8 +6,8 @@ The SymPyCAP is software for linear, time invariant circuit analysis. It is deve
 * Matija Dodović
 * Nikola Ilić
 * Jelena Bakić.
-* [Prof. Dr Dejan V. Tošić](http://home.etf.rs/~tosic/)
-* Prof. Dr Milka M. Potrebić
+* [Prof. dr Dejan V. Tošić](http://home.etf.rs/~tosic/)
+* Prof. dr Milka M. Potrebić
 
 input_oop.py - user interface
 
