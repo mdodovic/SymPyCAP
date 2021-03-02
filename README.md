@@ -13,4 +13,6 @@ IDE_example_input.py - example of symPyCAP usage in python IDE (i.e. Spyder)
 
 symPyCAP.py - class that encapsulate symbolic circuit analysis 
 
+SymPyCAP notebook.ipynb - test examples solved step-by-step
 
+circuit_images - contains images of electric circuit solved in SymPyCAP_notebook 
