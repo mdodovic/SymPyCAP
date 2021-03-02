@@ -9,8 +9,8 @@ The SymPyCAP is software for linear, time invariant circuit analysis. It is deve
 * [Prof. dr Dejan V. Tošić](http://home.etf.rs/~tosic/)
 * Prof. dr Milka M. Potrebić
 
-input_oop.py - user interface
+IDE_example_input.py - example of symPyCAP usage in python IDE (i.e. Spyder)
 
-symPyCAP_oop.py - Software for linear, time invariant circuit analysis 
+symPyCAP.py - class that encapsulate symbolic circuit analysis 
 
-![an example of pure art](https://user-images.githubusercontent.com/32821985/100083470-d40c5380-2e49-11eb-9981-6faf1654b38f.png)
+
