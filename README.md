@@ -1,6 +1,6 @@
 # SymPyCAP
 
-The SymPyCAP is software for linear, time invariant circuit analysis. It is developed by following team of students and profesors from [University of Belgrade – School of Electrical Engineering](https://www.etf.bg.ac.rs): 
+The SymPyCAP is software for linear, time invariant circuit analysis. It is developed by following team of students and professors from [University of Belgrade – School of Electrical Engineering](https://www.etf.bg.ac.rs): 
 
 * Katarina Stanković
 * Matija Dodović
@@ -11,8 +11,13 @@ The SymPyCAP is software for linear, time invariant circuit analysis. It is deve
 
 IDE_example_input.py - example of symPyCAP usage in python IDE (i.e. Spyder)
 
-symPyCAP.py - class that encapsulate symbolic circuit analysis 
+symPyCAP.py - class that encapsulates symbolic circuit analysis 
 
-SymPyCAP_examples.ipynb - test examples solved step-by-step
+test_examples - contains:
+               SymPyCAP_examples.ipynb - test examples solved step-by-step
+               circuit_images - contains images of electric circuit solved in SymPyCAP_notebook 
 
-circuit_images - contains images of electric circuit solved in SymPyCAP_notebook 
+Videos which demonstrate set up and usage of SymPyCAP solver are on youtube:
+
+[How to set up SymPyCAP envirnoment] (link)
+[Test example: Voltage divider] (link)
