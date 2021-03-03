@@ -1,15 +1,15 @@
-# <ins>Documentation for SymPyCAP</ins>
+# <ins>SymPyCAP Reference Manual</ins>
 
 
 
-##  Author  
+##  Authors  
 
 * Katarina Stanković
 * Nikola Ilić
 * Matija Dodović
 * Jelena Bakić
-* Prof. Dr Dejan V. Tošić
-* Prof. Dr Milka M. Potrebić
+* Prof. dr Dejan V. Tošić
+* Prof. dr Milka M. Potrebić
 
 University of Belgrade - School of Electrical Engineering
 
@@ -19,23 +19,26 @@ Creative Commons
 
 ## Acknowledgment 
 
-We thank Prof. Dr Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
+We thank Prof. dr Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
 
 ## About SymPyCAP 
 
-SymPyCAP is program for solving linear, time-invariant electric circuits. This program is Python-based 
-(It's written entirely in Python) and uses SymPy, a Python library for symbolic mathematics.\
+SymPyCAP is a program for solving linear, time-invariant electric circuits. This program is
+Python-based (It’s written entirely in Python) and uses SymPy, a Python library for symbolic
+mathematics.
 SymPyCAP uses MNA (Modified Nodal Analysis) to formulate and solve equations.
 
 ## Why SymPy?  
 
 * SymPy is completely free, open source and licensed under the BSD license. So, you can modify the source code end sell it if you want to.
 
-* SymPy uses Python as its language. This means that if you know Python, it is much easier to get started with SymPy (because you already knows the syntax). And if you don't know Python, it is really easy to learn. 
+* SymPy uses Python as its language. This means that if you know Python, it is much easier to get started with SymPy (because you already knows the syntax). And if you don’t know Python, it is really easy to learn. 
 
 * Third advantage of SymPy is that it is lightweight program. It has no dependencies other than Python, so it can be used almost anywhere easily. 
 
 * And finally, it can be used as a library. You can just import it in your own Python application.
+
+* For monitoring this work we recommend Anaconda, free open-source Python distribution. Within it, the environment we recommend is Jupyter Notebook.
 
 ## Algorithm 
 
@@ -46,13 +49,15 @@ SymPyCAP uses MNA (Modified Nodal Analysis) to formulate and solve equations.
 
 #### The Kirchhoff’s current law equations
 
-* SymPyCAP formulates the KCL equations for all nodes, except reference node (for *other nodes*).
-* The currents are expressed in terms of node voltages.
-* The reference direction for current is **out of the node**.
-* Plus terminal of voltage is a terminal through which a current first passes.
+* SymPyCAP formulates the KCL equations for all nodes, except the reference node.
 
-$$I $$
-$$+ \longrightarrow -$$
+#### Passive sign convention
+
+* Whenever the reference direction for the current in an element is in the direction of the reference voltage drop across the element (as in this picture), use a positive sign in any expression that relates the voltage to the current. Otherwise, use a negative sign.
+
+* We apply this sign convention.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SLIKA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    
 
 
@@ -62,6 +67,21 @@ $$+ \longrightarrow -$$
 * Node voltages are labeled by V$_1$, V$_2$, V$_3$...
 * V$_0$ = 0, by default
 * Currents are labeled by I"id" ("id" specifies a circuit element).
+
+#### Reserved symbols
+
+* *I* – MNA current variables ( I[id] )
+
+* *V* – MNA voltage variables (V$_0$, V$_1$, V$_2$. . . )
+
+* *r* – dictionary of replacements in the form:
+{. . . , “id” : symbolic_value, . . . }
+
+* *replacement* - another name for *r*
+
+* *w* – symbol/symbolic expression of frequency for the Phasor transform analysis
+
+* *omega* – another name for *w*
 
 
 ## Electric Circuit  
@@ -78,21 +98,21 @@ A circuit element (list$_i$) is specified as a list:
      `[type, id, a, b, IC]`
            
 * for two-port element:\
-     `[type, id, [a1,a2], [b1,b2], p]`\
-     `[type, id, [a1,a2], b]`\
+     `[type, id, [a1, a2], [b1, b2], p]`\
+     `[type, id, [a1, a2], b]`\
      (b = b1 when b2 is ground node)
                         
 
-*type* - string that specifies type of element ("R", "L", "C", "Z", "Y", "I", "V", "OpAmp", "IdealT", "InductiveT", "VCVS", "VCCS", "CCCS", "CCVS")\
+*type* - string that specifies type of element ("R", "L", "C", "Z", "Y", "I", "V", "OpAmp", "IdealT", "InductiveT", "VCVS", "VCCS", "CCCS", "CCVS", "T")\
 *id* - string that identifies circuit element ("R1", "L1", "C1", "Ug", "OpAmp1", "I1", "VCVS1", etc.)\
-*a* - positive terminal\
-*b* - negative terminal\
-*IC* - initial conditions at t$_{[0]}$-\
-*a1* - positive terminal of the 1$^{st}$ port\
-*a2* - negative terminal of the 1$^{st}$ port\
-*b1* - positive terminal of the 2$^{nd}$ port\
-*b2* - negative terminal of the 2$^{nd}$ port\
-*p* - parameter of parameters
+*a* - integer, positive terminal\
+*b* - integer, negative terminal\
+*IC* - initial conditions at t$_{[0]}$-  ("V0" for capacitors, "I0" for inductors, ["I_01", "I_02"] for linear inductive transformers)\
+*a1* - integer, positive terminal of the 1$^{st}$ port\
+*a2* - integer, negative terminal of the 1$^{st}$ port\
+*b1* - integer, positive terminal of the 2$^{nd}$ port\
+*b2* - integer, negative terminal of the 2$^{nd}$ port\
+*p* - parameter or list of parameters
  
 #### One-port elements: 
 
@@ -118,7 +138,6 @@ A circuit element (list$_i$) is specified as a list:
 * <ins> **Current source - ideal current generator** </ins>\
      `["I", "id", plusTerm, minusTerm]`
          
-
 * <ins> **Voltage source - ideal voltage generator** </ins>\
      `["V", "id", plusTerm, minusTerm]`
       ( V = V [plusTerm] - V [minusTerm] )
