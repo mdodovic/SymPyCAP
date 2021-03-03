@@ -298,7 +298,7 @@ If the entered circuit is not valid, the program will print: *Solution does not 
 applied replacement rules (“R1” : R, “C2” : C,. . . )
 
 Replacement rule physically changes id with symbols, so if this function returns the solution in
-the form 1/0, the program will print: *Steady-state response does not exist at frequency 1/sqrt(C*L)*.
+the form 1/0, the program will print: *Steady-state response does not exist at frequency 1/sqrt(C*L).
 
 * <ins> **Getters** </ins>
 
