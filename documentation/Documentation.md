@@ -199,8 +199,8 @@ Zc – symbolic expression\
 
 * <ins> **Importing symbols:** </ins>
 
-`import sympy\
- S = sympy.Symbol('S')\
+`import sympy
+ S = sympy.Symbol('S')
  S1, S2,.. = sympy.symbols('S1, S2')`
 
 SymPy’s Symbol() function’s argument is a string containing symbol which can be assigned to a
