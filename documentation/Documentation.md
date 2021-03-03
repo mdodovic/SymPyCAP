@@ -169,15 +169,14 @@ A circuit element (list_i) is specified as a list:
 `["IdealT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], "turnsRatio"]`
 
 * <ins> **Inductive Transformer** </ins>\
-`["InductiveT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["L1_id", "L2_id", "L12_id"]]`
-
+`["InductiveT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["L1_id", "L2_id", "L12_id"]]`\
 `["InductiveT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["L1_id", "L2_id", "L12_id"], ["I_01", "I_02"]]`
 
 "L1_id", "L2_id", "L12_id" are unique ids for coupled coils of transformator.
 
 #### Transmission lines
 
-* <ins> **Transmission line, Phasor Transform** </ins>\
+* <ins> **Transmission line, Phasor Transform** </ins>
 
 `["T", "id", [plusSendingTerm, minusSendingTerm], [plusReceivingTerm, minusReceivingTerm], [Zc, theta]]`
 
@@ -186,7 +185,7 @@ Zc – symbolic expression\
 **I**[“id”,plusSendingTerm] current **into** plusSendingTerm\
 **I**[“id”,plusReceivingTerm] current **out of** plusReceivingTerm
 
-* <ins> **Transmission line, Laplace Transform** </ins>\
+* <ins> **Transmission line, Laplace Transform** </ins>
 
 `["T", "id", [plusSendingTerm, minusSendingTerm], [plusReceivingTerm, minusReceivingTerm], [Zc, tau]]`
 
@@ -244,7 +243,7 @@ system = Circuit(elements)
 system.symPyCAP(w = W)
 ```
 
-*W* - angular frequency [rad/s]\
+*W* - angular frequency [rad/s]
 
 <ins>It can be replaced with:</ins>\
 "  " `system.symPyCAP()`\
@@ -292,7 +291,7 @@ system.electric_circuit_specifications()
 *variable2: solution(variable2)\
 ...
 
-If the entered circuit is not valid, the program will print: *Solution does not exist!
+If the entered circuit is not valid, the program will print: *Solution does not exist!*
 
 **3)** `system.print_specific_solutions()` – returns solution in the same form as 2), but with
 applied replacement rules (“R1” : R, “C2” : C,. . . )
