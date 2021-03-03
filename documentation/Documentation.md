@@ -176,7 +176,7 @@ A circuit element (list_i) is specified as a list:
 
 #### Transmission lines
 
-* <ins> **Transmission line, Phasor Transform** </ins>\
+* <ins> **Transmission line, Phasor Transform** </ins>
 
 `["T", "id", [plusSendingTerm, minusSendingTerm], [plusReceivingTerm, minusReceivingTerm], [Zc, theta]]`
 
@@ -185,7 +185,7 @@ Zc – symbolic expression\
 **I**[“id”,plusSendingTerm] current **into** plusSendingTerm\
 **I**[“id”,plusReceivingTerm] current **out of** plusReceivingTerm
 
-* <ins> **Transmission line, Laplace Transform** </ins>\
+* <ins> **Transmission line, Laplace Transform** </ins>
 
 `["T", "id", [plusSendingTerm, minusSendingTerm], [plusReceivingTerm, minusReceivingTerm], [Zc, tau]]`
 
