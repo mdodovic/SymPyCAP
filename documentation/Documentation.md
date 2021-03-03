@@ -64,15 +64,15 @@ SymPyCAP uses MNA (Modified Nodal Analysis) to formulate and solve equations.
 #### Modified Nodal Analysis
 
 <ins> *MNA variables:* </ins> node voltages and currents which cannot be expressed in terms of node voltages.
-* Node voltages are labeled by V$_1$, V$_2$, V$_3$...
-* V$_0$ = 0, by default
+* Node voltages are labeled by V1, V2, V3...
+* V0 = 0, by default
 * Currents are labeled by I"id" ("id" specifies a circuit element).
 
 #### Reserved symbols
 
 * *I* – MNA current variables ( I[id] )
 
-* *V* – MNA voltage variables (V$_0$, V$_1$, V$_2$. . . )
+* *V* – MNA voltage variables (V0, V1, V2. . . )
 
 * *r* – dictionary of replacements in the form:
 {. . . , “id” : symbolic_value, . . . }
@@ -108,10 +108,10 @@ A circuit element (list$_i$) is specified as a list:
 *a* - integer, positive terminal\
 *b* - integer, negative terminal\
 *IC* - initial conditions at t$_{[0]}$-  ("V0" for capacitors, "I0" for inductors, ["I_01", "I_02"] for linear inductive transformers)\
-*a1* - integer, positive terminal of the 1$^{st}$ port\
-*a2* - integer, negative terminal of the 1$^{st}$ port\
-*b1* - integer, positive terminal of the 2$^{nd}$ port\
-*b2* - integer, negative terminal of the 2$^{nd}$ port\
+*a1* - integer, positive terminal of the 1st port\
+*a2* - integer, negative terminal of the 1st port\
+*b1* - integer, positive terminal of the 2nd port\
+*b2* - integer, negative terminal of the 2nd port\
 *p* - parameter or list of parameters
  
 #### One-port elements: 
@@ -127,7 +127,7 @@ A circuit element (list$_i$) is specified as a list:
 * <ins> **Inductor** </ins>\
      `["L", "id", plusTerm, minusTerm, "I0"]`\
      `["L", "id", plusTerm, minusTerm]`\
-    I$_0$ is here 0, by default.
+    I0 is here 0, by default.
      
 * <ins> **Impedance** </ins>\
      `["Z", "id", plusTerm, minusTerm]`
@@ -230,7 +230,7 @@ system.symPyCAP()
 
 *elements* - arbitrary name for list of circuit elements (it can be any other word..)\
 *system* - instance of class Circuit (main class of the program)\
-`symPyCAP()` - this method initializes V to V$_i$, user defined symbols, creates MNA equations, for every element in circuit, solves linear system of equations, checks validity of every element.\
+`symPyCAP()` - this method initializes V to Vi, user defined symbols, creates MNA equations, for every element in circuit, solves linear system of equations, checks validity of every element.\
 Also, it can read replacement list for user symbols, for example:\
 `system.symPyCAP(replacement =  ["R1" : R, "R2" : R])`\
 `system.symPyCAP(r =  ["R1" : R, "R2" : R])`
