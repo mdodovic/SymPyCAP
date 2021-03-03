@@ -243,7 +243,7 @@ system = Circuit(elements)
 system.symPyCAP(w = W)
 ```
 
-*W* - angular frequency [rad/s]\
+*W* - angular frequency [rad/s]
 
 <ins>It can be replaced with:</ins>\
 "  " `system.symPyCAP()`\
