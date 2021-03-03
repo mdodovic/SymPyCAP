@@ -199,32 +199,29 @@ Zc – symbolic expression\
 
 * <ins> **Importing symbols:** </ins>
 
-`import sympy
- S = sympy.Symbol('S')
- S1, S2,.. = sympy.symbols('S1, S2')
-`
+`import sympy\
+ S = sympy.Symbol('S')\
+ S1, S2,.. = sympy.symbols('S1, S2')`
 
 SymPy’s Symbol() function’s argument is a string containing symbol which can be assigned to a
-variable.
+variable.\
 SymPy’s symbols() function returns a sequence of symbols with names taken from names argument,
-which can be a comma or whitespace delimited string, or a sequence of strings.
-S1, S2 – user symbols that will be used for circuit analysis (for example: E, R, L, W..). In this sequence can’t be reserved symbols.
+which can be a comma or whitespace delimited string, or a sequence of strings.\
+S1, S2 – user symbols that will be used for circuit analysis (for example: E, R, L, W..). In this sequence can’t be reserved symbols.\
 It is very important to define symbols which will be used in the program. 
 
 `import sympy
  S = sympy.Symbol('S', real = True, positive = True)
 `
 
-Parameters *real* and *positive* are optional, which introduce assumptions about the properties of symbols used in the symbolic calculation. Without these parameters, S represents a complex
-number, by default.
+Parameters *real* and *positive* are optional, which introduce assumptions about the properties of symbols used in the symbolic calculation. Without these parameters, S represents a complex number, by default.
 
 * <ins> **For the Laplace Transform analysis:** </ins>
 
-`from symPyCAP import Circuit
-import sympy
-system = Circuit(elements)
-system.symPyCAP()
-`
+`from symPyCAP import Circuit\
+import sympy\
+system = Circuit(elements)\
+system.symPyCAP()`
 
 *elements* - arbitrary name for list of circuit elements (it can be any other word..)\
 *system* - instance of class Circuit (main class of the program)\
@@ -236,10 +233,10 @@ Also, it can read replacement list for user symbols, for example:\
 * <ins> **For the Phasor Transform analysis:** </ins>
 
 `
-from symPyCAP import Circuit
-import sympy
-system = Circuit(elements)
-system.symPyCAP(w = W)
+from symPyCAP import Circuit\
+import sympy\
+system = Circuit(elements)\
+system.symPyCAP(w = W)\
 `
 
 *W* - angular frequency [rad/s]\
@@ -255,29 +252,29 @@ In this version, also, method can read replacement list, for example:\
 * <ins> **Outputs** </ins>
 
 **1) circuit specifications** 
-`from symPyCAP import Circuit
-import sympy
-system = Circuit(elements)
-system.symPyCAP()
+`from symPyCAP import Circuit\
+import sympy\
+system = Circuit(elements)\
+system.symPyCAP()\
 system.electric_circuit_specifications()` – this function returns:
 
 **1.1) for the Laplace Transform analysis**
 
-*Circuit specifications:
-*Number of nodes: <“positive_integer”>
-*Input elements: <“list of elements”>
-*Replacement rule: { <“element_values”> }
-*Equations: [ <"list of equations"> ]
+*Circuit specifications:\
+*Number of nodes: <“positive_integer”>\
+*Input elements: <“list of elements”>\
+*Replacement rule: { <“element_values”> }\
+*Equations: [ <"list of equations"> ]\
 *Variables: [ V1, . . . Vn, I[“id”]. . . ]
 
 **1.2) for the Phasor Transform analysis**
 
-*Circuit specifications:
-*Number of nodes: <“positive_integer”>
-*Input elements: <“list of elements”>
-*Replacement rule: { <“element_values”> }
-*Equations: [ <"list of equations"> ]
-*Variables: [ V1, . . . Vn, I[“id”]. . . ]
+*Circuit specifications:\
+*Number of nodes: <“positive_integer”>\
+*Input elements: <“list of elements”>\
+*Replacement rule: { <“element_values”> }\
+*Equations: [ <"list of equations"> ]\
+*Variables: [ V1, . . . Vn, I[“id”]. . . ]\
 *Frequency: jw
 
 `Equations` are automatically equal to 0
