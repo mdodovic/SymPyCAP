@@ -139,133 +139,245 @@ A circuit element (list$_i$) is specified as a list:
      `["I", "id", plusTerm, minusTerm]`
          
 * <ins> **Voltage source - ideal voltage generator** </ins>\
-     `["V", "id", plusTerm, minusTerm]`
+     `["V", "id", plusTerm, minusTerm]`\
       ( V = V [plusTerm] - V [minusTerm] )
 
 #### Two-port elements: 
 
 * <ins> **Operational Amplifier - Ideal OpAmp** </ins>\
      `["OpAmp", "id", [nonInvertingTerm, invertingTerm], 2ndTerm]`
-* <ins> **ABCD two-port** </ins>\
-     `["ABCD", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], [["A", "B", "C", "D"]]]`
+* <ins> **Two-port specified by ABCD-parameters (transmission parameters, chain parameters)** </ins>\
+     `["ABCD", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["A", "B", "C", "D"]]`
 
 #### Controlled Sources: 
 
 * <ins> **VCVS - Voltage Controlled Voltage Source** </ins>\
      `["VCVS", "id", [plusControllingTerm, minusControllingTerm], [plusControlledTerm, minusControlledTerm], "voltageGain"]`
      
-    
-
 * <ins> **VCCS - Voltage Controlled Current Source** </ins>\
     `["VCCS", "id", [plusControllingTerm, minusControllingTerm], [plusControlledTerm, minusControlledTerm], "transconductance"]`
 
 * <ins> **CCCS - Current Controlled Current Source** </ins>\
      `["CCCS", "id", [plusControllingTerm, minusControllingTerm], [plusControlledTerm,  minusControlledTerm], "currentGain"]`
     
-
 * <ins> **CCVS - Current Controlled Voltage Source** </ins>\
      `["CCVS", "id", [plusControllingTerm, minusControllingTerm], [plusControlledTerm, minusControlledTerm], "transresistance"]`
      
 #### Transformers:
 
 * <ins> **Ideal Transformer** </ins>\
-     `["IdealT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], turnsRatio]`
+`["IdealT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], "turnsRatio"]`
 
 * <ins> **Inductive Transformer** </ins>\
-`["InductiveT", "id", [plusPrimaryTerminal, minusPrimaryTerminal], [plusSecondaryTerminal, minusSecondaryTerminal], [L1,L2,L12]]`
+`["InductiveT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["L1_id", "L2_id", "L12_id"]]`
 
-    `["InductiveT", "id", [plusPrimaryTerminal, minusPrimaryTerminal], [plusSecondaryTerminal, minusSecondaryTerminal], [L1,L2,L12], [I_01,I_02]]`
+`["InductiveT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["L1_id", "L2_id", "L12_id"], ["I_01", "I_02"]]`
 
+"L1_id", "L2_id", "L12_id" are unique ids for coupled coils of transformator.
+
+#### Transmission lines
+
+* <ins> **Transmission line, Phasor Transform** </ins>\
+
+`["T", "id", [plusSendingTerm, minusSendingTerm], [plusReceivingTerm, minusReceivingTerm], [Zc, theta]]`
+
+Zc – symbolic expression\
+*theta [radian]* – symbolic expression, electrical length (real number)\
+**I**[“id”,plusSendingTerm] current **into** plusSendingTerm\
+**I**[“id”,plusReceivingTerm] current **out of** plusReceivingTerm
+
+* <ins> **Transmission line, Laplace Transform** </ins>\
+
+`["T", "id", [plusSendingTerm, minusSendingTerm], [plusReceivingTerm, minusReceivingTerm], [Zc, tau]]`
+
+Zc – symbolic expression\
+*tau [second]* – symbolic expression, delay\
+**I**[“id”,plusSendingTerm] current **into** plusSendingTerm\
+**I**[“id”,plusReceivingTerm] current **out of** plusReceivingTerm
 
 ## Calling SymPyCAP  
 
-* <ins> **For time-invariant analysis:** </ins>
+* <ins> **Importing symbols:** </ins>
 
-
-`from symPyCAP_oop import Solution
+```
 import sympy
-import math
+S = sympy.Symbol('S')
+S1, S2,.. = sympy.symbols('S1, S2')
+```
 
-system = Solution(elements)
-solution = system.symPyCAP()
-`
+SymPy’s Symbol() function’s argument is a string containing symbol which can be assigned to a
+variable.\
+SymPy’s symbols() function returns a sequence of symbols with names taken from names argument,
+which can be a comma or whitespace delimited string, or a sequence of strings.\
+S1, S2 – user symbols that will be used for circuit analysis (for example: E, R, L, W..). In this sequence can’t be reserved symbols.\
+It is very important to define symbols which will be used in the program. 
 
--*elements* - arbitrary name for list of circuit elements (it can be any other word..)\
--*system* - instance of class Solution (main class of the program)\
--`symPyCAP()` - this method initializes V (to Vi), user defined symbols, creates MNA equations, for every element in circuit, solves linear system of equations by variables, checks validity of every element and returns the solution\
--also, it can read replacement list for user symbols,  for example:\
- -> `solution = system.symPyCAP(replacement = ["R1 : R", "R2 : R"])`\
- -> `solution = system.symPyCAP(r = ["R1 : R", "R2 : R"])`
+```
+import sympy
+S = sympy.Symbol('S', real = True, positive = True)
+```
+
+Parameters *real* and *positive* are optional, which introduce assumptions about the properties of symbols used in the symbolic calculation. Without these parameters, S represents a complex number, by default.
+
+* <ins> **For the Laplace Transform analysis:** </ins>
+
+```
+from symPyCAP import Circuit
+import sympy
+system = Circuit(elements)
+system.symPyCAP()
+```
+
+*elements* - arbitrary name for list of circuit elements (it can be any other word..)\
+*system* - instance of class Circuit (main class of the program)\
+`symPyCAP()` - this method initializes V to V$_i$, user defined symbols, creates MNA equations, for every element in circuit, solves linear system of equations, checks validity of every element.\
+Also, it can read replacement list for user symbols, for example:\
+`system.symPyCAP(replacement =  ["R1" : R, "R2" : R])`\
+`system.symPyCAP(r =  ["R1" : R, "R2" : R])`
  
-* <ins> **For time varying excitations:** </ins>
+* <ins> **For the Phasor Transform analysis:** </ins>
 
-`
-from symPyCAP_oop import Solution
+```
+from symPyCAP import Circuit
 import sympy
-import math
-
-system = Solution(elements)
-solution = system.symPyCAP(w=W)
-`
+system = Circuit(elements)
+system.symPyCAP(w = W)
+```
 
 *W* - angular frequency [rad/s]\
 
 <ins>It can be replaced with:</ins>\
-  -> "  "  `solution = system.symPyCAP()`\
-  this means that frequency is not specified - by default, it will be marked as "s" in the solution\
-  -> w = "W"   `solution = system.symPyCAP( w = "W")`\
-  -> omega = "W"  `solution = system.symPyCAP( omega = "W")`\
--in this version, also, method can read replacement list, for example:\
- `solution = system.symPyCAP( w= "W", replacement = ["R1" : R, "R2" : R])` etc.
+"  " `system.symPyCAP()`\
+this means that frequency is not specified. By default, it will be marked as "s" in the solution\
+w = W   `system.symPyCAP(w = W)`\
+omega = W   `system.symPyCAP(omega = W)`\
+In this version, also, method can read replacement list, for example:\
+`system.symPyCAP( w = W, replacement = {"R1" : R, "R2" : R})` etc.
 
 * <ins> **Outputs** </ins>
 
-**1)** `print(solution)` - this function returns the solution in the following form:\
-*{ variable1: solution(variable1), variable2: solution(variable2)... }*
-
-**2)** 
+**1) circuit specifications** 
 ```
-for sol in solution:`
-           `print(sol,":",solution[str(sol)])
-```
-           
-   -solution in form:\
-           *variable1: solution(variable1)*\
-           *variable2: solution(variable2)*\
-           ...
+from symPyCAP import Circuit
+import sympy
+system = Circuit(elements)
+system.symPyCAP()
+system.electric_circuit_specifications()
+``` 
+– this function returns:
 
-**3)** `print(solution['Vi']) ` - solution for a single node (Vi):\
-*solution(Vi)*
+**1.1) for the Laplace Transform analysis**
 
-**4)** 
+*Circuit specifications:\
+*Number of nodes: <“positive_integer”>\
+*Input elements: <“list of elements”>\
+*Replacement rule: { <“element_values”> }\
+*Equations: [ <"list of equations"> ]\
+*Variables: [ V1, . . . Vn, I[“id”]. . . ]
 
-`from symPyCAP_oop import Solution`\
-`system = Solution(elements)`\
-`solution = system.symPyCAP()`
+**1.2) for the Phasor Transform analysis**
 
-`system.electric_circuit_specifications()` - this function returns:\
-*Circuit specifications:  *\
-Number of nodes: <"positive_integer">\
-Input elements: <"list of elements">*\
-*Replacement rule:  { <"element_values"> }*\
-*Equations:  [ I["id"]=... ]*\
-Variables:  [ V1, ... Vn, I["id"]...]*
+*Circuit specifications:\
+*Number of nodes: <“positive_integer”>\
+*Input elements: <“list of elements”>\
+*Replacement rule: { <“element_values”> }\
+*Equations: [ <"list of equations"> ]\
+*Variables: [ V1, . . . Vn, I[“id”]. . . ]\
+*Frequency: jw
 
-**5)** `system.print_solutions()` - returns exactly like 2):\
-*variable1: solution(variable1)*\
-*variable2: solution(variable2)*\
+`Equations` are automatically equal to 0
+
+**2)** `system.print_solutions()`– returns solution in form:\
+*variable1: solution(variable1)\
+*variable2: solution(variable2)\
 ...
 
-**6)** `system.print_specific_solutions()` - - returns the solution in the same form as 5) and 2), <ins> but with applied replacement rules (R1=R, C2=C,...) </ins>
+If the entered circuit is not valid, the program will print: *Solution does not exist!
+
+**3)** `system.print_specific_solutions()` – returns solution in the same form as 2), but with
+applied replacement rules (“R1” : R, “C2” : C,. . . )
+
+Replacement rule physically changes id with symbols, so if this function returns the solution in
+the form 1/0, the program will print: *Steady-state response does not exist at frequency 1/sqrt(C*L)*.
+
+* <ins> **Getters** </ins>
+
+**1)** `get_solutions()` - gets dictionary of solutions.
+
+**2)** `get_specific_solutions()` - gets dictionary of specific solutions (with applied replacement rules).
  
+
 
 ## References
 
-**1)** SymPy - https://www.sympy.org/en/index.html
 
-**2)** Electric circuit elements - https://www.electronicshub.org/basic-electrical-circuits-componentstypes
+[1] Allen Downey, *Think Python: How to Think Like a Computer Scientist*, Green Tea Press, 2008.
 
- 
+[2] Paul Gerrard, *Lean Python: Learn Just Enough Python to Build Useful Tools*, Apress, 2016.
+
+[3] Anaconda Software Distribution. Computer software. Vers. 2-2.4.0. Anaconda, Nov. 2016. Web.
+https://anaconda.com (last visited January 27th 2021).
+
+[4] Thomas Kluyver, Benjamin Ragan-Kelley, Fernando Pérez, Brian Granger, Matthias Bussonnier, Jonathan Frederic, Kyle Kelley, Jessica Hamrick, Jason Grout, Sylvain Corlay, Paul
+Ivanov, Damián Avila, Safia Abdalla, Carol Willing, Jupyter development team. Jupyter
+Notebooks - a publishing format for reproducible computational workflows. In Fernando
+Loizides and Birgit Scmidt, editors, Positioning and Power in Academic Publishing: Players,
+Agents and Agendas, pages 87–90, Netherlands, 2016. IOS Press.
+
+
+#### Classic
+
+
+[5] Charles A. Desoer, Ernest S. Kuh, *Basic Circuit Theory*, New York, NY, McGraw-Hill, 1969.
+
+[6] Leon O. Chua, Charles A. Desoer, and Ernest S. Kuh, *Linear and nonlinear circuits*, New York, NY, McGraw-Hill, 1987.
+
+
+#### General
+
+
+[7] Charles K. Alexander, Matthew N. O. Sadiku, *Fundamentals of Electric Circuits*, 6/e, New York, NY, McGraw-Hill, 2017.
+
+[8] James W. Nilsson, Susan A. Riedel, *Electric Circuits*, 10/e, Upper Saddle River, NJ, Prentice Hall, 2015.
+
+[9] J. David Irwin, R. Mark Nelms, *Basic Engineering Circuit Analysis*, 11/e, Hoboken, NJ, Wiley, 2015.
+
+[10] James A. Svoboda, Richard C. Dorf, *Introduction to Electric Circuits*, 9/e, Hoboken, NJ, Wiley, 2014.
+
+[11] William H. Hayt, Jr., Jack E. Kemmerly, Steven M. Durbin, *Engineering circuit analysis*, 8/e, New York, NY, McGraw-Hill, 2012.
+
+[12] Farid N. Najm, *Circuit Simulation*, Hoboken, New Jersey, John Wiley & Sons, 2010.
+
+[13] Omar Wing, *Classical Circuit Theory*, Springer Science+Business Media, LLC, New York, NY,
+2008.
+
+[14] Wai-Kai Chen (Editor), *Circuit Analysis and Feedback Amplifier Theory*, CRC Press, Taylor & Francis Group, Boca Raton, FL, 2006.
+
+[15] Dejan Tosic, Milka Potrebic, http://tek.etf.rs, Electric Circuit Theory, in Serbian, accessed April 2021.
+
+[16] Predrag Pejovic, http://tnt.etf.bg.ac.rs/~oe4sae/, Free software, accessed February
+
+
+[17] Tošić V., Dejan, Potrebi´c M., Milka. (2019). Symbolic analysis of linear electric circuits with
+Maxima CAS (Version paper presentation) (pp. 15–18). Presented at the Primena slobodnog
+softvera i otvorenog hardvera (in English "Applicaton of Free Software and Open Hardware")
+(PSSOH), Belgrade, Serbia: University of Belgrade - School of Electrical Engineering and
+Academic Mind. http://doi.org/10.5281/zenodo.3533544
+
+
+#### Power Engineering
+
+
+[18] Arieh L. Shenkman, *Transient Analysis of Electric Power Circuits Handbook*, Springer, Dordrecht, The Netherlands, 2005.
+
+[19] Arieh L. Shenkman, *Circuit Analysis for Power Engineering Handbook*, Springer, Dordrecht, The Netherlands, 1998.
+
+
+#### Transmission Lines
+
+
+[20] Paul R. Clayton, *Analysis of Multiconductor Transmission Lines*, 2/e, Hoboken, NJ, Wiley IEEE Press, 2008.
+
 
 
 
