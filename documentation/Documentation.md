@@ -107,7 +107,7 @@ A circuit element (list_i) is specified as a list:
 *id* - string that identifies circuit element ("R1", "L1", "C1", "Ug", "OpAmp1", "I1", "VCVS1", etc.)\
 *a* - integer, positive terminal\
 *b* - integer, negative terminal\
-*IC* - initial conditions at t$_{[0]}$-  ("V0" for capacitors, "I0" for inductors, ["I_01", "I_02"] for linear inductive transformers)\
+*IC* - initial conditions at t[0]-  ("V0" for capacitors, "I0" for inductors, ["I_01", "I_02"] for linear inductive transformers)\
 *a1* - integer, positive terminal of the 1st port\
 *a2* - integer, negative terminal of the 1st port\
 *b1* - integer, positive terminal of the 2nd port\
