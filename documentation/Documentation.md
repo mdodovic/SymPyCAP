@@ -58,7 +58,7 @@ SymPyCAP uses MNA (Modified Nodal Analysis) to formulate and solve equations.
 * We apply this sign convention.
 
 
-                       ![Slika](https://github.com/mdodovic/SymPyCAP/blob/main/documentation/PassiveSignConvention_picture.png)
+![Slika](https://github.com/mdodovic/SymPyCAP/blob/main/documentation/PassiveSignConvention_picture.png)
 
 
 #### Modified Nodal Analysis
