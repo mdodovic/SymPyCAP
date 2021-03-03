@@ -91,7 +91,7 @@ Input to SymPyCAP (the circuit to be analyzed) is specified as a list of circuit
  
    `[list_1, list_2, list_3, ... list_N]`
 
-A circuit element (list$_i$) is specified as a list:
+A circuit element (list_i) is specified as a list:
 
 * for one-port element:\
      `[type, id, a, b]`\
