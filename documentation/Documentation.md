@@ -169,8 +169,7 @@ A circuit element (list_i) is specified as a list:
 `["IdealT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], "turnsRatio"]`
 
 * <ins> **Inductive Transformer** </ins>\
-`["InductiveT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["L1_id", "L2_id", "L12_id"]]`
-
+`["InductiveT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["L1_id", "L2_id", "L12_id"]]`\
 `["InductiveT", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["L1_id", "L2_id", "L12_id"], ["I_01", "I_02"]]`
 
 "L1_id", "L2_id", "L12_id" are unique ids for coupled coils of transformator.
@@ -292,7 +291,7 @@ system.electric_circuit_specifications()
 *variable2: solution(variable2)\
 ...
 
-If the entered circuit is not valid, the program will print: *Solution does not exist!
+If the entered circuit is not valid, the program will print: *Solution does not exist!*
 
 **3)** `system.print_specific_solutions()` – returns solution in the same form as 2), but with
 applied replacement rules (“R1” : R, “C2” : C,. . . )
