@@ -15,8 +15,8 @@ class Circuit(object):
         Parameters
         ----------
         element_list : list
-            list of all electric circuit elements defined in the documentation
-            /* LINK */
+            list of all electric circuit elements defined in the documentation:
+            https://github.com/mdodovic/SymPyCAP/tree/main/documentation
         Returns
         -------
         None.
@@ -107,7 +107,7 @@ class Circuit(object):
             node_A2 = element[2][1]
             node_B1 = element[3][0]
             node_B2 = element[3][1]
-            amplification = sympy.symbols(element[4]) #razmatranje
+            amplification = sympy.symbols(element[4])
             I2 = sympy.symbols('I' + element[1])
             self.node_currents[node_B1] += I2
             self.node_currents[node_B2] -= I2
@@ -122,7 +122,7 @@ class Circuit(object):
             node_A2 = element[2][1]
             node_B1 = element[3][0]
             node_B2 = element[3][1]
-            transconductance = sympy.symbols(element[4]) #razmatranje
+            transconductance = sympy.symbols(element[4])
             self.node_currents[node_B1] += transconductance * (self.node_potentials[node_A1] - self.node_potentials[node_A2])
             self.node_currents[node_B2] -= transconductance * (self.node_potentials[node_A1] - self.node_potentials[node_A2])
             return True
@@ -132,7 +132,7 @@ class Circuit(object):
             node_A2 = element[2][1]
             node_B1 = element[3][0]
             node_B2 = element[3][1]
-            amplification = sympy.symbols(element[4]) #razmatranje
+            amplification = sympy.symbols(element[4])
             I1 = sympy.symbols('I' + element[1])
             self.node_currents[node_A1] += I1
             self.node_currents[node_A2] -= I1
@@ -147,7 +147,7 @@ class Circuit(object):
             node_A2 = element[2][1]
             node_B1 = element[3][0]
             node_B2 = element[3][1]
-            transresistance = sympy.symbols(element[4]) #razmatranje
+            transresistance = sympy.symbols(element[4])
             I2 = sympy.symbols('I' + element[1])
             self.node_currents[node_A1] += (self.node_potentials[node_B1] - self.node_potentials[node_B2])/transresistance
             self.node_currents[node_A2] -= (self.node_potentials[node_B1] - self.node_potentials[node_B2])/transresistance
@@ -309,7 +309,7 @@ class Circuit(object):
 
             return True
         
-        elif type_of_element == 'T' and self.time_domain: #lici na cetvoropol
+        elif type_of_element == 'T' and self.time_domain:
             node_A1 = element[2][0]
             node_A2 = element[2][1]
             node_B1 = element[3][0]
@@ -341,7 +341,7 @@ class Circuit(object):
             
             return True
         
-        elif type_of_element == 'T': #braninove jednacine
+        elif type_of_element == 'T':
             node_A1 = element[2][0]
             node_A2 = element[2][1]
             node_B1 = element[3][0]
@@ -378,17 +378,20 @@ class Circuit(object):
         elif type_of_element == '4-R':
             #...
             
-            return True
+            #return True
+            return False
 
         elif type_of_element == '4-G':
             #...
             
-            return True
+            #return True
+            return False
 
         elif type_of_element == '4-H':
             #...
             
-            return True
+            #return True
+            return False
 
         else:
             return False
@@ -400,8 +403,6 @@ class Circuit(object):
         self.solutions = {} 
         self.replacement_rule = {} 
 
-    # def __make_replacement_rule(self, list_of_rules):
-    #     self.replacement_rule = {rule.split("=")[0] : int(rule.split("=")[1]) if rule.split("=")[1].isdigit() else sympy.Symbol(rule.split("=")[1]) for rule in list_of_rules }
     def __make_replacement_rule(self, list_of_rules):  
         self.replacement_rule = list_of_rules
         
@@ -480,7 +481,7 @@ class Circuit(object):
             #------------- System is linear, use linsolve ---------------------
             solutions = sympy.linsolve(self.equations, self.variables)
 
-            if len(solutions) == 0:  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+            if len(solutions) == 0:
                 self.solutions = {}
                 self.correct_solution_flag = False
             else:
@@ -491,7 +492,7 @@ class Circuit(object):
             #------------- System is complex, use most general solver ---------
             solutions = sympy.solve(self.equations, self.variables)            
 
-            if len(solutions) == 0:  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if len(solutions) == 0:
                 self.solutions = {}
                 self.correct_solution_flag = False
             else:
