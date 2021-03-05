@@ -147,7 +147,7 @@ A circuit element (list_i) is specified as a list:
 * <ins> **Operational Amplifier - Ideal OpAmp** </ins>\
      `["OpAmp", "id", [nonInvertingTerm, invertingTerm], 2ndTerm]`
 * <ins> **Two-port specified by ABCD-parameters (transmission parameters, chain parameters)** </ins>\
-     `["ABCD", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["A", "B", "C", "D"]]`
+     `["4-A", "id", [plusPrimaryTerm, minusPrimaryTerm], [plusSecondaryTerm, minusSecondaryTerm], ["A", "B", "C", "D"]]`
 
 #### Controlled Sources: 
 
