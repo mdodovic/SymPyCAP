@@ -17,10 +17,12 @@ The SymPyCAP is software for linear, time invariant circuit analysis. It is deve
 			2)	*Documentation.md* - editable markdown documentation of SymPyCAP project 
 					
 **test_examples** - contains:\
-			1)	*SymPyCAP_IDE_example.py* - example of symPyCAP usage in python IDE (e.g. Spyder)\
-			2)	*SymPyCAP_notebook_examples.ipynb* - test examples solved step-by-step in jupyter notebook\
-			3)	*circuit_images* - contains images of electric circuit solved in SymPyCAP_notebook\
-			4)	*SymPyCAP.py* - copy of original class to make usage of SymPyCAP fully operational within this folder without any changes of code.
+			1)	*SymPyCAP_notebook_examples.ipynb* - test examples solved step-by-step in jupyter notebook\
+			2)	*SymPyCAP_IDE_example.py* - example of symPyCAP usage in python IDE (e.g. Spyder)\
+			3)	*SymPyCAP.py* - copy of original class to make usage of SymPyCAP fully operational within this folder without any changes of code.\
+			4)	*SymPyCAP_notebook_examples.pdf* - read-only test examples from jupyter notebook file \
+			5)	*SymPyCAP_notebook_examples.tex* - editable LaTeX test examples from jupyter notebook file \
+			6)	*circuit_images* - contains images of electric circuit solved in SymPyCAP_notebook
 
 Videos which demonstrate set up and usage of SymPyCAP solver are on youtube:
 
