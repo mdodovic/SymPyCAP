@@ -430,7 +430,7 @@ and the coil \textit{\textbf{IL0}}) will be solved using SymPyCAP. The circuit i
 shown in Figure 1.\\
     
    \begin{center}
-   \includegraphics[scale = 0.7]{Figure1.PNG}\\
+   \includegraphics[scale = 0.45]{Figure1.PNG}\\
        Figure 1: RLC circuit.
    \end{center} 
 
@@ -438,7 +438,7 @@ shown in Figure 1.\\
 starting from 0 (Figure 2). \\
 
     \begin{center}
-   \includegraphics[scale = 0.7]{Figure2.PNG}\\
+   \includegraphics[scale = 0.45]{Figure2.PNG}\\
        Figure 2: RLC circuit with marked nodes.
    \end{center} 
 
@@ -560,7 +560,7 @@ Frequency:  1/sqrt(C*L)
 A simple capacitor circuit is shown in Figure 3. The generator voltage is a step function of strength \textbf{\textit{Vstep}}. The capacitor is initially charged and its preinitial voltage, that is the initial condition, is \textbf{\textit{V0}}. Current of the ideal voltage source is presented to specify the reference direction.
 
     \begin{center}
-   \includegraphics[scale = 0.7]{Figure3.png}\\
+   \includegraphics[scale = 0.6]{Figure3.png}\\
        Figure 3: Simple capacitor circuit.
    \end{center} 
     
@@ -670,7 +670,7 @@ Transconductance Amplifier with Capacitors)
 }{Example 3: OTA-C (Operational Transconductance Amplifier with Capacitors) }}\label{example3}}
 
 An \textbf{OTA-C} (\textbf{O}PERATIONAL \textbf{T}RANSCONDUCTANCE
-\textbf{A}MPLIFIER with \textbf{C}APACITORS) lowpass and highpass
+\textbf{A}MPLIFIER with \textbf{C}APACITORS) lowpass and bandpass
 \(2^{nd}\)- order filter realization (Figure 4.) is to be solved.
 
     \begin{center}
@@ -746,7 +746,7 @@ IVg : 0
 
     \end{Verbatim}
 
-    \textbf{Step 3.2.} Use node voltages to calculate capacitors bandwidths.
+    \textbf{Step 3.2.} Use node voltages to calculate transfer functions.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{22}{\boxspacing}
@@ -802,7 +802,7 @@ The circuit is inductorless but, theoretically, the impedance seen by
 the source is purely inductive.
 
     \begin{center}
-   \includegraphics[scale = 0.85]{Figure5.png}\\
+   \includegraphics[scale = 0.75]{Figure5.png}\\
        Figure 5: Riordan gyrator network
    \end{center} 
     
@@ -944,7 +944,7 @@ that the circuit equally divides input power to the loads \textbf{\textit{R2 = R
 \textbf{\textit{R3 = R}}, i.e. \textbf{\textit{V2 = V3}}.
 
     \begin{center}
-   \includegraphics[scale = 0.7]{Figure6.png}\\
+   \includegraphics[scale = 0.65]{Figure6.png}\\
        Figure 6: Wilkinson power divider.
    \end{center} 
     
@@ -1057,7 +1057,7 @@ The corresponding symbolic analysis, performed in the \textbf{\textit{s}}-domain
 that the circuit acts as a delay line.
 
     \begin{center}
-   \includegraphics[scale = 0.7]{Figure7.png}\\
+   \includegraphics[scale = 0.65]{Figure7.png}\\
        Figure 7: Transmission line circuit; the \textbf{\textit{s}}-domain.
    \end{center} 
     
@@ -1149,11 +1149,11 @@ IT1\_2 : -Vg*exp(-s*tau)/(2*Zc)
 }{Example 7: Adder }}\label{example7}}
 
 Adder, which is realized an with operational amplifier, is shown in
-Figure 8. The sum of all voltages at the input should be obtained at the
+Figure 8. The sum of all generator voltages should be obtained at the
 output of the operational amplifier.
 
     \begin{center}
-   \includegraphics[scale = 0.7]{Figure8.png}\\
+   \includegraphics[scale = 0.6]{Figure8.png}\\
         Figure 8: Adder.
    \end{center} 
    
@@ -1246,7 +1246,7 @@ Subtractor, which is realized with an operational amplifier, is shown in
 Figure 9.
 
     \begin{center}
-   \includegraphics[scale = 0.6]{Figure9.png}\\
+   \includegraphics[scale = 0.5]{Figure9.png}\\
        Figure 9: Subtractor.
    \end{center} 
     
@@ -1334,7 +1334,7 @@ IOpAmp1 : (Ug1 - Ug2/2)/R
 An inductive transformer with resistors, is shown in Figure 10.
 
     \begin{center}
-   \includegraphics[scale = 0.7]{Figure10.png}\\
+   \includegraphics[scale = 0.55]{Figure10.png}\\
        Figure 10: Inductive Transformer.
    \end{center} 
     
@@ -1413,7 +1413,8 @@ IInductiveT1\_2 : L*(2*Io1*R + 3*Io2*L*s + 4*Io2*R - 2*Ug*s)/(3*L**2*s**2 +
 
     \textbf{Step 9.2.} The time-domain for \textbf{\textit{$i_1$}} and \textbf{\textit{$i_2$}}, for t
 \textgreater{} 0, can be computed by SymPy's Inverse Laplace Transform
-method.
+method. Excitation is assumed to be the Dirac delta-function of
+strength Ug.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{68}{\boxspacing}
@@ -1497,7 +1498,7 @@ An LC circuit is shown in Figure 11. Its resonant frequency is
 circuit response diverges.
 
     \begin{center}
-   \includegraphics[scale = 0.7]{Figure11.PNG}\\
+   \includegraphics[scale = 0.45]{Figure11.PNG}\\
        Figure 11: LC circuit.
    \end{center} 
     
@@ -1567,7 +1568,7 @@ An untypical example is two voltage generators of different voltage
 values. This circuit does not have a solution.
 
     \begin{center}
-   \includegraphics[scale = 0.7]{Figure12.PNG}\\
+   \includegraphics[scale = 0.4]{Figure12.PNG}\\
        Figure 12: Parallel connection of voltage generators.
    \end{center} 
     
@@ -1627,7 +1628,7 @@ Two ideal transformers, which are cascaded to get the
 higher gain, are shown in Figure 13.
 
     \begin{center}    
-    \includegraphics[scale = 0.7]{Figure13.PNG}\\
+    \includegraphics[scale = 0.55]{Figure13.PNG}\\
     Figure 13: Ideal transformers.
     \end{center}
     
@@ -1708,7 +1709,7 @@ A voltage divider with two resistors and a voltage generator is shown in
 Figure 14.
 
  \begin{center}    
-    \includegraphics[scale = 0.7]{Figure14.PNG}\\
+    \includegraphics[scale = 0.4]{Figure14.PNG}\\
     Figure 14: Voltage divider.
     \end{center}
     
@@ -1814,13 +1815,17 @@ R2.
     \hypertarget{single-element-circuits}{%
 \section*{Single element circuits}\label{single-element-circuits}}
 
+
+The circuits analysed by SymPyCAP should have at least two nodes, ground
+node and node 1.
+
     \hypertarget{example-14.1-voltage-generator---open-circuit}{%
 \subsection*{\texorpdfstring{Example 14.1: Voltage generator - open
 circuit
 }{Example 14.1: Voltage generator - open circuit }}\label{example141}}
 
      \begin{center}    
-    \includegraphics[scale = 0.7]{Figure15.PNG}\\
+    \includegraphics[scale = 0.4]{Figure15.PNG}\\
     Figure 15: Voltage generator - open circuit.
     \end{center}
     
@@ -1877,7 +1882,7 @@ circuit
 }{Example 14.2: Voltage generator - closed circuit }}\label{example142}}
 
      \begin{center}    
-    \includegraphics[scale = 0.7]{Figure16.PNG}\\
+    \includegraphics[scale = 0.4]{Figure16.PNG}\\
     Figure 16: Voltage generator - closed circuit.
     \end{center}
     
@@ -1933,7 +1938,7 @@ circuit
 }{Example 15.1: Current generator - closed circuit }}\label{example151}}
 
      \begin{center}    
-    \includegraphics[scale = 0.7]{Figure17.PNG}\\
+    \includegraphics[scale = 0.4]{Figure17.PNG}\\
     Figure 17: Current generator - closed circuit.
     \end{center}
 
@@ -1986,7 +1991,7 @@ circuit
 }{Example 15.2: Current generator - open circuit }}\label{example152}}
     
     \begin{center}
-    \includegraphics[scale = 0.7]{Figure18.PNG}\\
+    \includegraphics[scale = 0.4]{Figure18.PNG}\\
     Figure 18: Current generator - open circuit.
     \end{center}
 
@@ -2041,7 +2046,7 @@ open circuit
 }{Example 16.1: Capacitor with initial state - open circuit }}\label{example161}}
    
     \begin{center}
-    \includegraphics[scale = 0.7]{Figure19.PNG}\\
+    \includegraphics[scale = 0.4]{Figure19.PNG}\\
     Figure 19: Capacitor with initial state - open circuit
     \end{center}
 
@@ -2100,7 +2105,7 @@ closed circuit
 }{Example 16.2: Capacitor with initial state - closed circuit }}\label{example162}}
 
     \begin{center}
-    \includegraphics[scale = 0.7]{Figure20.PNG}\\
+    \includegraphics[scale = 0.4]{Figure20.PNG}\\
     Figure 20: Capacitor with initial state - closed circuit.
     \end{center}
 
@@ -2155,7 +2160,7 @@ open circuit
 }{Example 17.1: Inductor with initial state - open circuit }}\label{example171}}
 
     \begin{center}
-    \includegraphics[scale = 0.7]{Figure21.PNG}\\
+    \includegraphics[scale = 0.4]{Figure21.PNG}\\
     Figure 21: Inductor with initial state - open circuit.
     \end{center}
 
@@ -2209,7 +2214,7 @@ closed circuit
 }{Example 17.2: Inductor with initial state - closed circuit }}\label{example172}}
 
     \begin{center}
-    \includegraphics[scale = 0.7]{Figure22.PNG}\\
+    \includegraphics[scale = 0.4]{Figure22.PNG}\\
     Figure 22: Inductor with inital state - closed circuit.
     \end{center}
 
