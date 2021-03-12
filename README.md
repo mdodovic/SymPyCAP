@@ -21,8 +21,10 @@ $ cd test_examples
 $ ipython -c "%run SymPyCAP_notebook_examples.ipynb"
 ```
 
-**test_examples** also contains:\
-> 1)	*SymPyCAP_IDE_example.py* - example of symPyCAP usage in Python IDE (e.g. Spyder)\
+**test_examples** also contains:
+1) nkjh
+2) 
+	*SymPyCAP_IDE_example.py* - example of symPyCAP usage in Python IDE (e.g. Spyder)\
 > 2)	*SymPyCAP.py* - copy of original class to make usage of SymPyCAP fully operational within this folder\
 > 3)	*SymPyCAP_notebook_examples.pdf* - read-only test examples from Jupyter Notebook file \
 > 4)	*SymPyCAP_notebook_examples.tex* - editable LaTeX test examples from Jupyter Notebook file \
