@@ -14,7 +14,7 @@ $ git clone (DODATI LINK)
 ## Jupyter Notebooks
 
 We recommend using SymPyCAP with Jupyter Notebooks.
-For a number of examples use (test_examples/SymPyCAP_notebook_examples.ipynb)[link!!!!]:
+For a number of examples use [test_examples/SymPyCAP_notebook_examples.ipynb](link!!!!):
 
 ```
 $ cd test_examples
@@ -28,9 +28,18 @@ $ ipython -c "%run SymPyCAP_notebook_examples.ipynb"
      4)		*SymPyCAP_notebook_examples.tex* - editable LaTeX test examples from Jupyter Notebook file \
      5)		*circuit_images* - contains images of electric circuit solved in *SymPyCAP_notebook_examples.ipynb*
 
+### Video tutorials
+
+Videos which demonstrate set up and usage of SymPyCAP solver are on YouYube:
+
+[How to set up SymPyCAP envirnoment] (link)\
+[Test example: Voltage divider] (link)
+
+Language of all videos are Serbian, and **English caption** is provided to every video as the YouTube option.
+
 ## Documentation
 
-
+For comprehensive documentation, see [Documentation.pdf](link ka pdf-u!!!!!!)
 
 ## Authors
 
@@ -45,26 +54,9 @@ Developed by following team of students and professors from [University of Belgr
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the ?????????????????????????????????????????????? - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Acknowledgments
 
+We thank Prof. dr Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
 
-
-
-
-
-
-**symPyCAP.py** - class that encapsulates symbolic circuit analysis (project kernel)
-
-**documentation** - contains:\
-			1)	*Documentation.pdf* - read-only complete documentation of SymPyCAP project\
-			2)	*Documentation.md* - editable markdown documentation of SymPyCAP project 
-
-
-Videos which demonstrate set up and usage of SymPyCAP solver are on YouYube:
-
-[How to set up SymPyCAP envirnoment] (link)\
-[Test example: Voltage divider] (link)
-
-Language of all videos are Serbian, and **English caption** is provided to every video as the YouTube option.
