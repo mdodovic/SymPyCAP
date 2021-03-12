@@ -28,7 +28,7 @@ $ ipython -c "%run SymPyCAP_notebook_examples.ipynb"
      4)		*SymPyCAP_notebook_examples.tex* - editable LaTeX test examples from Jupyter Notebook file \
      5)		*circuit_images* - contains images of electric circuit solved in *SymPyCAP_notebook_examples.ipynb*
 
-### Video tutorials
+## Video tutorials
 
 Videos which demonstrate set up and usage of SymPyCAP solver are on YouYube:
 
