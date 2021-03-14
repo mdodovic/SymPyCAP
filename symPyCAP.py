@@ -16,7 +16,7 @@ class Circuit(object):
         ----------
         element_list : list
             list of all electric circuit elements defined in the documentation:
-            https://github.com/mdodovic/SymPyCAP/tree/main/documentation
+            https://github.com/mdodovic/SymPyCAP/blob/main/documentation/Documentation.pdf
         Returns
         -------
         None.
