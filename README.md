@@ -50,8 +50,6 @@ Developed by following team of students and professors from [University of Belgr
 * Matija Dodović
 * Nikola Ilić
 * Jelena Bakić.
-* [Prof. dr Dejan V. Tošić](http://home.etf.rs/~tosic/) 
-* Prof. dr Milka M. Potrebić
 
 ## License
 
@@ -59,5 +57,5 @@ This project is licensed under the GPL3.0 Licence - see the [LICENSE.md](https:/
 
 ## Acknowledgments
 
-We thank Prof. dr Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
+We thank [Prof. dr Dejan V. Tošić](http://home.etf.rs/~tosic/) and Prof. dr Milka M. Potrebić for recommending this software project to us and for all discussions and help with the project.
 
