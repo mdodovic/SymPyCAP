@@ -14,7 +14,7 @@ $ git clone https://github.com/mdodovic/SymPyCAP
 ## Jupyter Notebooks
 
 We recommend using SymPyCAP with Jupyter Notebooks.
-For a number of examples use [test_examples/SymPyCAP_notebook_examples.ipynb](link!!!!):
+For a number of examples use [test_examples/SymPyCAP_notebook_examples.ipynb](https://github.com/mdodovic/SymPyCAP/blob/main/test_examples/SymPyCAP_notebook_examples.ipynb):
 
 ```
 $ cd test_examples
