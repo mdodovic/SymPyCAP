@@ -7,7 +7,7 @@
 * Katarina Stanković
 * Nikola Ilić
 * Matija Dodović
-* Jelena Bakić
+* Jelena Bakić.
 
 University of Belgrade - School of Electrical Engineering
 
