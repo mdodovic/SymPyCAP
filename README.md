@@ -40,7 +40,7 @@ Language of all videos are Serbian, and **English caption** is provided to every
 
 ## Documentation
 
-For comprehensive documentation, see [Documentation.pdf](link ka pdf-u!!!!!!)
+For comprehensive documentation, see [Documentation.pdf](https://github.com/mdodovic/SymPyCAP/blob/main/documentation/Documentation.pdf)
 
 ## Authors
 
