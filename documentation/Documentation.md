@@ -8,8 +8,6 @@
 * Nikola Ilić
 * Matija Dodović
 * Jelena Bakić
-* Prof. dr Dejan V. Tošić
-* Prof. dr Milka M. Potrebić
 
 University of Belgrade - School of Electrical Engineering
 
@@ -19,7 +17,7 @@ Creative Commons
 
 ## Acknowledgment 
 
-We thank Prof. dr Dejan V. Tošić for recommending this software project to us and for all discussions and help with the project.
+We thank Prof. dr Dejan V. Tošić and Prof. dr Milka M. Potrebić for recommending this software project to us and for all discussions and help with the project.
 
 ## About SymPyCAP 
 
