@@ -8,7 +8,7 @@ The project is written entirely in Python, so Python 3 is necessary.
 If this requirement is met, you can clone this repository and install the package using:
 
 ```
-$ git clone (DODATI LINK)
+$ git clone https://github.com/mdodovic/SymPyCAP
 ```
 
 ## Jupyter Notebooks
