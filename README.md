@@ -16,10 +16,6 @@ $ git clone https://github.com/mdodovic/SymPyCAP
 We recommend using SymPyCAP with Jupyter Notebooks.
 For a number of examples use [test_examples/SymPyCAP_notebook_examples.ipynb](https://github.com/mdodovic/SymPyCAP/blob/main/test_examples/SymPyCAP_notebook_examples.ipynb):
 
-```
-$ cd test_examples
-$ ipython -c "%run SymPyCAP_notebook_examples.ipynb"
-```
 
 **test_examples** also contains:
 1) *SymPyCAP_IDE_example.py* - example of symPyCAP usage in Python IDE (e.g. Spyder)
