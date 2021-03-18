@@ -13,7 +13,8 @@ $ git clone https://github.com/mdodovic/SymPyCAP
 
 ## Jupyter Notebooks
 
-We recommend using SymPyCAP with Jupyter Notebooks.
+For monitoring this work we recommend Anaconda, free open-source Python distribution. Within it, the environment we recommend for SymPyCAP is Jupyter Notebook.
+
 For a number of examples use [test_examples/SymPyCAP_notebook_examples.ipynb](https://github.com/mdodovic/SymPyCAP/blob/main/test_examples/SymPyCAP_notebook_examples.ipynb):
 
 
