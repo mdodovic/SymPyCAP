@@ -1,6 +1,7 @@
 # SymPyCAP
 
-The SymPyCAP is software for linear, time invariant circuit analysis.
+SymPyCAP is software for symbolic analysis of linear time-invariant electric circuits.
+
 
 ## Installation
 
@@ -41,7 +42,7 @@ For comprehensive documentation, see [Documentation.pdf](https://github.com/mdod
 
 ## Authors
 
-Developed by following team of students and professors from [University of Belgrade – School of Electrical Engineering](https://www.etf.bg.ac.rs): 
+Developed by the following team from [University of Belgrade – School of Electrical Engineering](https://www.etf.bg.ac.rs): 
 
 * Katarina Stanković
 * Matija Dodović
