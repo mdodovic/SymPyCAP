@@ -31,8 +31,8 @@ For a number of examples use [test_examples/SymPyCAP_notebook_examples.ipynb](ht
 
 Videos which demonstrate set up and usage of SymPyCAP solver are on YouYube:
 
-[How to set up SymPyCAP envirnoment] (https://youtu.be/ZrY9r1QEdkI)
-[Test example: Voltage divider] (https://youtu.be/zYHFSD3gxIE)
+[How to set up SymPyCAP envirnoment](https://youtu.be/ZrY9r1QEdkI)
+[Test example: Voltage divider](https://youtu.be/zYHFSD3gxIE)
 
 Language of all videos are Serbian, and **English caption** is provided to every video as the YouTube option.
 
