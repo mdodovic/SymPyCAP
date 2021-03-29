@@ -26,7 +26,7 @@ For a number of examples use [test_examples/SymPyCAP_notebook_examples.ipynb](ht
 4) *SymPyCAP_notebook_examples.tex* - editable LaTeX test examples from Jupyter Notebook file
 5) *circuit_images* - contains images of electric circuit solved in *SymPyCAP_notebook_examples.ipynb*
 	
-<!--	
+
 ## Video tutorials
 
 Videos which demonstrate set up and usage of SymPyCAP solver are on YouYube:
@@ -35,7 +35,7 @@ Videos which demonstrate set up and usage of SymPyCAP solver are on YouYube:
 [Test example: Voltage divider] (https://youtu.be/zYHFSD3gxIE)
 
 Language of all videos are Serbian, and **English caption** is provided to every video as the YouTube option.
--->
+
 ## Documentation
 
 For comprehensive documentation, see [Documentation.pdf](https://github.com/mdodovic/SymPyCAP/blob/main/documentation/Documentation.pdf)
