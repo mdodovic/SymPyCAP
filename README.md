@@ -1,6 +1,7 @@
 # SymPyCAP
 
-SymPyCAP is software for symbolic analysis of linear time-invariant electric circuits.
+SymPyCAP is software for the symbolic analysis of linear time-invariant electric circuits.
+This software is presented at the 2023 10th International Conference on Electrical, Electronic and Computing Engineering (IcETRAN), and published by IEEE. The publication can be found [here](https://ieeexplore.ieee.org/document/10192115). 
 
 
 ## Installation
