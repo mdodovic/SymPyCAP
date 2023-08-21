@@ -6,6 +6,10 @@ This software is presented at the **2023 10th International Conference on Electr
 
 The publication can be found [here](https://ieeexplore.ieee.org/document/10192115). 
 
+### Citation
+
+M. Dodović, K. Stanković, N. Ilić and J. Bakić, "SymPyCAP: Software for symbolic analysis of electric circuit," 2023 10th International Conference on Electrical, Electronic and Computing Engineering (IcETRAN), East Sarajevo, Bosnia and Herzegovina, 2023, pp. 1-5, doi: 10.1109/IcETRAN59631.2023.10192115.
+
 
 ## Installation
 
